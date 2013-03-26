@@ -1,0 +1,30 @@
+#import(methods)
+#import(utils)
+
+export(calcDDTable, calcDDFrame, calcDGRTable, calcDGRFrame,
+       gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,
+       effectiveThetas, calcDSTable, calcDSFrame, eThetaFrame,
+       calcDNTable, calcDNFrame,
+       Compensatory, Conjunctive, Disjunctive,
+       OffsetConjunctive, OffsetDisjunctive,
+       dataTable, calcDSllike, calcDNllike,
+       mapDPC)
+
+export(rescaleTable, normalizeTable, scaleMatrix,
+       structMatrix, mcSearch, buildParentList,
+       pvecToCutpoints, pvecToMidpoints, numericPart,
+       getTableParents,getTableStates, scaleTable,
+       areaProbs, buildRegressions, buildRegressionTables)
+
+
+## S3method(print, NeticaBN)
+## S3method(toString, NeticaBN)
+## S3method(Ops, NeticaBN)
+## S3method(print, NeticaNode)
+## S3method(toString, NeticaNode)
+## S3method(Ops, NeticaNode)
+## S3method("[", NeticaNode)
+## S3method("[[", NeticaNode)
+## S3method("[<-", NeticaNode)
+
+       
