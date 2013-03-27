@@ -10,9 +10,9 @@
 }
 \usage{
 calcDSllike(data, parents, skillLevels, child, obsLevels,
-            lnAlphas, beta, dinc = 0, model = "Compensatory")
+            lnAlphas, beta, dinc = 0, rule = "Compensatory")
 calcDNllike(data, parents, skillLevels, child, obsLevels, 
-            lnAlphas, beta, std, model = "Compensatory") 
+            lnAlphas, beta, std, rule = "Compensatory") 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,13 +28,13 @@ calcDNllike(data, parents, skillLevels, child, obsLevels,
     output variables from highest to lowest.}
   \item{lnAlphas}{A vector of log slope parameters.  Its length should
     be either 1 or the length of \code{skillLevels}, depending on the
-    choice of \code{model}.}
+    choice of \code{rule}.}
   \item{beta}{A vector of difficulty (-intercept) parameters. Its length
     should be either 1 or the length of \code{skillLevels}, depending on
-    the choice of \code{model}.}
+    the choice of \code{rule}.}
   \item{dinc}{Vector of difficulty increment parameters (see
     \code{\link{calcDSTable}}).} 
-  \item{model}{Function for computing effective theta (see
+  \item{rule}{Function for computing effective theta (see
     \code{\link{calcDSTable}}).} 
   \item{std}{The log of the residual standard deviation (see Details).}
 }
@@ -95,7 +95,7 @@ if (StatShop == "") {
   like <- calcDSllike(x,c("Skill1","Skill3"),
                       list(Skill1=skill1l, Skill3=skill3l),
                       "Comp.Correct", correctL,
-                      c(0.45,-0.4),-1.9,model="Compensatory")
+                      c(0.45,-0.4),-1.9,rule="Compensatory")
   \dontshow{
    stopifnot(round(like,4) == -43.2538)
    }

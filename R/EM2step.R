@@ -2,7 +2,7 @@ library(stats4) ## Needed for optim
 
 ### This does an optimization given the posterior matrix.
 mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
-                    rules="Compensatory",model="PC",...) {
+                    rules="Compensatory",link="partialCredit",...) {
   k <- length(obsLevels)
   pvec <- numeric(0)
   iparam <- 0
@@ -54,7 +54,7 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
                              pv[ibeta[[kk]]]))
       pt[,kk] <- 1/(1+exp(-1.7*etheta))
     }
-    probs <- gradedResponse(pt,k,obsLevels)
+    probs <- do.call(link,list(pt,k,obsLevels))
     -2*sum(postTable*log(probs))
   }
   map <- optim(pvec,llike,...)

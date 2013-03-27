@@ -100,17 +100,17 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
   tvals <- lapply(pdims,effectiveThetas)
   thetas <- do.call("expand.grid",tvals)
   
-  pt <- matrix(0,nrow(thetas),k-1)
+  et <- matrix(0,nrow(thetas),k-1)
   for (kk in 1:(k-1)) {
-    etheta <- do.call(rules[[kk]],
+    et[,kk] <- do.call(rules[[kk]],
                       list(thetas,exp(lnAlphas[[kk]]),betas[[kk]]))
-    pt[,kk] <- exp(1.7*etheta)
   }
-  partialCredit(pt,k,obsLevels)
+  partialCredit(et,k,obsLevels)
 }
 
-partialCredit <- function (pt,k,obsLevels=NULL) {
-  pt <- cbind(pt,1)
+partialCredit <- function (et,k,obsLevels=NULL) {
+  zt <- t(apply(et,1,function(x) rev(cumsum(rev(x)))))
+  pt <- cbind(exp(1.7*zt),1)
   pt <- sweep(pt,1,apply(pt,1,sum),"/")
   probs <- pt[,1:k]
   probs <- ifelse(probs<0,0,probs)

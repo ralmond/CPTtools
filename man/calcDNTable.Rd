@@ -11,8 +11,8 @@
   returns the value as a data frame with labels for the parent states.
 }
 \usage{
-calcDNTable(skillLevels, obsLevels, lnAlphas, beta, std, model = "Compensatory")
-calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, model = "Compensatory")
+calcDNTable(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
+calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,18 +23,19 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, model = "Compensatory")
     integers (see Details).}
   \item{lnAlphas}{A vector of log slope parameters.  Its length should
     be either 1 or the length of \code{skillLevels}, depending on the
-    choice of \code{model}.}
+    choice of \code{rule}.}
   \item{beta}{A vector of difficulty (-intercept) parameters. Its length
     should be either 1 or the length of \code{skillLevels}, depending on
-    the choice of \code{model}.}
+    the choice of \code{rule}.}
   \item{std}{The log of the residual standard deviation (see Details).}
-  \item{model}{Function for computing effective theta (see Details).}
+  \item{rule}{Function for computing effective theta (see Details).}
 }
 \details{
-  The DiBello--Normal model (Almond et al, Draft) is a variant of the
-  DiBello--Samejima model (Almond et al, 2001) for creating conditional
-  probabilty tables for Bayesian networks using regression-like
-  parameters.  The basic procedure unfolds in three steps.
+  The DiBello--Normal distribution (Almond et al, Draft) is a variant of the
+  DiBello--Samejima distribution (Almond et al, 2001) for creating conditional
+  probabilty tables for Bayesian networks which uses a regression-like
+  (probit) link function in place of Samejima's graded response link
+  function. The basic procedure unfolds in three steps.
   \enumerate{
     \item{}{Each level of each input variable is assigned an
       \dQuote{effective theta} value --- a normal value to be used in
@@ -52,12 +53,12 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, model = "Compensatory")
   variable in order the names of the states ranked from highest to
   lowest value.  These are calculated through the function
   \code{\link{effectiveThetas}} which gives equally spaced points on the
-  probability curve.  Note that for the DiBello-Normal model, Step 1 and
+  probability curve.  Note that for the DiBello-Normal distribution, Step 1 and
   Step 3 are inverses of each other (except for rounding error).
   
   The combination of the individual effective theta values into a joint
   value for effective theta is done by the function reference by
-  \code{model}.  This should be a function of three arguments:
+  \code{rule}.  This should be a function of three arguments:
   \code{theta} --- the vector of effective theta values for each parent,
   \code{alphas} --- the vector of discrimination parameters, and
   \code{beta} --- a scaler value giving the difficulty.  The initial
@@ -131,11 +132,11 @@ skill3l <- c("Advanced","Proficient","Basic","Developing")
 
 cptSkill3 <- calcDNTable(list(S1=skill1l,S2=skill2l),skill3l,
                           log(c(S1=1,S2=.75)),1.0,log(0.5),
-                          model="Compensatory")
+                          rule="Compensatory")
 
 cpfSkill3 <- calcDNFrame(list(S1=skill1l,S2=skill2l),skill3l,
                           log(c(S1=1,S2=.75)),1.0,log(0.5),
-                          model="Compensatory")
+                          rule="Compensatory")
 
 }
 \keyword{distribution}

@@ -1,4 +1,8 @@
 Rdocs for  
   ‘calcDGRFrame’ ‘calcDGRTable’ ‘calcDPCFrame’
-  ‘calcDPCTable’ ‘eThetaFrame’ ‘gradedResponse’ ‘mapDPC’
+  ‘calcDPCTable’ ‘gradedResponse’ ‘mapDPC’
   ‘partialCredit’
+
+TODO -- Refactor so that we are using combination function (rules) and
+link function.
+

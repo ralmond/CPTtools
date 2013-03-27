@@ -8,20 +8,20 @@ effectiveThetas <- function (nlevels) {
 }
 
 ### This calculates the DiBello-Samejima likelihood for a number of
-### different models.
+### different combination rules.
 ### skillLevels --- list of labels for the skill level variable.
 ### obsLevels --- labels for obserable values.
 ### lnAlphas --- set of log slopes, one for each skill level
 ### beta --- difficulty (-intercept) parameter
-### dinc --- difficulty level increments (for models with more than two levels)
-### model --- Function for computing effective theta.  This should have the
+### dinc --- difficulty level increments (for child variables with more than two levels)
+### rule --- Function for computing effective theta.  This should have the
 ### signature   function(thetas,alphas,beta)
 calcDSTable <- function (skillLevels, obsLevels, lnAlphas, beta, dinc=0,
-                         model="Compensatory") {
+                         rule="Compensatory") {
   pdims <- sapply(skillLevels,length)
   tvals <- lapply(pdims,effectiveThetas)
   thetas <- do.call("expand.grid",tvals)
-  etheta <- do.call(model,list(thetas,exp(lnAlphas),beta))
+  etheta <- do.call(rule,list(thetas,exp(lnAlphas),beta))
   #print(etheta)
   
   k <- length(obsLevels)
@@ -44,10 +44,10 @@ calcDSTable <- function (skillLevels, obsLevels, lnAlphas, beta, dinc=0,
 
 calcDSFrame <-
 function (skillLevels, obsLevels, lnAlphas, beta, dinc=0,
-          model="Compensatory") {
+          rule="Compensatory") {
   result <- data.frame(expand.grid(skillLevels),
                        calcDSTable(skillLevels,paste(obsLevels),
-                                   lnAlphas,beta,dinc,model))
+                                   lnAlphas,beta,dinc,rule))
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
     ## R is "helpfully" fixing our numeric labels.  Need to insist.
@@ -58,31 +58,31 @@ function (skillLevels, obsLevels, lnAlphas, beta, dinc=0,
 }
 
 
-eThetaFrame <- function (skillLevels, lnAlphas, beta, model="Compensatory") {
+eThetaFrame <- function (skillLevels, lnAlphas, beta, rule="Compensatory") {
   pdims <- sapply(skillLevels,length)
   tvals <- lapply(pdims,effectiveThetas)
   thetas <- do.call("expand.grid",tvals)
   names(thetas)<- paste(names(skillLevels),"theta",sep=".")
-  etheta <- do.call(model,list(thetas,exp(lnAlphas),beta))
+  etheta <- do.call(rule,list(thetas,exp(lnAlphas),beta))
   data.frame(expand.grid(skillLevels),thetas, Effective.theta=etheta)
 }
 
 
 ### This calculates the DiBello Normal likelihood for a number of
-### different models.
+### different combination rules.
 ### skillLevels --- list of labels for the skill level variable.
 ### lnAlphas --- set of log slopes, one for each skill level
 ### obsLevels --- labels for obserable values.
 ### beta --- difficulty (-intercept) parameter
 ### lnStd --- log of standard deviation
-### model --- Function for computing effective theta.  This should have the
+### rule --- Function for computing effective theta.  This should have the
 ### signature   function(thetas,alphas,beta)
 calcDNTable <- function (skillLevels, obsLevels, lnAlphas, beta, std,
-                         model="Compensatory") {
+                         rule="Compensatory") {
   pdims <- sapply(skillLevels,length)
   tvals <- lapply(pdims,effectiveThetas)
   thetas <- do.call("expand.grid",tvals)
-  etheta <- do.call(model,list(thetas,exp(lnAlphas),beta))
+  etheta <- do.call(rule,list(thetas,exp(lnAlphas),beta))
 
   k <- length(obsLevels)
   cuts <- qnorm( ((k-1):1)/k)
@@ -98,10 +98,10 @@ calcDNTable <- function (skillLevels, obsLevels, lnAlphas, beta, std,
 
 
 calcDNFrame <- function (skillLevels, obsLevels, lnAlphas, beta, std,
-                         model="Compensatory") {
+                         rule="Compensatory") {
   result <- data.frame(expand.grid(skillLevels),
                        calcDNTable(skillLevels,paste(obsLevels),
-                                   lnAlphas,beta,std,model))
+                                   lnAlphas,beta,std,rule))
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
     ## R is "helpfully" fixing our numeric labels.  Need to insist.
@@ -180,10 +180,10 @@ dataTable <- function (data, parents, child, childStates) {
 ### This calculates the actual DiBello Samejima log likelihood
 calcDSllike <- function (data,parents,skillLevels, child, obsLevels,
                         lnAlphas, beta, dinc=0, 
-                        model="Compensatory") {
+                        rule="Compensatory") {
   ## Reversing parents gets us to the same order as matrixes are
   ## stored in StatShop
-  probs <- calcDSTable(rev(skillLevels),obsLevels,rev(lnAlphas),beta,dinc,model)
+  probs <- calcDSTable(rev(skillLevels),obsLevels,rev(lnAlphas),beta,dinc,rule)
   #print(probs)
   counts <- dataTable(data,rev(parents),child,obsLevels)
   #print(counts)
@@ -194,10 +194,10 @@ calcDSllike <- function (data,parents,skillLevels, child, obsLevels,
 ### This calculates the actual DiBello Normal log likelihood
 calcDNllike <- function (data,parents,skillLevels, child, obsLevels,
                         lnAlphas, beta, std, 
-                        model="Compensatory") {
+                        rule="Compensatory") {
   ## Reversing parents gets us to the same order as matrixes are
   ## stored in StatShop
-  probs <- calcDNTable(rev(skillLevels),obsLevels,rev(lnAlphas),beta,std,model)
+  probs <- calcDNTable(rev(skillLevels),obsLevels,rev(lnAlphas),beta,std,rule)
   #print(probs)
   counts <- dataTable(data,rev(parents),child,obsLevels)
   #print(counts)

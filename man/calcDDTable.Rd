@@ -11,9 +11,9 @@
 }
 \usage{
 calcDDTable(skillLevels, obsLevels, skillWeights, masterProfile,
-            noviceProfile = 0.5, model = "Compensatory")
+            noviceProfile = 0.5, rule = "Compensatory")
 calcDDFrame(skillLevels, obsLevels, skillWeights, masterProfile,
-            noviceProfile = 0.5, model = "Compensatory")
+            noviceProfile = 0.5, rule = "Compensatory")
 }
 \arguments{
   \item{skillLevels}{A list of character vectors giving names of levels
@@ -29,7 +29,7 @@ calcDDFrame(skillLevels, obsLevels, skillWeights, masterProfile,
     Details).  Its length should match \code{obsLevels} or as a special
     case a scaler quantity gives a uniform prior.  Default is uniform
     prior with weight 1/2.}
-  \item{model}{Function for computing effective theta (see Details).}
+  \item{rule}{Function for computing effective theta (see Details).}
 }
 \details{
   Assume for the moment that there are two possible skill profiles:
@@ -52,14 +52,14 @@ calcDDFrame(skillLevels, obsLevels, skillWeights, masterProfile,
   come up with the interpolation.  Each parent variable state is
   assigned a \sQuote{theta} value using the
   \code{\link{effectiveThetas}} function to assign a numeric value to
-  each one.  These are then combined using the function \code{model} in
-  the model argument.  The resulting theta values are then scaled to a
+  each one.  These are then combined using the function \code{rule} in
+  the rule argument.  The resulting theta values are then scaled to a
   range of 0--1.  The prior for that row is a weighted combination of
   the \code{masterProfile} and \code{noviceProfile}.
 
     The combination of the individual effective theta values into a joint
   value for effective theta is done by the function reference by
-  \code{model}.  This should be a function of three arguments:
+  \code{rule}.  This should be a function of three arguments:
   \code{theta} --- the vector of effective theta values for each parent,
   \code{alphas} --- the vector of discrimination parameters, and
   \code{beta} --- a scaler value giving the difficulty.  The initial

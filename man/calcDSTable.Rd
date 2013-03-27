@@ -12,9 +12,9 @@
 }
 \usage{
 calcDSTable(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
-            model = "Compensatory")
+            rule = "Compensatory")
 calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
-            model = "Compensatory")
+            rule = "Compensatory")
 }
 \arguments{
   \item{skillLevels}{A list of character vectors giving names of levels
@@ -24,12 +24,12 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
     also be a vector of integers.}
   \item{lnAlphas}{A vector of log slope parameters.  Its length should
     be either 1 or the length of \code{skillLevels}, depending on the
-    choice of \code{model}.}
+    choice of \code{rule}.}
   \item{beta}{A vector of difficulty (-intercept) parameters. Its length
     should be either 1 or the length of \code{skillLevels}, depending on
-    the choice of \code{model}.}
+    the choice of \code{rule}.}
   \item{dinc}{Vector of difficulty increment parameters (see Details).}
-  \item{model}{Function for computing effective theta (see Details).}
+  \item{rule}{Function for computing effective theta (see Details).}
 }
 \details{
   The DiBello--Samejima model is a mechanism for creating conditional
@@ -59,7 +59,7 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   
   The combination of the individual effective theta values into a joint
   value for effective theta is done by the function reference by
-  \code{model}.  This should be a function of three arguments:
+  \code{rule}.  This should be a function of three arguments:
   \code{theta} --- the vector of effective theta values for each parent,
   \code{alphas} --- the vector of discrimination parameters, and
   \code{beta} --- a scaler value giving the difficulty.  The initial
@@ -72,16 +72,18 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   valued. Note that the discrimination and difficulty parameters are
   built into the structure function and not the IRT curve.
 
-  The Samejima graded response model describes a series of curves:
-  \deqn{P_m(\theta) = Pr(X >= x_m | theta) = logit^{-1} (\theta - d_m)}{%
-    P_m(theta) = Pr(X >= x_m | theta) = logit^-1 (theta -d_m)}
-  for \eqn{m>1}.  The probability for any given category is then the
-  difference between two adjacent logistic curves.  Note that because a
-  difficulty parameter was included in the structure function, we have
-  the further constraint that \eqn{\sum d_m =0}{sum(d_m) = 0}.
+  The Samejima graded response link function describes a series of
+  curves:  \deqn{P_m(\theta) = Pr(X >= x-m | \theta) = logit^{-1} (\theta
+  - d_m)}{% P_m(theta) = Pr(X >= x_m | theta) = logit^-1 D*(theta -d_m)}
+  for \eqn{m>1}, where \eqn{D=1.7} (a scale factor to make the logistic
+  curve match more closely with the probit curve).  The probability for
+  any given category is then the difference between two adjacent
+  logistic curves.  Note that because a difficulty parameter was
+  included in the structure function, we have the further constraint
+  that \eqn{\sum d_m =0}{sum(d_m) = 0}.
 
   To remove the parameter restriction we work with the difference
-  between the parameters:  \eqn{d_{m}-d_{m-1}}.  The value of \eqn{d_2}
+  between the parameters:  \eqn{d_m-d_{m-1}}.  The value of \eqn{d_2}
   is set at \code{-sum(dinc)/2} to center the d values.  Thus the
   \code{dinc} parameter (which is required only if
   \code{length(obsLevels)>2}) should be of length
@@ -115,7 +117,8 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   among proficiency variable, primarily because the normal mapping used
   in the effective theta calculation and the Samejima graded response
   models are not inverses.  For those model, the function 
-  \code{\link{calcDNTable}} is recommended instead.
+  \code{\link{calcDNTable}}, which uses a probit link function, is
+  recommended instead. 
 }
 \references{
   Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
@@ -148,10 +151,10 @@ correctL <- c("Correct","Incorrect")
 gradeL <- c("A","B","C","D","E") 
 
 cptCorrect <- calcDSTable(list(S1=skill1l,S2=skill2l),correctL,
-                          log(c(S1=1,S2=.75)),1.0,model="Conjunctive")
+                          log(c(S1=1,S2=.75)),1.0,rule="Conjunctive")
 
 cpfCorrect <- calcDSFrame(list(S1=skill1l,S2=skill2l),correctL,
-                          log(c(S1=1,S2=.75)),1.0,model="Conjunctive")
+                          log(c(S1=1,S2=.75)),1.0,rule="Conjunctive")
 
 
 cptGraded <- calcDSTable(list(S1=skill1l),gradeL, 0.0, 0.0, dinc=c(.3,.4,.3))
