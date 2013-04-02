@@ -4,9 +4,9 @@
 \description{
   Takes a graph described by an incidence matrix, and creates an
   ordering of the nodes using maximum cardinality search (Tarjan and
-  Yannakakis, 1984) .  A primary
-  application of this method is to chose an ordering of nodes in an
-  undirected graph to make a corresponding directed graph.
+  Yannakakis, 1984).  A primary application of this method is to chose
+  an ordering of nodes in an undirected graph to make a corresponding
+  directed graph. 
 }
 \usage{
 mcSearch(sm, start = colnames(sm)[1])
@@ -65,7 +65,7 @@ mcSearch(sm, start = colnames(sm)[1])
   Graphical models generally exist only over triangulated graphs.
   Therefore, and incidence matrix which has been produced through the
   use of the \code{\link{structMatrix}} function should alway work.
-  Tarjan and Yannakakis (1984) provie that the maximum cardinality
+  Tarjan and Yannakakis (1984) prove that the maximum cardinality
   search always produces a perfect ordering when the graph is
   triangulated.
 

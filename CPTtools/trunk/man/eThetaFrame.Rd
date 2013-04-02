@@ -95,12 +95,15 @@ Morgan Kaufmann, 137--143.
 }
 \examples{
   skill <- c("High","Medium","Low")
-  eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Compensatory")
-  eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Conjunctive")
-  eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Disjunctive")
-  eThetaFrame(list(S1=skill,S2=skill), 1.0, c(S1=0.25,S2=-0.25),
+  eThetaFrame(list(S1=skill,S2=skill), log(c(S1=1.25,S2=.75)), 0.33,
+             "Compensatory") 
+  eThetaFrame(list(S1=skill,S2=skill), log(c(S1=1.25,S2=.75)), 0.33,
+              "Conjunctive")
+  eThetaFrame(list(S1=skill,S2=skill), log(c(S1=1.25,S2=.75)), 0.33,
+              "Disjunctive")
+  eThetaFrame(list(S1=skill,S2=skill), log(1.0), c(S1=0.25,S2=-0.25),
               "OffsetConjunctive")
-  eThetaFrame(list(S1=skill,S2=skill), 1.0, c(S1=0.25,S2=-0.25),
+  eThetaFrame(list(S1=skill,S2=skill), log(1.0), c(S1=0.25,S2=-0.25),
               "OffsetDisjunctive")
 }
 \keyword{ distribution }

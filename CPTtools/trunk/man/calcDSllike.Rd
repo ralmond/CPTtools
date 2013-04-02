@@ -68,17 +68,12 @@ calcDNllike(data, parents, skillLevels, child, obsLevels,
   \code{\link{eThetaFrame}}, \code{\link{calcDNTable}}
 }
 \examples{
-StatShop <- Sys.getenv("STATSHOP")
-if (StatShop == "") {
-  warning("StatShop not installed, skipping test.")
-} else {
   skill1l <- c("High","Medium","Low") 
   skill3l <- c("High","Better","Medium","Worse","Low") 
   correctL <- c("Correct","Incorrect") 
 
-  x <- read.csv(paste(StatShop, "TestScripts", "ReferenceExport",
-                      "randomPinned100.csv",
-                      sep=.Platform$file.sep),
+  x <- read.csv(paste(library(help="CPTtools")$path,
+                     "randomPinned100.csv", sep=.Platform$file.sep),
               header=FALSE, as.is=TRUE,
               col.names = c("Skill1", "Skill2", "Skill3",
                 "Comp.Correct", "Comp.Grade",
@@ -95,11 +90,10 @@ if (StatShop == "") {
   like <- calcDSllike(x,c("Skill1","Skill3"),
                       list(Skill1=skill1l, Skill3=skill3l),
                       "Comp.Correct", correctL,
-                      c(0.45,-0.4),-1.9,rule="Compensatory")
+                      log(c(0.45,-0.4)),-1.9,rule="Compensatory")
   \dontshow{
    stopifnot(round(like,4) == -43.2538)
    }
 
-}
 }
 \keyword{distribution}% at least one, from doc/KEYWORDS

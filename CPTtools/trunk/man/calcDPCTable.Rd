@@ -12,8 +12,10 @@
 
 }
 \usage{
-calcDPCTable(skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory")
-calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory")
+calcDPCTable(skillLevels, obsLevels, lnAlphas, betas,
+             rules = "Compensatory", link="partialCredit", linkScale=NULL)
+calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas, 
+             rules = "Compensatory", link="partialCredit", linkScale=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -35,6 +37,10 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory")
   \item{rules}{A list of functions for computing effective theta (see
     Details). Its length should be \code{length(obsLevels)-1} or 1
     (implying that the same rule is applied for every gap.}
+  \item{link}{The function that converts a table of effective thetas to
+    probabilities}
+  \item{linkScale}{An optional scale parameter for the \code{link}
+    function}.  
 }
 }
 \details{
@@ -49,10 +55,10 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory")
       calculations.}
     \item{}{For each possible skill profile (combination of states of
       the parent variables) the effective thetas are combined using a
-      combination function.  This produces an \dQuote{effective theta}
-      for that skill profile.}
-    \item{}{The effective theta is input into the generalized partial
-      credit link function (Muraki, 1992) to produce a probability
+      one of the \code{rule} functions.  This produces an
+      \dQuote{effective theta} for that skill profile.}
+    \item{}{The effective theta table is input into the \code{link}
+      function to produce a probability
       distrubution over the states of the outcome variables.}
   }
 
@@ -61,37 +67,113 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory")
   variable in order the names of the states ranked from highest to
   lowest value.  The current implementation uses the function
   \code{\link{effectiveThetas}} to caluclate equally spaced points on
-  the normal curve.
+  the normal curve.  Applying this rule to each parameter value produces
+  a table of rows with values \eqn{\theta_1,\ldots,\theta_K},
+  corresponding to all possible combinations of the parent variables
+  (using \code{\link[base]{expand.grid}}).
 
   Let \eqn{X} be the child variable of the distribution, and assume that
   it can take on \eqn{M} possible states labeled \eqn{x_1} through
-  \eqn{x_M} in increasing order.  The generalized partial
-  credit model defines a set of functions
-  \eqn{Z_m(\theta_1,\ldots,\theta_K)} for \eqn{m=2,...M}, where \deqn{
-    Pr(X >= x_m | X >=x_{m-1}, \theta_1,...,\theta_K) = logit^{-1}
-    -D*Z_m(\theta_1,\ldots,\theta_K)}
-  The conditional probabilities for each child state given the effective
-  thetas for the parent variables is then given by
-  \deqn{Pr(X == x_m |\theta_1,...,\theta_K) \frac{\sum_{r=1}^m
-  Z_r(\theta_1,\ldots,\theta_K)}{\sum_{r=1}^M
-  Z_r(\theta_1,\ldots,\theta_K)}}
+  \eqn{x_M} in increasing order.  (Note:  that \code{calcDPCTable}
+  assumes variable states are ordered the other direction:  from higest
+  to lowest.)   For each state but the lowest state (the last one in the
+  input order) defines a combination rule
+  \eqn{Z_m(\theta_1,\ldots,\theta_K;alphas,betas)}.  Applying these
+  functions to the rows of the table produces a table of effective
+  thetas for each configuration of the parent variables and each child
+  state except for the lowest.  (The metaphor is this theta represents
+  the ``ability level'' required to reach that output state.)
+
+  Note that the \eqn{Z_m(\cdot})}s do not need to have the same
+  parameters or even the same functional form.  The argument
+  \code{rules} should contain a list of the names of the combination
+  functions, the first one corresponding to \eqn{Z_M(\cdot)}, and so
+  forth in decending order.  As a special case, if \code{rules} has only
+  one element, than it is used for all of the transitions.  Similarly,
+  the \code{lnAlphas} and \code{betas} should also be lists of the
+  parameters of the combination functions corresponding to the
+  transitions between the levels.  The \code{betas[[m]]} represent
+  difficulties (negative intercepts) and the \code{exp(lnAlphas[[m]])}
+  represent slopes for the transition to level \eqn{m} (following the
+  highest to lowest order).  Again if these lists have length one, the
+  same value is used for all transitions.
+
+  The length of the elements of \code{lnAlphas} and \code{betas} is
+  determined by the specific choice of combination function.  The
+  functions \code{\link{Compensatory}}, \code{\link{Conjunctive}}, and
+  \code{\link{Disjunctive}} all assume that there will be one
+  \code{lnAlpha} for each parent variable, but a single \code{beta}.
+  The functions \code{\link{OffsetConjunctive}}, and
+  \code{\link{OffsetDisjunctive}} both assume that there will be one
+  \code{beta} for each parent variable, but a single \code{lnAlpha}.
+
+  The code \code{link} function is then applied to the table of
+  effective theta values to produce a conditional probability
+  distribution.  Two link functions are currently supported:
+  \code{\link{partialCredit}} is based on the generalized partial credit
+  model (Muraki, 1992), \code{\link{gradedResponse}} is a modified
+  version of the graded response model (Samejima, 1969).  (The
+  modification corrects for problems when the curves cross.)  A third
+  planned link function is based on a normal error model, this will
+  require the extra \code{linkScale} parameter.
+
+  Normally \code{obslevel} should be a character vector giving state
+  names.  However, in the special case of state names which are integer
+  values, R will \dQuote{helpfully} convert these to legal variable
+  names by prepending a letter.  This causes other functions which rely
+  on the \code{names()} of the result being the state names to break.
+  As a special case, if the value of \code{obsLevel} is of type numeric,
+  then \code{calcDSFrame()} will make sure that the correct values are
+  preserved. 
 
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+  For \code{calcDPCTable}, a matrix whose rows correspond configurations
+  of the parent variable states (\code{skillLevels}) and whose columns
+  correspond to \code{obsLevels}.  Each row of the table is a
+  probability distributon, so the whole matrix is a conditional
+  probability table.  The order of the parent rows is the same as is
+  produced by applying \code{expand.grid} to \code{skillLevels}.
+
+  For \code{calcDPCFrame} a data frame with additional columns
+  corresponding to the entries in \code{skillLevels} giving the parent
+  value for each row.
 }
 \references{
-%% ~put references to the literature/web site here ~
+  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
+  Yan, D. (Draft) \emph{Bayesian Networks in Educational Assessment.}
+  Springer.  Chapter 8.
+
+  Muraki, E. (1992).  A Generalized Partial Credit Model:  Application
+  of an EM Algorithm.  \emph{Applied Psychological Measurement}, \bold{16},
+  159-176.  DOI: 10.1177/014662169201600206
+
+Samejima, F. (1969) Estimation of latent ability using a
+response pattern of graded scores.  \emph{Psychometrika Monograph No.
+17}, \bold{34}, (No. 4, Part 2).
+
+  I also have planned a manuscript that describes these functions in
+  more detail.
+
 }
-\author{
-%%  ~~who you are~~
-}
+\author{Russell Almond}
 \note{
-%%  ~~further notes~~
+  The framework set up by this function is completely expandable.  The
+  \code{link} and the elements of \code{rules} can be any value that is
+  suitable for the first argument of \code{\link[base]{do.call}}.
+
+  Elements of \code{rules} are called with the expression
+  \code{do.call(rules[[kk]],list(thetas,exp(lnAlphas[[kk]]),betas[[kk]]))}
+  where \code{thetas} is the matrix of effective theta values produced
+  in the first step of the algorithm, and the return function should be
+  a vector of effective thetas, one for each row of \code{thetas}.  
+
+  The \code{link} function is called with the expression 
+  \code{do.call(link,list(et,linkScale,obsLevels))} where \code{et} is
+  the matrix of effective thetas produced in the second step.  It should
+  return a conditional probability table with the same number of rows
+  and one more column than \code{et}.  All of the rows should sum to 1.0.
+
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
