@@ -2,7 +2,7 @@
 \alias{numericPart}
 \title{Converts a mixed data frame to a numeric matrix.}
 \description{
-  Converts a \code{matrix} to a \code{data.frame}, by dropping columns
+  Converts a \code{data.frame} to a \code{matrix}, by dropping columns
   which contain non-numeric data.
 }
 \usage{
@@ -10,6 +10,13 @@ numericPart(table)
 }
 \arguments{
   \item{table}{A \code{data.frame} object.}
+}
+\details{
+  The primary purpose is to convert a conditional probability
+  distribution in data frame format (with a set of factor rows
+  identifying the states of the parent variables) to a table of just the
+  numbers.  It may have other uses as well.
+
 }
 \value{
   A matrix containing just the numeric columns of the data frame.

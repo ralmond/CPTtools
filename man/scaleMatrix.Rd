@@ -27,13 +27,18 @@ data(MathGrades)
 round(scaleMatrix(MathGrades$var),2) == MathGrades$cor
 \dontshow{
 stopifnot(
- all(round(scaleMatrix(MathGrades$var),2) == MathGrades$cor)
+ all(scaleMatrix(MathGrades$var) -  MathGrades$cor< .02)
 )
 }
 ## Create a partial correlation matrix from a correlation matrix
 round(scaleMatrix(solve(MathGrades$cor)),2) == MathGrades$pcor
 ##Note:  Some of these tests may return false due to machine precision
 ##issues. 
+\dontshow{
+stopifnot(
+ all(scaleMatrix(MathGrades$cor) -  MathGrades$pcor< .02)
+)
+}
 
 }
 \keyword{manip}

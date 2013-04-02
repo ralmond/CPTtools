@@ -1,6 +1,5 @@
 \name{dataTable}
 \alias{dataTable}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Constructs a table of counts from a set of discrete observations.}
 \description{
   This contructs a table of counts in a special format useful for
@@ -11,7 +10,6 @@
 \usage{
 dataTable(data, parents, child, childStates)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data}{A data frame whose columns contain variables corresponding
     to \code{parent} and \code{child}.}
@@ -35,17 +33,13 @@ dataTable(data, parents, child, childStates)
 \author{Russell Almond}
 \seealso{\code{\link[base]{table}}, \code{\link{calcDSllike}}}
 \examples{
-StatShop <- Sys.getenv("STATSHOP")
-if (StatShop == "") {
-  warning("StatShop not installed, skipping test.")
-} else {
+
   skill1l <- c("High","Medium","Low") 
   skill3l <- c("High","Better","Medium","Worse","Low") 
   correctL <- c("Correct","Incorrect") 
 
-  x <- read.csv(paste(StatShop, "TestScripts", "ReferenceExport",
-                      "randomPinned100.csv",
-                      sep=.Platform$file.sep),
+  x <- read.csv(paste(library(help="CPTtools")$path,
+                     "randomPinned100.csv", sep=.Platform$file.sep),
               header=FALSE, as.is=TRUE,
               col.names = c("Skill1", "Skill2", "Skill3",
                 "Comp.Correct", "Comp.Grade",
@@ -61,7 +55,7 @@ if (StatShop == "") {
 
   tab <- dataTable(x, c("Skill1","Skill3"),"Comp.Correct",correctL)
   data.frame(expand.grid(list(Skill1=skill1l,Skill3=skill3l)),tab)
-}
+
 }
 \keyword{manip}
 

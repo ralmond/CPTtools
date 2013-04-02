@@ -1,8 +1,11 @@
 Rdocs for  
-  ‘calcDGRFrame’ ‘calcDGRTable’ ‘calcDPCFrame’
+  ‘calcDPCFrame’
   ‘calcDPCTable’ ‘gradedResponse’ ‘mapDPC’
   ‘partialCredit’
 
-TODO -- Refactor so that we are using combination function (rules) and
-link function.
+TODO add noisy-or/and
+
+TODO -- Tests
+
+TODO -- Normal link function
 

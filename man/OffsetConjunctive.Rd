@@ -56,11 +56,16 @@ Morgan Kaufmann, 137--143.
   \code{\link{eThetaFrame}}
 }
 \note{
+  These functions expect the unlogged discrimination parameters, while
+  \code{calcDSTable} expect the log of the discrimination parameters.
+  The rationale is that log discrimination is bound away from zero, and
+  hence a more natural space for MCMC algorithms.  However, it is poor
+  programming design, as it is liable to catch the unwary.
+
   These functions are meant to be used as structure functions in the
   DiBello--Samejima and DiBello--Normal models.  Other structure
   functions are possible and can be excepted by those functions as long
   as they have the same signature as these functions.
-
 }
 \examples{
   thetas <- expand.grid(list(S1=(3:1 -2), S2 = (3:1 -2)))

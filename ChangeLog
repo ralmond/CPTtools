@@ -1,3 +1,10 @@
+2013-04-01  Russell G. Almond  <ralmond@Limu>
+
+	* R/DGR.R (calcDPCTable, calcDPCFrame, partialCredit)
+	(gradedResponse): Factored these so that the link functions are
+	called from within the general code form.  Added a linkScale
+	parameter for future expansion (needed for Normal link).
+
 2013-03-25  Russell G. Almond  <ralmond@Limu>
 
 	* Created the project:  Moved code over from SSX.
