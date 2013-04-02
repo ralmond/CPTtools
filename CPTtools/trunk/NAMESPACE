@@ -1,7 +1,7 @@
 #import(methods)
 #import(utils)
 
-export(calcDDTable, calcDDFrame, calcDGRTable, calcDGRFrame,
+export(calcDDTable, calcDDFrame, 
        gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,
        effectiveThetas, calcDSTable, calcDSFrame, eThetaFrame,
        calcDNTable, calcDNFrame,

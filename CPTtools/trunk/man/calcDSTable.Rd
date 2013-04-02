@@ -74,7 +74,7 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
 
   The Samejima graded response link function describes a series of
   curves:  \deqn{P_m(\theta) = Pr(X >= x-m | \theta) = logit^{-1} (\theta
-  - d_m)}{% P_m(theta) = Pr(X >= x_m | theta) = logit^-1 D*(theta -d_m)}
+  - d_m)}%{P_m(theta) = Pr(X >= x_m | theta) = logit^-1 D*(theta -d_m)}
   for \eqn{m>1}, where \eqn{D=1.7} (a scale factor to make the logistic
   curve match more closely with the probit curve).  The probability for
   any given category is then the difference between two adjacent
