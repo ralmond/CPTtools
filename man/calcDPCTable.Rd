@@ -36,12 +36,11 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
     \code{skillLevels}).}
   \item{rules}{A list of functions for computing effective theta (see
     Details). Its length should be \code{length(obsLevels)-1} or 1
-    (implying that the same rule is applied for every gap.}
+    (implying that the same rule is applied for every gap).}
   \item{link}{The function that converts a table of effective thetas to
     probabilities}
   \item{linkScale}{An optional scale parameter for the \code{link}
     function}.  
-}
 }
 \details{
   The discrete graded response model is a generalization of the
@@ -84,7 +83,7 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   state except for the lowest.  (The metaphor is this theta represents
   the ``ability level'' required to reach that output state.)
 
-  Note that the \eqn{Z_m(\cdot})}s do not need to have the same
+  Note that the \eqn{Z_m(\cdot)}s do not need to have the same
   parameters or even the same functional form.  The argument
   \code{rules} should contain a list of the names of the combination
   functions, the first one corresponding to \eqn{Z_M(\cdot)}, and so
