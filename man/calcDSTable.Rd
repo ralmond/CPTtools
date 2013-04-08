@@ -140,8 +140,7 @@ response pattern of graded scores.  \emph{Psychometrika Monograph No.
 \seealso{\code{\link{effectiveThetas}},\code{\link{Compensatory}},
   \code{\link{OffsetConjunctive}},\code{\link{eThetaFrame}},
   \code{\link{calcDNTable}}, \code{\link{calcDSllike}},
-  \code{\link{calcDPCTable}}, \code{\link{calcDGRTable}},
-  \code{\link[base]{expand.grid}}
+  \code{\link{calcDPCTable}}, \code{\link[base]{expand.grid}}
 }
 \examples{
 ## Set up variables

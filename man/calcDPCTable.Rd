@@ -36,7 +36,7 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
     \code{skillLevels}).}
   \item{rules}{A list of functions for computing effective theta (see
     Details). Its length should be \code{length(obsLevels)-1} or 1
-    (implying that the same rule is applied for every gap).}
+    (implying that the same rule is applied for every gap.)}
   \item{link}{The function that converts a table of effective thetas to
     probabilities}
   \item{linkScale}{An optional scale parameter for the \code{link}
@@ -174,46 +174,71 @@ response pattern of graded scores.  \emph{Psychometrika Monograph No.
   and one more column than \code{et}.  All of the rows should sum to 1.0.
 
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+  \code{\link{effectiveThetas}},\code{\link{Compensatory}},
+  \code{\link{OffsetConjunctive}},\code{\link{eThetaFrame}},
+  \code{\link{calcDNTable}}, \code{\link{calcDSTable}},
+  \code{\link[base]{expand.grid}}, \code{\link{gradedResponse}},
+  \code{\link{partialCredit}} 
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+## Set up variables
+skill1l <- c("High","Medium","Low") 
+skill2l <- c("High","Medium","Low","LowerYet") 
+correctL <- c("Correct","Incorrect") 
+pcreditL <- c("Full","Partial","None")
+gradeL <- c("A","B","C","D","E") 
 
-## The function is currently defined as
-function (skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory") 
-{
-    k <- length(obsLevels)
-    if (!is.list(lnAlphas)) 
-        lnAlphas <- list(lnAlphas)
-    if (length(lnAlphas) != k - 1) 
-        lnAlphas <- rep(lnAlphas, k - 1)
-    if (!is.list(betas)) 
-        betas <- list(betas)
-    if (length(betas) != k - 1) 
-        betas <- rep(betas, k - 1)
-    if (!is.list(rules)) 
-        rules <- list(rules)
-    if (length(rules) != k - 1) 
-        rules <- rep(rules, k - 1)
-    pdims <- sapply(skillLevels, length)
-    tvals <- lapply(pdims, effectiveThetas)
-    thetas <- do.call("expand.grid", tvals)
-    pt <- matrix(0, nrow(thetas), k - 1)
-    for (kk in 1:(k - 1)) {
-        etheta <- do.call(rules[[kk]], list(thetas, exp(lnAlphas[[kk]]), 
-            betas[[kk]]))
-        pt[, kk] <- exp(1.7 * etheta)
-    }
-    partialCredit(pt, k, obsLevels)
-  }
+## Simple binary model, these three should be the same.
+cptCorrect <- calcDPCTable(list(S1=skill1l,S2=skill2l),correctL,
+                          log(c(S1=1,S2=.75)),1.0,rule="Compensatory",
+                          link="partialCredit")
+cptCorrect2 <- calcDPCTable(list(S1=skill1l,S2=skill2l),correctL,
+                          log(c(S1=1,S2=.75)),1.0,rule="Compensatory",
+                          link="gradedResponse")
+cptCorrect1 <- calcDSTable(list(S1=skill1l,S2=skill2l),correctL,
+                          log(c(S1=1,S2=.75)),1.0,rule="Compensatory")
+stopifnot (all (abs(cptCorrect2-cptCorrect1) <.001))
+stopifnot (all (abs(cptCorrect-cptCorrect1) <.001))
+
+## Conjunctive uses multiple betas, not multiple alphas.
+cptConj <- calcDPCTable(list(S1=skill1l,S2=skill2l),correctL,
+                        log(1),c(S1=0.5,S2=.7),rule="OffsetConjunctive")
+
+
+## Simple model, Skill 1 needed for step 1, Skill 2 for Step 2.
+cptPC1 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,
+                        lnAlphas=log(1),
+                        betas=list(full=c(S1=0,S2=999),partial=c(S2=999,S2=0)),
+                        rule="OffsetDisjunctive")
+
+
+## Complex model, different rules for different levels
+cptPC2 <- calcDPCTable(list(S1=skill1l,S2=skill2l),credit,
+                          list(full=log(1),partial=log(c(S1=1,S2=.75))),
+                          betas=list(full=c(0,999),partial=1.0),
+                          rule=list("OffsetDisjunctive","Compensatory"))
+
+## Graded Response Model, typically uses different difficulties
+cptGraded <- calcDPCTable(list(S1=skill1l),gradeL,
+                          log(1),betas=list(A=2,B=1,C=0,D=-1),
+                          rule="Compensatory",link="gradedResponse")
+
+## Partial credit link is somewhat different
+cptPC5 <- calcDPCTable(list(S1=skill1l),gradeL,
+                          log(1),betas=list(A=2,B=1,C=0,D=-1),
+                          rule="Compensatory",link="partialCredit")
+cptPC5a <- calcDPCTable(list(S1=skill1l),gradeL,
+                          log(1),betas=1,
+                          rule="Compensatory",link="partialCredit")
+
+## Need to be careful when using different slopes (or non-increasing
+## difficulties) with graded response link as curves may cross.
+
+cptCross <- calcDPCTable(list(S1=skill1l),pcreditL,
+                          log(1),betas=list(full=-1,partial=1),
+                          rule="Compensatory",link="gradedResponse")
+stopifnot (all(abs(cptCross[,"Partial"])<.001))
+
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{distribution}
