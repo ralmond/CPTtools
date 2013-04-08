@@ -43,12 +43,12 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
 }
 
 calcDPCFrame <-
-function (skillLevels, obsLevels, alphas, betas, 
+function (skillLevels, obsLevels, lnAlphas, betas, 
           rules="Compensatory", link="partialCredit",
           linkScale=NULL) {
   result <- data.frame(expand.grid(skillLevels),
                        calcDPCTable(skillLevels,paste(obsLevels),
-                                    alphas,betas,rules,link,
+                                    lnAlphas,betas,rules,link,
                                     linkScale))
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
@@ -73,11 +73,16 @@ function (skillLevels, obsLevels, alphas, betas,
 ### It returns a conditional probility table.
 
 partialCredit <- function (et,linkScale=NULL,obsLevels=NULL) {
-  k <- nrow(et)+1
-  zt <- t(apply(et,1,function(x) rev(cumsum(rev(x)))))
+  m <- ncol(et)+1
+  zt <- apply(et,1,function(x) rev(cumsum(rev(x))))
+  if (m==2) {
+    zt <- matrix(zt,length(et),1)
+  } else {
+    zt <- t(zt)
+  }
   pt <- cbind(exp(1.7*zt),1)
   pt <- sweep(pt,1,apply(pt,1,sum),"/")
-  probs <- pt[,1:k]
+  probs <- pt[,1:m]
   probs <- ifelse(probs<0,0,probs)
   if (!is.null(obsLevels)) {
     dimnames(probs) <- list(NULL,obsLevels)
@@ -87,12 +92,18 @@ partialCredit <- function (et,linkScale=NULL,obsLevels=NULL) {
 
 
 gradedResponse <- function (et,linkScale=NULL,obsLevels=NULL) {
-  k <- nrow(et)+1
-  pt <- 1/(1+exp(-1.7*et))
+  m <- ncol(et)+1
+  zt <- 1/(1+exp(-1.7*et))
   ## The cummax corrects for problems where the
-  ## Pr(X> k+1) is greater than Pr(X>k)
-  pt <- cbind(0,t(apply(pt,1,cummax)),1)
-  probs <- pt[,2:(k+1)]-pt[,1:k]
+  ## Pr(X> m+1) is greater than Pr(X>m)
+  zt <- apply(zt,1,cummax)
+  if (m==2) {
+    zt <- matrix(zt,length(et),1)
+  } else {
+    zt <- t(zt)
+  }
+  pt <- cbind(0,zt,1)
+  probs <- pt[,2:(m+1)]-pt[,1:m]
   # probs <- ifelse(probs<0,0,probs)
   if (!is.null(obsLevels)) {
     dimnames(probs) <- list(NULL,obsLevels)

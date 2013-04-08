@@ -1,7 +1,5 @@
 Rdocs for  
-  ‘calcDPCFrame’
-  ‘calcDPCTable’ ‘gradedResponse’ ‘mapDPC’
-  ‘partialCredit’
+  ‘gradedResponse’ ‘mapDPC’
 
 TODO add noisy-or/and
 
