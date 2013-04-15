@@ -20,7 +20,7 @@ partialCredit(et, linkScale = NULL, obsLevels = NULL)
 }
   \item{obsLevels}{
     A character vector giving the names of the child variable states.
-    If supplied, it should have length \code{nrow(et)+1}.  
+    If supplied, it should have length \code{ncol(et)+1}.  
 }
 }
 \details{
@@ -39,16 +39,22 @@ partialCredit(et, linkScale = NULL, obsLevels = NULL)
   \eqn{Z_m(\theta_k)} for \eqn{m=2,\ldots,M}, where \deqn{
     Pr(X >= x_m | X >=x_{m-1}, \theta_k) = logit^{-1}
     -D*Z_m(\theta_k)}
-  The conditional probabilities for each child state given the effective
-  thetas for the parent variables is then given by
-  \deqn{Pr(X == x_m |\theta_k) \frac{\sum_{r=1}^m
-      Z_r(\theta_k)}{\sum_{r=1}^M  Z_r(\theta_k)}}
+  The conditional probabilities for each child state is calculated by
+  taking the differences between the curves.  
+
 
   The \eqn{K \times M-1} matrix \code{et} is the values of
   \eqn{Z_m(\theta_k)}.  This function then performs the rest of the
-  generalized partial credit model.  This is a generalization of Muraki
-  (1992), because the functions \eqn{Z_m(\cdot)} are not restricted to
-  be the same functional form for all \eqn{m}.
+  generalized partial credit model.  The original Samejima
+  (1969) development assumed that all of the functions \eqn{Z_m(\cdot)}
+  had the same linear form \eqn{a(\theta_k-b_m)}, with the \eqn{b_m}
+  strictly increasing (note that in CPTtools, the states are ordered
+  from highest to lowest, so that they should be strictly decreasing).
+  This meant that the curves would never cross.  The general notation of
+  \code{\link{calcDPCTable}} does not ensure the curves do not cross,
+  which could result in negative probabilities.  This function handles
+  this case by forcing negative probabilities to zero (and adjusting the
+  probabilities for the other state to be properly normalized).
 
   If supplied \code{obsLevels} is used for the column names.
 }
@@ -66,21 +72,20 @@ partialCredit(et, linkScale = NULL, obsLevels = NULL)
   of an EM Algorithm.  \emph{Applied Psychological Measurement}, \bold{16},
   159-176.  DOI: 10.1177/014662169201600206
 
-Samejima, F. (1969) Estimation of latent ability using a
-response pattern of graded scores.  \emph{Psychometrika Monograph No.
-17}, \bold{34}, (No. 4, Part 2).
-
   I also have planned a manuscript that describes these functions in
   more detail.
 }
 \author{Russell Almond}
 \note{
+  The development here follows Muraki (1992) rather than Samejima
+  (1969).  
+  
   The \code{linkScale} parameter is unused.  It is for compatability
   with other link function choices.
 }
 \seealso{
   \code{\link{eThetaFrame}},\code{\link{calcDPCTable}},
-  \code{\link{gradedResponse}},
+  \code{\link{partialCredit}},
 }
 \examples{
 ## Set up variables

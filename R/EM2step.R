@@ -47,14 +47,13 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
   thetas <- do.call("expand.grid",tvals)
 
   llike <- function (pv) {
-    pt <- matrix(0,nrow(thetas),k-1)
+    et <- matrix(0,nrow(thetas),k-1)
     for (kk in 1:(k-1)) {
-      etheta <- do.call(rules[[kk]],
+      et[,kk] <- do.call(rules[[kk]],
                         list(thetas,exp(pv[ialpha[[kk]]]),
                              pv[ibeta[[kk]]]))
-      pt[,kk] <- 1/(1+exp(-1.7*etheta))
     }
-    probs <- do.call(link,list(pt,k,obsLevels))
+    probs <- do.call(link,list(et,k,obsLevels))
     -2*sum(postTable*log(probs))
   }
   map <- optim(pvec,llike,...)
