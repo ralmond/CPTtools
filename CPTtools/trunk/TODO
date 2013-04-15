@@ -1,9 +1,10 @@
 Rdocs for  
-  ‘gradedResponse’ ‘mapDPC’
+  ‘mapDPC’
 
 TODO add noisy-or/and
 
-TODO -- Tests
+TODO -- Test suite
 
 TODO -- Normal link function
 
+TODO -- reverse state order
