@@ -1,0 +1,12 @@
+  Let $X$ be the child variable of the distribution, and assume that
+  it can take on $M$ possible states labeled $x_1$ through
+  $x_M$ in increasing order.  The generalized partial
+  credit model defines a set of functions
+  $Z_m(\theta_1,\ldots,\theta_K)$ for $m=2,\ldots,M$, where 
+    $$Pr(X >= x_m | X >=x_{m-1}, \theta_1,\ldots,\theta_K) = logit^{-1}
+    -D*Z_m(\theta_1,\ldots,\theta_K)$$
+  The conditional probabilities for each child state given the effective
+  thetas for the parent variables is then given by
+  $$Pr(X == x_m |\theta_1,\ldots,\theta_K) \frac{\sum_{r=1}^m
+  Z_r(\theta_1,\ldots,\theta_K)}{\sum_{r=1}^M
+  Z_r(\theta_1,\ldots,\theta_K)}$$
