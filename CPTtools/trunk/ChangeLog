@@ -1,3 +1,9 @@
+2013-05-01    <ralmond@ADVENT>
+
+	* R/Noisy.R: 
+	(calcNoisyAndTable, calcNoisyAndFrame, calcNoisyOrTable)
+	(calcNoisyOrFrame): Created these functions and added doc and tests.
+
 2013-04-01  Russell G. Almond  <ralmond@Limu>
 
 	* R/DGR.R (calcDPCTable, calcDPCFrame, partialCredit)

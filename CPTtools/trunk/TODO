@@ -1,10 +1,12 @@
 Rdocs for  
   ‘mapDPC’
 
-TODO add noisy-or/and
+TODO add noisy-min/max
 
 TODO -- Test suite
 
 TODO -- Normal link function
 
 TODO -- reverse state order
+
+TODO -- Merge with WOE
