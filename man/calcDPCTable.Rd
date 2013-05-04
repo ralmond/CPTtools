@@ -40,7 +40,8 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   \item{link}{The function that converts a table of effective thetas to
     probabilities}
   \item{linkScale}{An optional scale parameter for the \code{link}
-    function}.  
+    function.  This is only used with certain choices of \code{link}
+    function.}  
 }
 \details{
   The discrete graded response model is a generalization of the

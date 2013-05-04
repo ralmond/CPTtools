@@ -52,7 +52,7 @@ testFit <- function(pLevels,obsLevels,trueLnAlphas,trueBetas,
   postBetas <- map1$betas
   cat("Estimated parameters: ln(alphas) = ",paste(postLnAlphas,collape=", "),
       "; betas=",paste(postBetas,collapse=", "),"\n")
-  fitdist <- calcDPCTable(list(skill1),troph,map1$lnAlphas,map1$betas)
+  fitdist <- calcDPCTable(pLevels,obsLevels,map1$lnAlphas,map1$betas,rules,link)
 
   maxdistdif <- max(abs(fitdist-truedist))
   if (maxdistdif > tol) {

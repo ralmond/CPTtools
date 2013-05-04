@@ -2,7 +2,7 @@ library(stats4) ## Needed for optim
 
 ### This does an optimization given the posterior matrix.
 mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
-                    rules="Compensatory",link="partialCredit",...) {
+                    rules="Compensatory",link="partialCredit",linkScale=NULL,...) {
   k <- length(obsLevels)
   pvec <- numeric(0)
   iparam <- 0
