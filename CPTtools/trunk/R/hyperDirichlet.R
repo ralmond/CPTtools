@@ -34,7 +34,7 @@ getTableStates <- function (table) {
     }
   }
   if (nrow(table) ==1) {
-    ## R is far to eager to collapse single row matrixes into vectors
+    ## R is far too eager to collapse single row matrixes into vectors
     ## so need special handling for this case.
     scalecol <- length(table)
     sumcol <- scalecol-1
@@ -43,11 +43,16 @@ getTableStates <- function (table) {
       Scale <- table[,scalecol]
       Sum <- table[,sumcol]
       result <- table[,-c(scalecol,sumcol)]/(Sum/Scale)
-      return(matrix(result,nrow=1,
+      return(matrix(as.numeric(result),nrow=1,
                     dimnames=list(NULL,colnames(table)[-c(scalecol,sumcol)])))
     } else {
       return(table)
     }
+  }
+  states <- NULL
+  if (is.data.frame(table)) {
+    states <- factorPart(table)
+    table <- numericPart(table)
   }
   scalecol <- ncol(table)
   sumcol <- scalecol-1
@@ -55,14 +60,21 @@ getTableStates <- function (table) {
       "Sum" == colnames(table)[sumcol]) {
     Scale <- table[,scalecol]
     Sum <- table[,sumcol]
-    sweep(table[,-c(scalecol,sumcol)],1,Sum/Scale,"/")
-  } else {
-    table
+    table <- sweep(table[,-c(scalecol,sumcol)],1,Sum/Scale,"/")
   }
+  if (is.null(states)) 
+    return(table)
+  data.frame(states,table)
 }
 
 "numericPart" <-
 function(table) {
   which <- sapply(table,is.numeric)
   as.matrix(table[,which])
+}
+
+"factorPart" <-
+function(table) {
+  which <- sapply(table,is.factor)
+  table[,which]
 }

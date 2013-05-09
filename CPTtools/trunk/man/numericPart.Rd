@@ -1,9 +1,12 @@
 \name{numericPart}
 \alias{numericPart}
-\title{Converts a mixed data frame to a numeric matrix.}
+\alias{factorPart}
+\title{Splits a mixed data frame into a numeric matrix and a factor part.}
 \description{
-  Converts a \code{data.frame} to a \code{matrix}, by dropping columns
-  which contain non-numeric data.
+  The function \code{numericPart()} converts a \code{data.frame} to a
+  \code{matrix}, by dropping columns which contain non-numeric data.
+  The function \code{factorPart} grabs the state information by
+  selecting only columns which are factors.
 }
 \usage{
 numericPart(table)
@@ -12,10 +15,11 @@ numericPart(table)
   \item{table}{A \code{data.frame} object.}
 }
 \details{
-  The primary purpose is to convert a conditional probability
+  The primary purpose is to split a conditional probability
   distribution in data frame format (with a set of factor rows
   identifying the states of the parent variables) to a table of just the
-  numbers.  It may have other uses as well.
+  numbers, and a data frame of just the factors so that they can be
+  tackled separately.
 
 }
 \value{
