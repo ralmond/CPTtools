@@ -77,7 +77,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory
   rules, link, linkScale)}, and let \eqn{x_{i,j} be the corresponding
   elements of \code{postTable}.  The \code{mapDPC} function uses
   \code{\link[stats4]{optim}} to find the value of the parameters that
-  minimizes the deviance, \deqn{-2*\sum_i \sum_j x_{i,j} \log(p_{i,j}).  
+  minimizes the deviance, \deqn{-2*\sum_i \sum_j x_{i,j} \log(p_{i,j}).}  
 
 
 }
@@ -165,4 +165,4 @@ response pattern of graded scores.  \emph{Psychometrika Monograph No.
 
 }
 \keyword{ distribution }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
