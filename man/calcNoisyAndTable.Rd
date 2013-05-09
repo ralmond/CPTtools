@@ -93,7 +93,6 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
 
 }
 \author{Russell Almond}
-}
 \note{
   This is related to the DINA and NIDA models, but uses a slightly
   different parameterization.  In particular, if the \code{noSlip}
