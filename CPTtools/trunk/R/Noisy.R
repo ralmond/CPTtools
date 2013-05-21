@@ -3,7 +3,7 @@
 
 calcNoisyAndTable <-
   function (skillLevels,obsLevels=c("True","False"),
-            noSlip=1,bypass=rep(0,length(skillLevels)),
+            bypass=rep(0,length(skillLevels)),noSlip=1,
             thresholds = sapply(skillLevels,function(states) states[1])) {
   pdims <- sapply(skillLevels,length)
   ## Logical values indicating if each value has met the threshold.
@@ -21,7 +21,7 @@ calcNoisyAndTable <-
 
 calcNoisyAndFrame <-
   function (skillLevels,obsLevels=c("True","False"),
-            noSlip=1,bypass=rep(0,length(skillLevels)),
+            bypass=rep(0,length(skillLevels)),noSlip=1,
             thresholds = sapply(skillLevels,function(states) states[1])) {
   result <- data.frame(expand.grid(skillLevels),
                        calcNoisyAndTable(skillLevels,paste(obsLevels),
@@ -35,8 +35,8 @@ calcNoisyAndFrame <-
 }
 
 calcNoisyOrTable <- function (skillLevels,obsLevels=c("True","False"),
-                                noGuess=1,suppression=rep(0,length(skillLevels)),
-                                thresholds = sapply(skillLevels,function(states) states[1]))
+                              suppression=rep(0,length(skillLevels)),noGuess=1,
+                              thresholds = sapply(skillLevels,function(states) states[1]))
 {
   pdims <- sapply(skillLevels,length)
   ## Logical values indicating if each value has met the threshold.
@@ -54,7 +54,7 @@ calcNoisyOrTable <- function (skillLevels,obsLevels=c("True","False"),
 
 calcNoisyOrFrame <-
   function (skillLevels,obsLevels=c("True","False"),
-            noGuess=1,suppression=rep(0,length(skillLevels)),
+            suppression=rep(0,length(skillLevels)),noGuess=1,
             thresholds = sapply(skillLevels,function(states) states[1])) {
   result <- data.frame(expand.grid(skillLevels),
                        calcNoisyOrTable(skillLevels,paste(obsLevels),
@@ -66,5 +66,7 @@ calcNoisyOrFrame <-
   }
   result
 }
+
+
 
 

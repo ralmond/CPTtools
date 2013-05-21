@@ -1,7 +1,21 @@
-Rdocs for  
-  ‘mapDPC’
-
 TODO add noisy-min/max
+calcNoisyMinTable <-
+  function (skillLevels,obsLevels, bypass,
+            noSlip=rep(1,length(obsLevels-1))) {
+  pdims <- sapply(skillLevels,length)
+  ## Logical values indicating if each value has met the threshold.
+  svals <- vector("list",length(skillLevels))
+  for (j in 1:length(skillLevels)) {
+    svals[[j]] <- rev(cumsum(rev(skillLevels[[j]]==thresholds[j])))
+  }
+  ss <- as.matrix(do.call("expand.grid",svals))
+  rr <- sweep(ss,2,bypass,function(s,r) ifelse(s,1,r))
+  probs <- noSlip*apply(rr,1,prod)
+  probs <- cbind(probs,1-probs)
+  colnames(probs)<-obsLevels
+  probs
+}
+
 
 TODO -- Test suite
 

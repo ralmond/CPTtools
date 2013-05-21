@@ -1,3 +1,7 @@
+2013-05-19  Russell G. Almond  <ralmond@Limu>
+
+	* DESCRIPTION (Version): merged with WOE
+
 2013-05-08  Russell G. Almond  <ralmond@Limu>
 
 	* R/hyperDirichlet.R ("scaleTable"): Fixed a problem with changes

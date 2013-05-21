@@ -78,7 +78,6 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
       map$betas[[kk]] <- map$par[ibeta[[kk]]]
     }
   }
-  
   map 
 }
 
