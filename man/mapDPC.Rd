@@ -74,7 +74,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory
   Let \eqn{p_{i,j}} be the value in the \eqn{i}th row and the \eqn{j}th
   column of the conditional probability table output from
   \code{\link{calcDPCTable}(skillLevels, obsLevels, lnAlphas, betas,
-  rules, link, linkScale)}, and let \eqn{x_{i,j} be the corresponding
+  rules, link, linkScale)}, and let \eqn{x_{i,j}} be the corresponding
   elements of \code{postTable}.  The \code{mapDPC} function uses
   \code{\link[stats4]{optim}} to find the value of the parameters that
   minimizes the deviance, \deqn{-2*\sum_i \sum_j x_{i,j} \log(p_{i,j}).}  
@@ -84,16 +84,16 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory
 \value{
   A list with components:
   \describe{
-    \item[lnAlphas]{A vetor of the same structure as \code{lnAlphas}
+    \item{lnAlphas}{A vetor of the same structure as \code{lnAlphas}
       containing the estimated values.}
-    \item[betas]{A vetor of the same structure as \code{betas}
+    \item{betas}{A vetor of the same structure as \code{betas}
       containing the estimated values.}
-    \item[linkScale]{If the \code{linkScale} was supplied, the estimated
+    \item{linkScale}{If the \code{linkScale} was supplied, the estimated
       value.}
-    \item[covergence]{An integer code. \code{0} indicates successful
+    \item{covergence}{An integer code. \code{0} indicates successful
       completion, postive values are various error codes (see
       \code{\link[stats4]{optim}}).}
-    \item[value]{The deviance of the fit DPC model.}
+    \item{value}{The deviance of the fit DPC model.}
   }
   The list is the output of the \code{\link[stats4]{optim}}) function,
   which has other components in the output.  See the documentation of

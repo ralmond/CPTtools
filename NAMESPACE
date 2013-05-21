@@ -16,6 +16,14 @@ export(rescaleTable, normalizeTable, scaleMatrix,
        getTableParents,getTableStates, scaleTable,
        areaProbs, buildRegressions, buildRegressionTables)
 
+## From WOE package
+export(betaci, proflevelci,
+       stackedBarplot, compareBars, stackedBars, compareBars2,
+       colorspread,
+       buildFactorTab, build2FactorTab, buildMarginTab,
+       marginTab,parseProbVec, readHistory,
+       mutualInformation, ciTest, localDepTest,
+       woeBal, woeHist)
 
 ## S3method(print, NeticaBN)
 ## S3method(toString, NeticaBN)

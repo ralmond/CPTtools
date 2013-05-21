@@ -10,10 +10,10 @@
 }
 \usage{
 calcNoisyOrTable(skillLevels, obsLevels = c("True", "False"),
-                 noGuess = 1, suppression = rep(0, length(skillLevels)),
+                 suppression = rep(0, length(skillLevels)), noGuess = 1,
                  thresholds = sapply(skillLevels, function(states) states[1]))
 calcNoisyOrFrame(skillLevels, obsLevels = c("True", "False"),
-                 noGuess = 1, suppression = rep(0, length(skillLevels)),
+                 suppression = rep(0, length(skillLevels)), noGuess = 1,
                  thresholds = sapply(skillLevels, function(states) states[1]))
 }
 \arguments{
@@ -23,12 +23,12 @@ calcNoisyOrFrame(skillLevels, obsLevels = c("True", "False"),
     output variables from highest to lowest.  As a special case, can
     also be a vector of integers.  Its length should be 2, and the first
     value is considered to be logically equivalent to "true".}
-  \item{noGuess}{A scalar value between 0 and 1.  This represents the
-    probability that the the output will be false even when all of the
-    inputs are false (e.g., 1-guessing probability).}
   \item{suppression}{A vector of the same length as \code{skillLevels}.  For
     each parent variable, this represents the probabity that the process
     will act as if that input condition is not met, even if it is met.}
+  \item{noGuess}{A scalar value between 0 and 1.  This represents the
+    probability that the the output will be false even when all of the
+    inputs are false (e.g., 1-guessing probability).}
   \item{thresholds}{If the input variables have more than two states,
     values that are equal to or higher than this threshold are
     considered true.  It is assumed that the states of the variables are

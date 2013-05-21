@@ -1,19 +1,25 @@
 \name{calcNoisyAndTable}
 \alias{calcNoisyAndTable}
+\alias{calcNoisyMinTable}
 \alias{calcNoisyAndFrame}
-\title{Calculate the conditional probability table for a Noisy-And distribution}
+\alias{calcNoisyMinFrame}
+\title{Calculate the conditional probability table for a Noisy-And or
+  Noisy-Min distribution}
 \description{
   Calculates the conditional probability table for a noisy-and
   distribution.  This follows a logical model where all inputs must be
   true for the output to be true; however, some "noise" is allowed that
-  produces random deviations from the pure logic. 
+  produces random deviations from the pure logic.  The noisy-min is a
+  generalization in which all variables are ordered, and the weakest of
+  the parent variables drives the conditional probabilities of the child
+  variable. 
 }
 \usage{
 calcNoisyAndTable(skillLevels, obsLevels = c("True", "False"),
-                  noSlip = 1, bypass = rep(0, length(skillLevels)),
+                  bypass = rep(0, length(skillLevels)), noslip=1,
                   thresholds = sapply(skillLevels, function(states) states[1]))
 calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
-                  noSlip = 1, bypass = rep(0, length(skillLevels)),
+                  bypass = rep(0, length(skillLevels)), noslip=1,
                   thresholds = sapply(skillLevels, function(states) states[1]))
 }
 \arguments{
@@ -57,6 +63,9 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
   Any values which are equal to or higher than the \code{threshold} for
   that variable are assumed to be true.  (In this case, higher means
   closer to the the begining of the list of possible values.)
+
+  The noisy-min is a generalization
+
   
 }
 \value{
