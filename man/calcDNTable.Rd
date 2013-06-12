@@ -65,7 +65,7 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
   distribuiton supplies five functions appropriate for use with
   \code{calcDSTable}:  \code{\link{Compensatory}},
   \code{\link{Conjunctive}}, and \code{\link{Disjunctive}},
-  \code{\link{OffsetConjuctive}}, and \code{\link{OffsetDisjunctive}}.
+  \code{\link{OffsetConjunctive}}, and \code{\link{OffsetDisjunctive}}.
   The last two have a slightly different parameterization:  \code{alpha}
   is assumed to be a scalar and \code{betas} parameter is vector
   valued. Note that the discrimination and difficulty parameters are
@@ -121,7 +121,7 @@ Morgan Kaufmann, 137--143.
 \seealso{\code{\link{effectiveThetas}},\code{\link{Compensatory}},
   \code{\link{OffsetConjunctive}},\code{\link{eThetaFrame}},
   \code{\link{calcDSTable}}, \code{\link{calcDNllike}},
-  \code{\link{calcDPCTable}}, \code{\link{calcDGRTable}},
+  \code{\link{calcDPCTable}}, 
   \code{\link[base]{expand.grid}}
 }
 \examples{

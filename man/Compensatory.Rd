@@ -56,8 +56,7 @@ Morgan Kaufmann, 137--143.
 \author{Russell Almond}
 \seealso{\code{\link{effectiveThetas}},\code{\link{calcDSTable}},
   \code{\link{calcDNTable}}, \code{\link{calcDPCTable}},
-  \code{\link{calcDGRTable}}, \code{\link{OffsetConjunctive}},
-  \code{\link{eThetaFrame}}
+  \code{\link{OffsetConjunctive}}, \code{\link{eThetaFrame}}
 }
 \note{
   These functions expect the unlogged discrimination parameters, while

@@ -8,9 +8,11 @@
   Bayes net scoring.
 }
 \usage{
-stackedBars(data, profindex, ..., ylim = c(min(offsets) - 0.25, max(1 + offsets)), cex.names = par("cex.axis"), digits = 2)
+stackedBars(data, profindex, ...,
+            ylim = c(min(offsets) - 0.25, max(1 + offsets)),
+            cex.names = par("cex.axis"), percent=TRUE,
+            digits = 2*(1-percent), labrot=FALSE)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data}{A \code{data.frame} where each column is a probability vector.}
   \item{profindex}{The index of the proficiency which should be used as
@@ -18,7 +20,10 @@ stackedBars(data, profindex, ..., ylim = c(min(offsets) - 0.25, max(1 + offsets)
   \item{\dots}{Graphical arguments passed to \code{barplot}. }
   \item{ylim}{ Default limits for Y axis.}
   \item{cex.names}{ Magnification for names. }
+  \item{percent}{Logical value.  If true data values are treated as
+    percentages instead of probabilities.}
   \item{digits}{ Number of digits for overlayed numeric variables.}
+  \item{rotlab}{??}
 }
 \details{
   This plot type assumes that each column in its first argument is a
@@ -31,7 +36,7 @@ stackedBars(data, profindex, ..., ylim = c(min(offsets) - 0.25, max(1 + offsets)
 \references{ This plot type was initially developed in Jody Underwood's
   Evolve project }
 \author{Russell Almond}
-\seealso{\code{\link{compareBars}}, \code{\link{Colors}},
+\seealso{\code{\link{compareBars}}, \code{\link{colorspread}},
   \code{\link{buildMarginTab}}, \code{\link{marginTab}},
   \code{\link[graphics]{barplot}}}
 \examples{

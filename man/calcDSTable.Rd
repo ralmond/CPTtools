@@ -66,7 +66,7 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   distribuiton supplies five functions appropriate for use with
   \code{calcDSTable}:  \code{\link{Compensatory}},
   \code{\link{Conjunctive}}, and \code{\link{Disjunctive}},
-  \code{\link{OffsetConjuctive}}, and \code{\link{OffsetDisjunctive}}.
+  \code{\link{OffsetConjunctive}}, and \code{\link{OffsetDisjunctive}}.
   The last two have a slightly different parameterization:  \code{alpha}
   is assumed to be a scalar and \code{betas} parameter is vector
   valued. Note that the discrimination and difficulty parameters are

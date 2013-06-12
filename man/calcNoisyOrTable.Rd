@@ -100,7 +100,7 @@ calcNoisyOrFrame(skillLevels, obsLevels = c("True", "False"),
 \seealso{
   \code{\link{calcDSTable}}, \code{\link{calcDNTable}},
   \code{\link{calcDPCTable}}, \code{\link[base]{expand.grid}},
-  \code{\link{calcNoisyOrTable}}, \code{\link{calcNoisyGateTable}}
+  \code{\link{calcNoisyOrTable}}
 }
 \examples{
 

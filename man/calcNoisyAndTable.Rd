@@ -1,8 +1,6 @@
 \name{calcNoisyAndTable}
 \alias{calcNoisyAndTable}
-\alias{calcNoisyMinTable}
 \alias{calcNoisyAndFrame}
-\alias{calcNoisyMinFrame}
 \title{Calculate the conditional probability table for a Noisy-And or
   Noisy-Min distribution}
 \description{
@@ -16,10 +14,10 @@
 }
 \usage{
 calcNoisyAndTable(skillLevels, obsLevels = c("True", "False"),
-                  bypass = rep(0, length(skillLevels)), noslip=1,
+                  bypass = rep(0, length(skillLevels)), noSlip=1,
                   thresholds = sapply(skillLevels, function(states) states[1]))
 calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
-                  bypass = rep(0, length(skillLevels)), noslip=1,
+                  bypass = rep(0, length(skillLevels)), noSlip=1,
                   thresholds = sapply(skillLevels, function(states) states[1]))
 }
 \arguments{
@@ -113,7 +111,7 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
 \seealso{
   \code{\link{calcDSTable}}, \code{\link{calcDNTable}},
   \code{\link{calcDPCTable}}, \code{\link[base]{expand.grid}},
-  \code{\link{calcNoisyOrTable}}, \code{\link{calcNoisyGateTable}}
+  \code{\link{calcNoisyOrTable}}
 }
 \examples{
 

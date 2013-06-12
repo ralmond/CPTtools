@@ -15,7 +15,7 @@ colorspread(col, steps, maxsat = FALSE, rampval = FALSE)
 \arguments{
   \item{col}{
     A color in any format suitable as input to
-    \code{\link[grDevice]{col2rgb}}. 
+    \code{\link[grDevices]{col2rgb}}. 
 }
   \item{steps}{
     A integer describing the number of colors to create.
@@ -31,8 +31,8 @@ colorspread(col, steps, maxsat = FALSE, rampval = FALSE)
 }
 \details{
   The colour is converted to a RGB value using
-  \code{\link[grDevice]{col2rgb}} and then to an HSV value using
-  \code{\link[grDevice]{rgb2hsv}}.  The saturation is then scaled into
+  \code{\link[grDevices]{col2rgb}} and then to an HSV value using
+  \code{\link[grDevices]{rgb2hsv}}.  The saturation is then scaled into
   \code{steps} equal intervals.  If requested, the \code{value} is
   scaled as well.
 }

@@ -9,18 +9,18 @@
   combination function given in the \code{model} argument.
 }
 \usage{
-eThetaFrame(skillLevels, lnAlphas, beta, model = "Compensatory")
+eThetaFrame(skillLevels, lnAlphas, beta, rule = "Compensatory")
 }
 \arguments{
   \item{skillLevels}{A list of character vectors giving names of levels
     for each of the condition variables.}
   \item{lnAlphas}{A vector of log slope parameters.  Its length should
     be either 1 or the length of \code{skillLevels}, depending on the
-    choice of \code{model}.}
+    choice of \code{rule}.}
   \item{beta}{A vector of difficulty (-intercept) parameters. Its length
     should be either 1 or the length of \code{skillLevels}, depending on
-    the choice of \code{model}.}
-  \item{model}{Function for computing effective theta (see Details).}
+    the choice of \code{rule}.}
+  \item{rule}{Function for computing effective theta (see Details).}
 }
 \details{
   The DiBello framework for creating for creating conditional
@@ -33,7 +33,7 @@ eThetaFrame(skillLevels, lnAlphas, beta, model = "Compensatory")
     \item{}{For each possible skill profile (combination of states of
       the parent variables) the effective thetas are combined using a
       combination function.  This produces an \dQuote{effective theta}
-      for that skill profile.  The function \code{model} determines the
+      for that skill profile.  The function \code{rule} determines the
       rule for combination.}
     \item{}{The effective theta is input into a link function (e.g.,
       Samejima's graded-response function) to produce a probability
@@ -53,14 +53,14 @@ eThetaFrame(skillLevels, lnAlphas, beta, model = "Compensatory")
 
     The combination of the individual effective theta values into a joint
   value for effective theta is done by the function reference by
-  \code{model}.  This should be a function of three arguments:
+  \code{rule}.  This should be a function of three arguments:
   \code{theta} --- the vector of effective theta values for each parent,
   \code{alphas} --- the vector of discrimination parameters, and
   \code{beta} --- a scaler value giving the difficulty.  The initial
   distribuiton supplies five functions appropriate for use with
   \code{calcDSTable}:  \code{\link{Compensatory}},
   \code{\link{Conjunctive}}, and \code{\link{Disjunctive}},
-  \code{\link{OffsetConjuctive}}, and \code{\link{OffsetDisjunctive}}.
+  \code{\link{OffsetConjunctive}}, and \code{\link{OffsetDisjunctive}}.
   The last two have a slightly different parameterization:  \code{alpha}
   is assumed to be a scalar and \code{betas} parameter is vector
   valued. Note that the discrimination and difficulty parameters are
@@ -90,7 +90,7 @@ Morgan Kaufmann, 137--143.
 \code{\link{effectiveThetas}},\code{\link{Compensatory}},
   \code{\link{OffsetConjunctive}},\code{\link{calcDNTable}},
   \code{\link{calcDSTable}}, 
-  \code{\link{calcDPCTable}}, \code{\link{calcDGRTable}},
+  \code{\link{calcDPCTable}}, 
   \code{\link[base]{expand.grid}}
 }
 \examples{
