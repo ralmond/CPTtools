@@ -215,7 +215,7 @@ cptPC1 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,
 
 
 ## Complex model, different rules for different levels
-cptPC2 <- calcDPCTable(list(S1=skill1l,S2=skill2l),credit,
+cptPC2 <- calcDPCTable(list(S1=skill1l,S2=skill2l),pcreditL,
                           list(full=log(1),partial=log(c(S1=1,S2=.75))),
                           betas=list(full=c(0,999),partial=1.0),
                           rule=list("OffsetDisjunctive","Compensatory"))

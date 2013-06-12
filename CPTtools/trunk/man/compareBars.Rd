@@ -10,7 +10,13 @@
   compare the prior and posterior probabilities for each variable.
 }
 \usage{
-compareBars(data1, data2, profindex, groupNames = c("Prior", "Post"), ..., ylim = c(min(offsets) - 0.25, max(1 + offsets)), cex.names = par("cex.axis"), digits = 2)
+compareBars(data1, data2, profindex,
+            groupNames = c(deparse(data1), deparse(data2)), ...,
+            ylim = c(min(offsets) - 0.25, max(1 + offsets)),
+            cex.names = par("cex.axis"), digits = 2, legend.loc = c(0,1),
+            legend.cex = par("cex"), col = NULL, col1 = NULL,
+            col2 = NULL, main = NULL, sub = NULL, xlab = NULL,
+            ylab = NULL, rotlab = FALSE)
 }
 
 \arguments{
@@ -22,11 +28,30 @@ compareBars(data1, data2, profindex, groupNames = c("Prior", "Post"), ..., ylim 
     \code{data2} respectively.}
   \item{\dots}{ Other arguments to \code{barplot}.}
   \item{ylim}{ Default limits for Y axis.}
-  \item{cex.names}{ Magnification for names. }
+  \item{cex.names}{Character magnification for names. }
   \item{digits}{ Number of digits for overlayed numeric variables.}
+  \item{legend.loc}{Location for legend, see
+    \code{\link[graphics]{legend}}.}
+  \item{legend.cex}{Character magnification for legend. }
+  \item{col}{??}
+  \item{col1}{??}
+  \item{col2}{??}
+  \item{main}{Character scalar giving main title (see
+    \code{\link[graphics]{title}}). 
+}
+  \item{sub}{Character scalar giving sub title (see
+    \code{\link[graphics]{title}}). 
+}
+  \item{xlab}{Character scalar giving x-axis label (see
+    \code{\link[graphics]{title}}). 
+}
+  \item{ylab}{Character scalar giving x-axis label (see
+    \code{\link[graphics]{title}}). 
+  }
+  \item{rotlab}{??}
 }
 \author{Russell Almond }
-\seealso{\code{\link{stackedBars}}, \code{\link{Colors}},
+\seealso{\code{\link{stackedBars}}, \code{\link{colorspread}},
   \code{\link{buildFactorTab}}, \code{\link[graphics]{barplot}}}
 \examples{
 margins.prior <- data.frame (

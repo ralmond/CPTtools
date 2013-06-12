@@ -12,7 +12,9 @@
   parameters. 
 }
 \usage{
-mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory", link = "partialCredit", ...)
+mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
+       rules = "Compensatory", link = "partialCredit",
+       linkScale=NULL, ...) 
 }
 \arguments{
   \item{postTable}{
@@ -55,7 +57,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory
     \code{link} function.}  
 
   \item{\dots}{
-    Additional arguments passed to the \link[stats4]{optim} function.
+    Additional arguments passed to the \link[stats]{optim} function.
 }
 }
 \details{
@@ -76,7 +78,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory
   \code{\link{calcDPCTable}(skillLevels, obsLevels, lnAlphas, betas,
   rules, link, linkScale)}, and let \eqn{x_{i,j}} be the corresponding
   elements of \code{postTable}.  The \code{mapDPC} function uses
-  \code{\link[stats4]{optim}} to find the value of the parameters that
+  \code{\link[stats]{optim}} to find the value of the parameters that
   minimizes the deviance, \deqn{-2*\sum_i \sum_j x_{i,j} \log(p_{i,j}).}  
 
 
@@ -92,10 +94,10 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas, rules = "Compensatory
       value.}
     \item{covergence}{An integer code. \code{0} indicates successful
       completion, postive values are various error codes (see
-      \code{\link[stats4]{optim}}).}
+      \code{\link[stats]{optim}}).}
     \item{value}{The deviance of the fit DPC model.}
   }
-  The list is the output of the \code{\link[stats4]{optim}}) function,
+  The list is the output of the \code{\link[stats]{optim}}) function,
   which has other components in the output.  See the documentation of
   that function for details.
 }
@@ -117,7 +119,7 @@ response pattern of graded scores.  \emph{Psychometrika Monograph No.
 }
 \author{Russell Almond}
 \seealso{
-  \code{\link[stats4]{optim}}), \code{\link{calcDPCTable}},\code{\link{Compensatory}},
+  \code{\link[stats]{optim}}), \code{\link{calcDPCTable}},\code{\link{Compensatory}},
   \code{\link{OffsetConjunctive}},\code{\link{gradedResponse}},
   \code{\link{partialCredit}} 
 }

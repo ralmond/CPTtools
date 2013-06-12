@@ -8,7 +8,9 @@ export(calcDDTable, calcDDFrame,
        Compensatory, Conjunctive, Disjunctive,
        OffsetConjunctive, OffsetDisjunctive,
        dataTable, calcDSllike, calcDNllike,
-       mapDPC)
+       mapDPC,
+       calcNoisyAndTable, calcNoisyAndFrame,
+       calcNoisyOrTable, calcNoisyOrFrame)
 
 export(rescaleTable, normalizeTable, scaleMatrix,
        structMatrix, mcSearch, buildParentList,
@@ -19,7 +21,7 @@ export(rescaleTable, normalizeTable, scaleMatrix,
 ## From WOE package
 export(betaci, proflevelci,
        stackedBarplot, compareBars, stackedBars, compareBars2,
-       colorspread,
+       colorspread, OCP, OCP2,
        buildFactorTab, build2FactorTab, buildMarginTab,
        marginTab,parseProbVec, readHistory,
        mutualInformation, ciTest, localDepTest,

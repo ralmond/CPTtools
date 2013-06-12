@@ -1,3 +1,7 @@
+2013-05-27  Russell G. Almond  <ralmond@Limu>
+
+	* R/OCP.R ("OCP2"): Added two set version of OCP.
+
 2013-05-19  Russell G. Almond  <ralmond@Limu>
 
 	* DESCRIPTION (Version): merged with WOE

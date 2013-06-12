@@ -52,7 +52,7 @@ Morgan Kaufmann, 137--143.
 \seealso{
   \code{\link{effectiveThetas}},\code{\link{calcDSTable}},
   \code{\link{calcDNTable}},\code{\link{calcDPCTable}},
-  \code{\link{calcDGRTable}}, \code{\link{Compensatory}},
+  \code{\link{Compensatory}},
   \code{\link{eThetaFrame}}
 }
 \note{
@@ -68,6 +68,7 @@ Morgan Kaufmann, 137--143.
   as they have the same signature as these functions.
 }
 \examples{
+  skill <- c("High","Medium","Low")
   thetas <- expand.grid(list(S1=(3:1 -2), S2 = (3:1 -2)))
   OffsetDisjunctive(thetas, 1.0, c(S1=0.25,S2=-0.25))
   OffsetConjunctive(thetas, 1.0, c(S1=0.25,S2=-0.25))

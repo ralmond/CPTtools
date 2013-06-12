@@ -7,7 +7,7 @@
 }
 \usage{
 woeBal(hist, pos, neg, title = "Evidence Balance Sheet",
-       col = rev(SlateGray), lcex = 0.65)
+       col = rev(colorspread("slategray",ncol(hist),maxsat=TRUE)), lcex = 0.65)
 }
 \arguments{
   \item{hist}{A matrix whose rows represent time points (after tests)
@@ -58,7 +58,7 @@ woeBal(hist, pos, neg, title = "Evidence Balance Sheet",
   evidence bars.
 }
 \seealso{\code{\link{readHistory}}, \code{\link{woeHist}},
-  \code{\link[base]{barplot}}, \code{Colors}}
+  \code{\link[graphics]{barplot}}, \code{Colors}}
 \examples{
 \dontrun{
   allcorrect <- parseProbVec("CorrectSequence.csv")
