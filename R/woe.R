@@ -54,21 +54,30 @@ woeHist <- function (hist, pos, neg) {
 }
 
 
-woeBal <- function (hist, pos, neg, title="Evidence Balance Sheet",
+woeBal <- function (hist, pos, neg, obs=NULL, title="Evidence Balance Sheet",
                     col=rev(colorspread("slategray",ncol(hist),maxsat=TRUE)),
+                    posCol="cyan",negCol="red",
+                    stripCol=c("white","lightgray"),
                     lcex=.65) {
-  par(mfrow=c(1,3),oma=c(0,0,2,0))
+  oldpar <- par(mfrow=c(1,3),oma=c(0,2,2,2),mar=c(5,0.1,4,0.1)+.01)
   timesteps <- nrow(hist)
-  plot(c(0,1),c(0,timesteps),xlab="",ylab="",type="n",
-       frame=FALSE,xaxt="n",yaxt="n")
-  text(0,(timesteps:1)-.5,row.names(hist),adj=c(0,0.5),cex=lcex)
-  barplot(t(hist[timesteps:1,]),horiz=TRUE,names.arg=NULL,col=col,main="Probabilities")
+  mids <- barplot(c(rep(1,timesteps-1),0),xlab="",ylab="",
+                  xaxt="n",yaxt="n",col=stripCol,horiz=TRUE,
+                  border=NA)
+  text(0,rev(mids),row.names(hist),adj=c(0,0.5),cex=lcex)
+  if (!is.null(obs))
+    text(1,rev(mids),obs,adj=c(1,0.5),cex=lcex)
+
+  barplot(t(hist[timesteps:1,]),horiz=TRUE,names.arg=NULL,col=col,
+          main="Probabilities",yaxt="n")
   woe <- woeHist(hist,pos,neg)
   barplot(rev(c(NA,woe)),horiz=TRUE,names.arg=NULL,
-          col=c(ifelse(rev(woe)<0,"red","cyan"),"black"),cex.main=lcex,
+          col=c(ifelse(rev(woe)<0,negCol,posCol),"black"),cex.main=lcex,
           main=paste("WOE for ",paste(pos,collapse=","),
-            " vs ",paste(neg,collapse=",")))
+            " vs ",paste(neg,collapse=",")),
+          yaxt="n")
   mtext(title,outer=TRUE)
-  invisible(woe)
+  par(oldpar)
+  invisible(mids)
 }
   

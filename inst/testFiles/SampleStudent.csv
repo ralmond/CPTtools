@@ -1,0 +1,14 @@
+Task,Acc,H,M,L
+Initial,NA,0.183,0.26,0.557
+SolveGeoProb2a,0,0.16,0.261,0.579
+SolveGeoProb3a,1,0.35,0.353,0.297
+SolveGeoProb3b,1,0.643,0.286,0.071
+SolveGeoProb2b,1,0.827,0.162,0.012
+VisExtTable2a,1,0.89,0.107,0.003
+SolveGeoProb1a,0,0.782,0.209,0.009
+SolveGeoProb1b,1,0.821,0.175,0.004
+VisExtVerbRule2a,1,0.854,0.144,0.002
+ModExtTableGeo3a,1,0.898,0.101,0.001
+ExamplesGeo2a,0,0.871,0.128,0.001
+VisExplVerbRule3a,1,0.907,0.093,0.001
+VerbRuleModGeo3a,1,0.954,0.046,0

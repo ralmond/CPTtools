@@ -6,8 +6,10 @@
   distributions.  
 }
 \usage{
-woeBal(hist, pos, neg, title = "Evidence Balance Sheet",
-       col = rev(colorspread("slategray",ncol(hist),maxsat=TRUE)), lcex = 0.65)
+woeBal(hist, pos, neg, obs=NULL, title = "Evidence Balance Sheet",
+       col = rev(colorspread("slategray",ncol(hist),maxsat=TRUE)),
+       posCol="cyan", negCol="red", stripCol=c("white","lightgray"),
+       lcex = 0.65)
 }
 \arguments{
   \item{hist}{A matrix whose rows represent time points (after tests)
@@ -16,8 +18,17 @@ woeBal(hist, pos, neg, title = "Evidence Balance Sheet",
     \dQuote{postivie}}
   \item{neg}{Names or numbers of states which should be regarded as
     \dQuote{negative}}
+  \item{obs}{An optional character vector of the same length as the
+    number of rows of \code{hist} giving the value observed at each step}
   \item{title}{Title for plot}
-  \item{col}{A list of color values for probability bars}
+  \item{col}{A list of color values for probability bars.}
+  \item{posCol}{The color to be used for bars showing positive weights
+    of evidence.} 
+  \item{negCol}{The color to be used for bars showing negative weights
+    of evidence.}
+  \item{stripCol}{The colors to be used for the time step labels.
+    Setting this to a vector of two colors creates alternate color
+    stripes.  Set this to "white" to disable that effect.}
   \item{lcex}{Character expansion size for labels.}
 }
 \details{
@@ -36,10 +47,15 @@ woeBal(hist, pos, neg, title = "Evidence Balance Sheet",
   are meant to describe that partition.  They can be any expression
   suitable for selecting columns from the \code{hist} matrix.  This
   function calls \code{woeHist()} to calculate weights of evidence.
+
+  The row names of \code{hist} are printed left-justified in the
+  leftmost column.  If observed values (\code{obs}) are supplied, they
+  are printed right justified in the same column.
   
 }
 \value{
-  The output of running \code{woeHist(hist,pos,neg)} is returned invisibly.
+  The midpoints of the bars (see \code{\link[graphics]{barplot}}) are
+  returned invisibly.
 }
 \references{
   Good, I. (1971) The probabilistic explication of information,
@@ -60,11 +76,17 @@ woeBal(hist, pos, neg, title = "Evidence Balance Sheet",
 \seealso{\code{\link{readHistory}}, \code{\link{woeHist}},
   \code{\link[graphics]{barplot}}, \code{Colors}}
 \examples{
-\dontrun{
-  allcorrect <- parseProbVec("CorrectSequence.csv")
-  woeBal(allcorrect,c("High"),c("Medium","Low"))
-  woeBal(allcorrect,1:2,3,col=rev(sienna))
-}
+
+sampleSequence <- read.csv(paste(library(help="CPTtools")$path,
+                                "testFiles","SampleStudent.csv",
+                                sep=.Platform$file.sep),
+                           header=TRUE,row.names=1)
+
+woeBal(sampleSequence[,c("H","M","L")],c("H"),c("M","L"),lcex=1.25)
+woeBal(sampleSequence[,c("H","M","L")],c("H"),c("M","L"),
+      obs=sampleSequence[,"Acc"],lcex=1.25)
+
+
 }
 \keyword{hplot}% at least one, from doc/KEYWORDS
 
