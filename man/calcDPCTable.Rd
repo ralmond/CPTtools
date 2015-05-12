@@ -13,9 +13,15 @@
 }
 \usage{
 calcDPCTable(skillLevels, obsLevels, lnAlphas, betas,
-             rules = "Compensatory", link="partialCredit", linkScale=NULL)
+             rules = "Compensatory", link="partialCredit",
+             linkScale=NULL,
+             tvals=sapply(skillLevels,
+               function (sl) effectiveThetas(length(sl))))
+
 calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas, 
-             rules = "Compensatory", link="partialCredit", linkScale=NULL)
+             rules = "Compensatory", link="partialCredit", linkScale=NULL,
+             tvals=sapply(skillLevels,
+               function (sl) effectiveThetas(length(sl))))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,7 +47,12 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
     probabilities}
   \item{linkScale}{An optional scale parameter for the \code{link}
     function.  This is only used with certain choices of \code{link}
-    function.}  
+    function.}
+  \item{tvals}{A list of the same length ast \code{skillLevels}. Each
+    element should be a numeric vector values on the theta (logistic)
+    scale corresponding to the levels for that parent variable.  The
+    default spaces them equally according to the normal distribution
+    (see \code{\link{effectiveThetas}}).}
 }
 \details{
   The discrete graded response model is a generalization of the
@@ -65,9 +76,14 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   The parent (conditioning) variables are described by the
   \code{skillLevels} argument which should provide for each parent
   variable in order the names of the states ranked from highest to
-  lowest value.  The current implementation uses the function
+  lowest value.  The default implementation uses the function
   \code{\link{effectiveThetas}} to caluclate equally spaced points on
-  the normal curve.  Applying this rule to each parameter value produces
+  the normal curve.  This can be overridden by supplying a \code{tvals}
+  argument.  This should be a list of the same length as
+  \code{skillLevels} with each element having the same length as the
+  corresponding element of \code{skillLevels}.  
+
+  The \code{tvals} (either default or user supplied) are used to create
   a table of rows with values \eqn{\theta_1,\ldots,\theta_K},
   corresponding to all possible combinations of the parent variables
   (using \code{\link[base]{expand.grid}}).

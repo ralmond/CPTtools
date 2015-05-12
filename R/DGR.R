@@ -18,10 +18,12 @@
 
 ### The first one in the list representes the difference between the
 ### highest and next lowest obs state, and so forth.
-calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas, 
-                         rules="Compensatory", link="partialCredit",
-                          linkScale=NULL) {
-  
+calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
+                          rules="Compensatory", link="partialCredit",
+                          linkScale=NULL,
+                          tvals=lapply(skillLevels,
+                              function (sl) effectiveThetas(length(sl)))) {
+
   k <- length(obsLevels)
   if (!is.list(lnAlphas)) lnAlphas <- list(lnAlphas)
   if (length(lnAlphas) != k-1) lnAlphas <- rep(lnAlphas,k-1)
@@ -29,11 +31,10 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
   if (length(betas) != k-1) betas <- rep(betas,k-1)
   if (!is.list(rules)) rules <- list(rules)
   if (length(rules) != k-1) rules <- rep(rules,k-1)
+  if (!is.list(tvals)) tvals <- list(tvals)
 
-  pdims <- sapply(skillLevels,length)
-  tvals <- lapply(pdims,effectiveThetas)
   thetas <- do.call("expand.grid",tvals)
-  
+
   et <- matrix(0,nrow(thetas),k-1)
   for (kk in 1:(k-1)) {
     et[,kk] <- do.call(rules[[kk]],
@@ -43,13 +44,15 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
 }
 
 calcDPCFrame <-
-function (skillLevels, obsLevels, lnAlphas, betas, 
+function (skillLevels, obsLevels, lnAlphas, betas,
           rules="Compensatory", link="partialCredit",
-          linkScale=NULL) {
+          linkScale=NULL,
+          tvals=lapply(skillLevels,
+              function (sl) effectiveThetas(length(sl)))) {
   result <- data.frame(expand.grid(skillLevels),
                        calcDPCTable(skillLevels,paste(obsLevels),
                                     lnAlphas,betas,rules,link,
-                                    linkScale))
+                                    linkScale,tvals))
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
     ## R is "helpfully" fixing our numeric labels.  Need to insist.
