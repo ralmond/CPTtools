@@ -1,3 +1,11 @@
+2015-05-10  Russell G. Almond  <ralmond@Limu>
+
+	* R/DGR.R (calcDPCTable): Fixed tvals argument.
+
+2015-04-27  Russell G. Almond  <ralmond@Limu>
+
+	* R/DGR.R (calcDPCTable,calcDPCFrame): Added tvals argument.
+
 2013-05-27  Russell G. Almond  <ralmond@Limu>
 
 	* R/OCP.R ("OCP2"): Added two set version of OCP.
