@@ -17,32 +17,32 @@ colorspread <- function(col,steps,maxsat=FALSE,rampval=FALSE) {
 
 
 "stackedBarplot" <-
-function (height, width = 1, space = 0.2, names.arg = NULL, 
-    legend.text = NULL, horiz = FALSE, density = NULL, 
-    angle = 45, col = NULL, border = par("fg"), main = NULL, 
-    sub = NULL, xlab = NULL, ylab = NULL, xlim = NULL, ylim = NULL, 
-    xpd = TRUE, axes = TRUE, axisnames = TRUE, cex.axis = par("cex.axis"), 
-    cex.names = par("cex.axis"), newplot = TRUE, 
-    axis.lty = 0, offset = 0, ...) 
+function (height, width = 1, space = 0.2, offset = 0, names.arg = NULL,
+    legend.text = NULL, horiz = FALSE, density = NULL,
+    angle = 45, col = NULL, border = par("fg"), main = NULL,
+    sub = NULL, xlab = NULL, ylab = NULL, xlim = NULL, ylim = NULL,
+    xpd = TRUE, axis=TRUE, axisnames = TRUE, cex.axis = par("cex.axis"),
+    cex.names = par("cex.axis"), newplot = TRUE,
+    axis.lty = 0, ...)
 {
     space <- space * mean(width)
-    if (axisnames && missing(names.arg)) 
-        names.arg <- if (is.matrix(height)) 
+    if (axisnames && missing(names.arg))
+        names.arg <- if (is.matrix(height))
             colnames(height)
         else names(height)
-    if (is.vector(height) || (is.array(height) && (length(dim(height)) == 
+    if (is.vector(height) || (is.array(height) && (length(dim(height)) ==
         1))) {
         height <- cbind(height)
-        if (is.null(col)) 
+        if (is.null(col))
             col <- "grey"
     }
     else if (is.matrix(height)) {
-        if (is.null(col)) 
+        if (is.null(col))
             col <- grey.colors(nrow(height))
     }
     else stop("'height' must be a vector or a matrix")
-    if (is.logical(legend.text)) 
-        legend.text <- if (legend.text && is.matrix(height)) 
+    if (is.logical(legend.text))
+        legend.text <- if (legend.text && is.matrix(height))
             rownames(height)
     NR <- nrow(height)
     NC <- ncol(height)
@@ -56,20 +56,20 @@ function (height, width = 1, space = 0.2, names.arg = NULL,
     w.m <- w.r - delta
     w.l <- w.m - delta
     if (horiz) {
-        if (missing(xlim)) 
-            xlim <- range(-0.01 * height + offset, height + offset, 
+        if (missing(xlim))
+            xlim <- range(-0.01 * height + offset, height + offset,
                 na.rm = TRUE)
-        if (missing(ylim)) 
+        if (missing(ylim))
             ylim <- c(min(w.l), max(w.r))
     }
     else {
-        if (missing(xlim)) 
+        if (missing(xlim))
             xlim <- c(min(w.l), max(w.r))
-        if (missing(ylim)) 
-            ylim <- range(-0.01 * height + offset, height + offset, 
+        if (missing(ylim))
+            ylim <- range(-0.01 * height + offset, height + offset,
                 na.rm = TRUE)
     }
-    opar <- if (horiz) 
+    opar <- if (horiz)
       par(xaxs = "i", xpd = xpd)
     else par(yaxs = "i", xpd = xpd)
     on.exit(par(opar))
@@ -78,24 +78,24 @@ function (height, width = 1, space = 0.2, names.arg = NULL,
       plot.window(xlim, ylim, log = "", ...)
     }
     xyrect <- function(x1, y1, x2, y2, horizontal = TRUE, ...) {
-      if (horizontal) 
+      if (horizontal)
         rect(x1, y1, x2, y2, ...)
       else rect(y1, x1, y2, x2, ...)
     }
     for (i in 1:NC) {
       xyrect(height[1:NR, i] + offset[i], w.l[i],
-             height[-1, i] + offset[i], w.r[i], horizontal = horiz, 
-             angle = angle, density = density, col = col, 
+             height[-1, i] + offset[i], w.r[i], horizontal = horiz,
+             angle = angle, density = density, col = col,
              border = border)
     }
     if (axisnames && !is.null(names.arg)) {
-      at.l <- if (length(names.arg) != length(w.m)) {
-        if (length(names.arg) == NC) 
-          colMeans(w.m)
+      if (length(names.arg) != length(w.m)) {
+        if (length(names.arg) == NC)
+          at.l <- colMeans(w.m)
         else stop("incorrect number of names")
       }
-      else w.m
-      axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty = axis.lty, 
+      else at.l <- w.m
+      axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty = axis.lty,
            cex.axis = cex.names, ...)
     }
     if (!is.null(legend.text)) {
@@ -107,13 +107,13 @@ function (height, width = 1, space = 0.2, names.arg = NULL,
         angle <- rev(angle)
       }
       xy <- par("usr")
-      legend(xy[2] - xinch(0.1), xy[4] - yinch(0.1), legend = legend.text, 
-             angle = angle, density = density, fill = legend.col, 
+      legend(xy[2] - xinch(0.1), xy[4] - yinch(0.1), legend = legend.text,
+             angle = angle, density = density, fill = legend.col,
              xjust = 1, yjust = 1)
     }
     if (newplot)
       title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...)
-    if (axes) 
+    if (axis)
       axis(if (horiz) 1 else 2, cex.axis = cex.axis, ...)
     invisible(w.m)
 }
@@ -165,7 +165,7 @@ function (data1, data2, profindex,
           ylim = c(min(offsets)-.25,max(1+offsets)),
           cex.names=par("cex.axis"), digits=2,
           legend.loc=c(0,1),legend.cex=par("cex"),
-          col=NULL, col1= NULL, col2=NULL,
+          col=par("col"), col1= NULL, col2=NULL,
           main=NULL, sub=NULL, xlab=NULL, ylab=NULL,rotlab=FALSE){
   if (missing(col1) && !missing(col))
     col1 <- col
@@ -200,11 +200,11 @@ function (data1, data2, profindex,
   title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...)
   names <- rep("",npair)
   xpos1 <- stackedBarplot(data1,space=gaps1,offset=offsets1,
-                         width=1, cex.names=cex.names, col=col1, 
-                         newplot=FALSE, axes=FALSE,names.arg=names,...)
+                         width=1, cex.names=cex.names, col=col1,
+                         newplot=FALSE, axis=FALSE,names.arg=names,...)
   xpos2 <- stackedBarplot(data2,space=gaps2,offset=offsets2,
                          width=1, cex.names=cex.names, col=col2,
-                         newplot=FALSE, axes=FALSE,names.arg=names,...)
+                         newplot=FALSE, axis=FALSE,names.arg=names,...)
   abline(h=0)
   xposave <- (xpos[(1:npair)*2-1] + xpos[(1:npair)*2])/2
   yl <- ylim[2]-ylim[1]
@@ -227,7 +227,7 @@ function (data1, data2, profindex,
 ### groups and are labeled "skill.prior" "skill.post"
 "compareBars2" <-
 function (data1, data2, profindex,groupNames=c("Prior","Post"),
-          error.bars=2,scale=100,err.col="gray20",..., 
+          error.bars=2,scale=100,err.col="gray20",...,
           ylim = NULL) {
   if (any(error.bars <1) || any(error.bars>2) ||
       abs(error.bars - round(error.bars)) > .00001 ) {
@@ -243,7 +243,7 @@ function (data1, data2, profindex,groupNames=c("Prior","Post"),
     data <- cbind(data,data1[,col],data2[,col])
   ss <- matrix(colSums(data),nrow(data),ncol(data),byrow=TRUE)
   ## Set up list of which error bars to show.
-  nbars <- nrow(data) 
+  nbars <- nrow(data)
   whichbars <- 1:(nbars*npair*2)
   if (length(error.bars) < 2) {
     whichbars <- rep(((1:npair)*2-3+error.bars)*nbars,

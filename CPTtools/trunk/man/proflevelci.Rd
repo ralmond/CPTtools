@@ -9,7 +9,7 @@
   reference are negative.
 }
 \usage{
-proflevelci(data, profindex, levels=list(lower=.025,upper=.975),a=.5, b=.5)
+proflevelci(data, profindex, limits=list(lower=.025,upper=.975),a=.5, b=.5)
 }
 \arguments{
   \item{data}{A matrix of data values where each column refers to a
@@ -23,66 +23,45 @@ proflevelci(data, profindex, levels=list(lower=.025,upper=.975),a=.5, b=.5)
   \item{b}{Value for the \code{shape2} parameter of the beta prior.}
 }
 \details{
-  ~~Todo~~
+  For a stacked bar plot, the natural comparisons involve not category
+  probabilities but the sum of the category probabilities up through the
+  current bar.  For hanging bar plots, this should go in both
+  directions.  So for example, if the categories are \dQuote{Below
+    Basic}, \dQuote{Basic}, \dQuote{Proficient}, and \dQuote{Advanced},
+  and the zero line is to be put between \dQuote{Basic} and
+  \dQuote{Proficient}, then we need credibility intervals for
+  Pr(\dQuote{Basic} or \dQuote{Below Basic}), Pr(\dQuote{Basic}),
+  Pr(\dQuote{Proficient}), Pr(\dQuote{Proficient} or \dQuote{Advanced}).
+
+  The \code{proflevelci} function splits the states up into those above
+  the line and below the line using \code{profindex}.  It then generates
+  credibility intervals using \code{\link{betaci}} for the cumulative
+  sums in each group.  The primary purpose is to create confidince
+  intervals for stacked bar charts (see \code{\link{compareBars2}}).
+  
 }
 \value{
-  ~Describe the value returned
-  If it is a LIST, use
-  \item{comp1 }{Description of 'comp1'}
-  \item{comp2 }{Description of 'comp2'}
-  ...
+  A list of data sets of the same length as the \code{limits} argument.
+  Each data set has the same shape as the \code{data} argument and
+  represents a quatile of the data associated with the value in limits.
+  With the default limits of \code{lower} and \code{upper}, the result
+  is a list of two lements
+  \item{lower}{Gives the lower bounds of the confidence interval.}
+  \item{upper}{Gives the upper bounds of the confidence interval.}
 }
-\references{ ~put references to the literature/web site here ~ }
 \author{Russell Almond}
-\note{ 
-
-}
-\seealso{\code{\link{betaci}},  }
+\seealso{\code{\link{betaci}}, \code{\link{compareBars2}} }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function(data,profindex) {
-  ss <- matrix(colSums(data),nrow(data),ncol(data),byrow=TRUE)
-  if (profindex == 1) {
-    datlow <- data[profindex,]
-    sslow <- ss[profindex,]
-    ci.ll.low <- -qbeta(.025,datlow+.5,sslow-datlow+.5)
-    ci.ul.low <- -qbeta(.925,datlow+.5,sslow-datlow+.5)
-    dathigh <- apply(data[-1,],2,cumsum)
-    sshigh <- ss[-1,]
-    ci.ll.high <- qbeta(.025, dathigh+.5, sshigh - dathigh + .5)
-    ci.ul.high <- qbeta(.925, dathigh+.5, sshigh - dathigh + .5)
-  } else if (profindex == nrow(data)-1) {
-    ## Need a reverse cumsum here.
-    datlow <- apply(data[profindex:1,],2,cumsum)
-    datlow <- datlow[profindex:1,]
-    sslow <- ss[1:profindex,]
-    ci.ll.low <- -qbeta(.025,datlow+.5,sslow-datlow+.5)
-    ci.ul.low <- -qbeta(.925,datlow+.5,sslow-datlow+.5)
-    dathigh <- data[profindex+1,]
-    sshigh <- ss[profindex+1,]
-    ci.ll.high <- qbeta(.025,dathigh+.5,sshigh-dathigh+.5)
-    ci.ul.high <- qbeta(.925,dathigh+.5,sshigh-dathigh+.5)
-  } else {
-    offsets <- -apply(data[1:profindex,],2,sum)
-    ## Need a reverse cumsum here.
-    datlow <- apply(data[profindex:1,],2,cumsum)
-    datlow <- datlow[profindex:1,]
-    sslow <- ss[1:profindex,]
-    ci.ll.low <- -qbeta(.025,datlow+.5,sslow-datlow+.5)
-    ci.ul.low <- -qbeta(.925,datlow+.5,sslow-datlow+.5)
-    dathigh <- apply(data[(profindex+1):nrow(data),],2,cumsum)
-    sshigh <- ss[(profindex+1):nrow(data),]
-    ci.ll.high <- qbeta(.025,dathigh+.5,sshigh-dathigh+.5)
-    ci.ul.high <- qbeta(.925,dathigh+.5,sshigh-dathigh+.5)
-  }
-  list(lower=rbind(ci.ll.low,ci.ll.high),upper=rbind(ci.ul.low,ci.ul.high))
-  }
+margins <- data.frame (
+ Trouble=c(Novice=19,Semester1=24,Semester2=28,Semseter3=20,Semester4=9),
+ NDK=c(Novice=1,Semester1=9,Semester2=35,Semseter3=41,Semester4=14),
+ Model=c(Novice=19,Semester1=28,Semester2=31,Semseter3=18,Semester4=4)
+)
+
+proflevelci(margins,3,limits=c(lower=.025,upper=.975))
+
+
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ distribution }
+

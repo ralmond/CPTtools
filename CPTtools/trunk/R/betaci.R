@@ -14,7 +14,7 @@ function (sumData, totals = NULL,
 
 
 "proflevelci" <- function(data,profindex,
-                          levels=list(lower=.025,upper=.975),
+                          limits=list(lower=.025,upper=.975),
                           a=.5, b=.5) {
   ss <- matrix(colSums(data),nrow(data),ncol(data),byrow=TRUE)
   if (profindex == 1) {
@@ -33,10 +33,10 @@ function (sumData, totals = NULL,
     dathigh <- apply(data[(profindex+1):nrow(data),],2,cumsum)
     sshigh <- ss[(profindex+1):nrow(data),]
   }
-  ci.low <- betaci(datlow,sslow,levels,a,b)
-  ci.high <- betaci(dathigh,sshigh,levels,a,b)
-  result <- sapply (names(levels), function (bound)
+  ci.low <- betaci(datlow,sslow,limits,a,b)
+  ci.high <- betaci(dathigh,sshigh,limits,a,b)
+  result <- lapply (names(limits), function (bound)
                     rbind(-ci.low[[bound]],ci.high[[bound]]))
-  names(result) <- names(levels)
+  names(result) <- names(limits)
   result
 }

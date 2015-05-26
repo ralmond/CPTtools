@@ -15,10 +15,14 @@
   variable.  The function \code{build2FactorTab} builds a three-way table.
 }
 \usage{
-buildFactorTab(data, fact, stateNames, skillNames, reverse = TRUE)
-build2FactorTab(data, fact1, fact2, stateNames, skillNames, reverse = TRUE)
-buildMarginTab(data, stateNames, skillNames, reverse = TRUE)
-marginTab(datarow, stateNames, skillNames, reverse = TRUE)
+buildFactorTab(data, fact, stateNames, skillNames, reverse = TRUE,
+               stem="margin", sep=".")
+build2FactorTab(data, fact1, fact2, stateNames, skillNames,
+                reverse = TRUE, stem="margin",sep=".")
+buildMarginTab(data, stateNames, skillNames, reverse = TRUE,
+               stem="margin",sep=".")
+marginTab(datarow, stateNames, skillNames, reverse = TRUE,
+          stem="margin",sep=".")
 }
 \arguments{
   \item{data}{A data sets of StatShop statistics for many individuals.}
@@ -32,11 +36,16 @@ marginTab(datarow, stateNames, skillNames, reverse = TRUE)
   \item{reverse}{Reverse the order of the states for display (i.e.,
     convert from StatShop order of highest first to more natural order
     of lowest first.}
+  \item{stem}{A character string giving a prefix used to indicate
+    variable names.}
+  \item{sep}{A character string giving a separator used to separate
+    prefix from variable names.}
 }
 \details{
-  This looks for columns marked "margin.skillName" in the data frame,
-  and build them into a matrix.  It is assumed that all variables
-  have the same number of states.
+  This looks for columns marked \dQuote{<stem><sep><skillName>} in the
+  data frame, and builds them into a matrix.  It is assumed that all
+  variables have the same number of states and that they are in the same
+  order, and the order is the same as given in \code{stateNames}.
 
   The functions \code{buildFactorTab} and \code{build2FactorTab} really
   expect their \code{skillNames} argument to be a single variable name.
@@ -68,6 +77,25 @@ marginTab(datarow, stateNames, skillNames, reverse = TRUE)
 \author{Russell Almond}
 \seealso{\code{\link{stackedBars}},\code{\link{compareBars}}}
 \examples{
+
+data(ACED)
+
+marginTab(ACED.scores[1,], c("H","M","L"), ACED.skillNames, reverse = TRUE,
+          stem="p",sep="")
+
+buildMarginTab(ACED.scores, c("H","M","L"), ACED.skillNames[1:4],
+               reverse = TRUE,
+               stem="p",sep="")
+
+buildFactorTab(ACED.scores, ACED.scores$Cond, c("H","M","L"), "sgp",
+               reverse = TRUE,
+               stem="p", sep="")
+
+build2FactorTab(ACED.scores, ACED.scores$Seq, ACED.scores$FB,
+                c("H","M","L"), "sgp",
+                reverse = TRUE, stem="p",sep="")
+
+
 }
-\keyword{manip}% at least one, from doc/KEYWORDS
+\keyword{manip}
 

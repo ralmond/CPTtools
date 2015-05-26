@@ -1,4 +1,4 @@
-\name{OCP2}
+\name{OCP}
 \alias{OCP}
 \alias{OCP2}
 \title{Observable Characteristic Plot
@@ -23,7 +23,6 @@ OCP2(x, n, lclabs, pi, pilab = names(pi), lcnames = names(x),
      main = NULL, sub = NULL, xlab = "Latent Classes", ylab = "Probability",
      cex = par("cex"), xlim = NULL, ylim = NULL, cex.axis = par("cex.axis")) 
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{Vector of success counts for each latent class.
 }
@@ -128,7 +127,7 @@ OCP2(x, n, lclabs, pi, pilab = names(pi), lcnames = names(x),
 }
 \references{
   Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
-  Yan, D. (Draft) \emph{Bayesian Networks in Educational Assessment.}
+  Yan, D. (2015) \emph{Bayesian Networks in Educational Assessment.}
   Springer.  Chapter 10.
 
   Sinharay, S. and Almond, R.G. (2006).  Assessing Fit of Cognitively

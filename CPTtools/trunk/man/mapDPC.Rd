@@ -14,7 +14,9 @@
 \usage{
 mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
        rules = "Compensatory", link = "partialCredit",
-       linkScale=NULL, ...) 
+       linkScale=NULL, Q=TRUE, tvals=lapply(skillLevels,
+               function (sl) effectiveThetas(length(sl))),
+       ...) 
 }
 \arguments{
   \item{postTable}{
@@ -55,6 +57,18 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
   \item{linkScale}{Initial values for the optional scale parameter for
     the \code{link} function.  This is only used with certain choices of
     \code{link} function.}  
+
+  \item{Q}{This should be a Q matrix indicating which parent variables
+    are relevant for which state transitions.  It should be a number of
+    states minus one by number of parents logical matrix.  As a special
+    case, if all variable are used for all levels, then it can be a
+    scalar value.}
+
+  \item{tvals}{A list of the same length ast \code{skillLevels}. Each
+    element should be a numeric vector values on the theta (logistic)
+    scale corresponding to the levels for that parent variable.  The
+    default spaces them equally according to the normal distribution
+    (see \code{\link{effectiveThetas}}).}
 
   \item{\dots}{
     Additional arguments passed to the \link[stats]{optim} function.

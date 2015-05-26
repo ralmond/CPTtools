@@ -11,7 +11,6 @@
 buildRegressions(Sigma, means = 0,
                  parents = buildParentList(structMatrix(Sigma)))
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{Sigma}{A covariance matrix among a collection of continuous variables.}
   \item{means}{The means of those variables}
@@ -40,8 +39,9 @@ buildRegressions(Sigma, means = 0,
   \item{std}{The residual standard deviation from the regression.}
 }
 \references{
-  Almond, R.G. (Draft) Building Bayesian Network Proficiency Models from
-Factor Analysis Results.  ETS Research Memorandum (not yet submitted).
+  Almond, R. G. (2010). \sQuote{I can name that Bayesian network in two
+  matrixes.} \emph{International Journal of Approximate Reasoning.}
+  \bold{51}, 167-178.
 }
 \author{Russell Almond}
 \seealso{\code{\link{buildParentList}},

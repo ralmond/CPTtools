@@ -16,13 +16,11 @@ calcNoisyMinTable <-
   probs
 }
 
-TODO docs for buildFactorTab, proflevelci, ciTest, compareBars2,
-   localDepTest, stackedBarplot, compareBars (fix args),
-   stackedBars(fix args)
-
-TODO -- Test suite.  Find out why test in calcDSllike fails.
+TODO docs for ciTest, localDepTest, 
+  ‘ciTest’ ‘‘localDepTest’ 
 
 TODO -- Normal link function
 
 TODO -- reverse state order
+
 

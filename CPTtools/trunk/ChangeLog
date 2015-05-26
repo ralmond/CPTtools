@@ -1,3 +1,14 @@
+2015-05-25  Russell G. Almond  <ralmond@Limu>
+
+	* inst/testFiles/ACEDdata.R: Added ACED which should be useful in
+	tests. 
+
+2015-05-17  Russell G. Almond  <ralmond@Limu>
+
+	* R/EM2step.R (llike): Added tvals and Q arguments.
+
+	* R/DGR.R (calcDPCTable): Added Q parameter.
+
 2015-05-10  Russell G. Almond  <ralmond@Limu>
 
 	* R/DGR.R (calcDPCTable): Fixed tvals argument.

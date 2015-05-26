@@ -20,7 +20,7 @@
 ### highest and next lowest obs state, and so forth.
 calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
                           rules="Compensatory", link="partialCredit",
-                          linkScale=NULL,
+                          linkScale=NULL,Q=TRUE,
                           tvals=lapply(skillLevels,
                               function (sl) effectiveThetas(length(sl)))) {
 
@@ -33,12 +33,20 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
   if (length(rules) != k-1) rules <- rep(rules,k-1)
   if (!is.list(tvals)) tvals <- list(tvals)
 
+  p <- length(skillLevels)
+  if (length(Q)==1) {
+    Q <- matrix(TRUE,k-1,p)
+  } else if (!is.matrix(Q) || nrow(Q) != k-1 || ncol(Q) != p) {
+    stop("Q must be a",k-1,"by",p,"matrix.")
+  }
+
   thetas <- do.call("expand.grid",tvals)
 
   et <- matrix(0,nrow(thetas),k-1)
   for (kk in 1:(k-1)) {
     et[,kk] <- do.call(rules[[kk]],
-                      list(thetas,exp(lnAlphas[[kk]]),betas[[kk]]))
+                      list(thetas[,Q[kk,],drop=FALSE],
+                           exp(lnAlphas[[kk]]),betas[[kk]]))
   }
   do.call(link,list(et,linkScale,obsLevels))
 }
@@ -46,13 +54,13 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
 calcDPCFrame <-
 function (skillLevels, obsLevels, lnAlphas, betas,
           rules="Compensatory", link="partialCredit",
-          linkScale=NULL,
+          linkScale=NULL,Q=TRUE,
           tvals=lapply(skillLevels,
               function (sl) effectiveThetas(length(sl)))) {
   result <- data.frame(expand.grid(skillLevels),
                        calcDPCTable(skillLevels,paste(obsLevels),
                                     lnAlphas,betas,rules,link,
-                                    linkScale,tvals))
+                                    linkScale,Q,tvals))
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
     ## R is "helpfully" fixing our numeric labels.  Need to insist.

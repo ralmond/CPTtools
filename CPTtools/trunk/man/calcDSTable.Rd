@@ -122,18 +122,18 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
 }
 \references{
   Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
-  Yan, D. (Draft) \emph{Bayesian Networks in Educational Assessment.}
+  Yan, D. (2015) \emph{Bayesian Networks in Educational Assessment.}
   Springer.  Chapter 8.
 
   Almond, R.G., DiBello, L., Jenkins, F., Mislevy, R.J.,  
-Senturk, D., Steinberg, L.S. and Yan, D. (2001) Models for Conditional
-Probability Tables in Educational Assessment.  \emph{Artificial
-Intelligence and Statistics 2001}  Jaakkola and Richardson (eds).,
-Morgan Kaufmann, 137--143.  
+  Senturk, D., Steinberg, L.S. and Yan, D. (2001) Models for Conditional
+  Probability Tables in Educational Assessment.  \emph{Artificial
+    Intelligence and Statistics 2001}  Jaakkola and Richardson (eds).,
+  Morgan Kaufmann, 137--143.  
 
-Samejima, F. (1969) Estimation of latent ability using a
-response pattern of graded scores.  \emph{Psychometrika Monograph No.
-17}, \bold{34}, (No. 4, Part 2).
+  Samejima, F. (1969) Estimation of latent ability using a
+  response pattern of graded scores.  \emph{Psychometrika Monograph No.
+    17}, \bold{34}, (No. 4, Part 2).
 
 }
 \author{Russell Almond}
