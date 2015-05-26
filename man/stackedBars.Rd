@@ -23,7 +23,7 @@ stackedBars(data, profindex, ...,
   \item{percent}{Logical value.  If true data values are treated as
     percentages instead of probabilities.}
   \item{digits}{ Number of digits for overlayed numeric variables.}
-  \item{rotlab}{??}
+  \item{labrot}{If true, labels are rotated 90 degrees.}
 }
 \details{
   This plot type assumes that each column in its first argument is a
@@ -34,11 +34,16 @@ stackedBars(data, profindex, ...,
   The probability values are overlayed on the bars.
 }
 \references{ This plot type was initially developed in Jody Underwood's
-  Evolve project }
+  Evolve project.
+
+  Almond, R. G.,  Shute, V. J., Underwood, J. S., and Zapata-Rivera,
+  J.-D (2009). Bayesian Networks: A Teacher's View. \emph{International
+  Journal of Approximate Reasoning.} \bold{50}, 450-460.
+}
 \author{Russell Almond}
 \seealso{\code{\link{compareBars}}, \code{\link{colorspread}},
   \code{\link{buildMarginTab}}, \code{\link{marginTab}},
-  \code{\link[graphics]{barplot}}}
+  \code{\link[graphics]{barplot}},\code{\link{stackedBarplot}}}
 \examples{
 margins <- data.frame (
  Trouble=c(Novice=.19,Semester1=.24,Semester2=.28,Semseter3=.20,Semester4=.09),

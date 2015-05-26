@@ -25,7 +25,7 @@ calcNoisyAndFrame <-
             thresholds = sapply(skillLevels,function(states) states[1])) {
   result <- data.frame(expand.grid(skillLevels),
                        calcNoisyAndTable(skillLevels,paste(obsLevels),
-                                         noSlip,bypass,thresholds))
+                                         bypass,noSlip,thresholds))
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
     ## R is "helpfully" fixing our numeric labels.  Need to insist.
@@ -58,7 +58,7 @@ calcNoisyOrFrame <-
             thresholds = sapply(skillLevels,function(states) states[1])) {
   result <- data.frame(expand.grid(skillLevels),
                        calcNoisyOrTable(skillLevels,paste(obsLevels),
-                                         noGuess,suppression,thresholds))
+                                         suppression,noGuess,thresholds))
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
     ## R is "helpfully" fixing our numeric labels.  Need to insist.

@@ -14,13 +14,14 @@
 \usage{
 calcDPCTable(skillLevels, obsLevels, lnAlphas, betas,
              rules = "Compensatory", link="partialCredit",
-             linkScale=NULL,
-             tvals=sapply(skillLevels,
+             linkScale=NULL, Q=TRUE,
+             tvals=lapply(skillLevels,
                function (sl) effectiveThetas(length(sl))))
 
 calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas, 
-             rules = "Compensatory", link="partialCredit", linkScale=NULL,
-             tvals=sapply(skillLevels,
+             rules = "Compensatory", link="partialCredit", 
+             linkScale=NULL, Q=TRUE,
+             tvals=lapply(skillLevels, 
                function (sl) effectiveThetas(length(sl))))
 }
 %- maybe also 'usage' for other objects documented here.
@@ -48,6 +49,11 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   \item{linkScale}{An optional scale parameter for the \code{link}
     function.  This is only used with certain choices of \code{link}
     function.}
+  \item{Q}{This should be a Q matrix indicating which parent variables
+    are relevant for which state transitions.  It should be a number of
+    states minus one by number of parents logical matrix.  As a special
+    case, if all variable are used for all levels, then it can be a
+    scalar value.}
   \item{tvals}{A list of the same length ast \code{skillLevels}. Each
     element should be a numeric vector values on the theta (logistic)
     scale corresponding to the levels for that parent variable.  The
@@ -133,6 +139,19 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   planned link function is based on a normal error model, this will
   require the extra \code{linkScale} parameter.
 
+  The \code{Q} matrix is used in situations where some of the parent
+  variables are not relevant for one or more parent transitions.  If
+  parent k is relevant for the transition between state m+1 and m
+  (remember that states are coded from highest to lowest) then
+  \code{Q[m,k]} should be \code{TRUE}.  In particular,
+  \code{eTheta[,Q[m,]]} is passed to the combination rule, not all of
+  theta.  If there are false entries in \code{Q} the corresponding sets
+  of alphas and betas need to have the correct length.  Generally
+  speaking, \code{Q} matrixes with \code{FALSE} entries are not
+  appropriate with the \code{\link{gradedResponse}} link.  As a special
+  case if \code{Q=TRUE}, then all parent variables are used for all
+  state transitions.
+
   Normally \code{obslevel} should be a character vector giving state
   names.  However, in the special case of state names which are integer
   values, R will \dQuote{helpfully} convert these to legal variable
@@ -156,20 +175,21 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   value for each row.
 }
 \references{
+  Almond, R.G. (2015).  An IRT-based Parameterization for Conditional
+  Probability Tables. Paper submitted to the 2015 Bayesian Application
+  Workshop at the Uncertainty in Artificial Intelligence conference.
+
   Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
-  Yan, D. (Draft) \emph{Bayesian Networks in Educational Assessment.}
+  Yan, D. (2015) \emph{Bayesian Networks in Educational Assessment.}
   Springer.  Chapter 8.
 
   Muraki, E. (1992).  A Generalized Partial Credit Model:  Application
   of an EM Algorithm.  \emph{Applied Psychological Measurement}, \bold{16},
   159-176.  DOI: 10.1177/014662169201600206
 
-Samejima, F. (1969) Estimation of latent ability using a
-response pattern of graded scores.  \emph{Psychometrika Monograph No.
-17}, \bold{34}, (No. 4, Part 2).
-
-  I also have planned a manuscript that describes these functions in
-  more detail.
+  Samejima, F. (1969) Estimation of latent ability using a
+  response pattern of graded scores.  \emph{Psychometrika Monograph No.
+  17}, \bold{34}, (No. 4, Part 2).
 
 }
 \author{Russell Almond}
@@ -228,6 +248,13 @@ cptPC1 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,
                         lnAlphas=log(1),
                         betas=list(full=c(S1=0,S2=999),partial=c(S2=999,S2=0)),
                         rule="OffsetDisjunctive")
+##Variant using Q-matrix
+cptPC1a <- calcDPCTable(list(S1=skill1l,S2=skill2l),pcreditL,
+                        lnAlphas=log(1),
+                        betas=list(full=c(S1=0),partial=c(S2=0)),
+                        Q=matrix(c(TRUE,FALSE,FALSE,TRUE),2,2),
+                        rule="OffsetDisjunctive")
+stopifnot(all(abs(as.vector(numericPart(cptPC1))-as.vector(cptPC1a))<.0001))
 
 
 ## Complex model, different rules for different levels

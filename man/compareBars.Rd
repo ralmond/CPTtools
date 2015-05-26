@@ -1,5 +1,6 @@
 \name{compareBars}
 \alias{compareBars}
+\alias{compareBars2}
 \title{ Produces comparison stacked bar charts for two sets of groups}
 \description{
   This produces set of stacked bar charts grouped for comparison between
@@ -14,9 +15,14 @@ compareBars(data1, data2, profindex,
             groupNames = c(deparse(data1), deparse(data2)), ...,
             ylim = c(min(offsets) - 0.25, max(1 + offsets)),
             cex.names = par("cex.axis"), digits = 2, legend.loc = c(0,1),
-            legend.cex = par("cex"), col = NULL, col1 = NULL,
+            legend.cex = par("cex"), col = par("col"), col1 = NULL,
             col2 = NULL, main = NULL, sub = NULL, xlab = NULL,
             ylab = NULL, rotlab = FALSE)
+
+compareBars2(data1, data2, profindex,
+             groupNames=c("Prior","Post"), error.bars=2, scale=100,
+             err.col="gray20", ..., ylim = NULL) 
+
 }
 
 \arguments{
@@ -33,9 +39,14 @@ compareBars(data1, data2, profindex,
   \item{legend.loc}{Location for legend, see
     \code{\link[graphics]{legend}}.}
   \item{legend.cex}{Character magnification for legend. }
-  \item{col}{??}
-  \item{col1}{??}
-  \item{col2}{??}
+  \item{col}{The normal graphics \code{col} parameter (see
+    \code{\link[graphics]{par}}, passed through to other graphics operators
+  using \code{...}.  Is also the default for \code{col1} and \code{col2}
+  if those values are not supplied.}
+  \item{col1}{Color scale for the first data set.  This should be a vector
+  of colors equal to the number of groups.}
+  \item{col2}{Color scale for the second data set.  This should be a vector
+  of colors equal to the number of groups.}
   \item{main}{Character scalar giving main title (see
     \code{\link[graphics]{title}}). 
 }
@@ -48,7 +59,22 @@ compareBars(data1, data2, profindex,
   \item{ylab}{Character scalar giving x-axis label (see
     \code{\link[graphics]{title}}). 
   }
-  \item{rotlab}{??}
+  \item{rotlab}{If \code{TRUE} labels are rotated 90 degrees.}
+  \item{error.bars}{The number of standard errors for error bars.}
+  \item{err.col}{The color for error bars.}
+  \item{scale}{Scales data as probabilities (\code{scale=1}) or
+  percentages (\code{scale=100}).}
+}
+\section{Note}{
+  The function \code{compareBars2} is a somewhat experimental extension
+  to \code{compareBars} which adds error bars to the posterior.  The
+  result is not entirely satistfactory, and this function may change
+  with future releases.
+}
+\references{
+  Almond, R. G.,  Shute, V. J., Underwood, J. S., and Zapata-Rivera,
+  J.-D (2009). Bayesian Networks: A Teacher's View. \emph{International
+  Journal of Approximate Reasoning.} \bold{50}, 450-460.
 }
 \author{Russell Almond }
 \seealso{\code{\link{stackedBars}}, \code{\link{colorspread}},
@@ -66,19 +92,19 @@ margins.post <- data.frame(
  Model=c(Novice=.10,Semester1=.25,Semester2=.37,Semseter3=.23,Semester4=.05))
 
 foo <-
-compareBars(netpass.margins.prior,netpass.margins.post,3,c("Prior","Post"),
+compareBars(margins.prior,margins.post,3,c("Prior","Post"),
             main="Margins before/after Medium TroubleShooting Task",
             sub="Observables:  cfgCor=Medium, logCor=High, logEff=Medium",
             legend.loc = "topright",
-            cex.names=.75, col1=hsv(h=.1,s=.2*1:5-.1,gamma=1),
-            col2=hsv(h=.6,s=.2*1:5-.1,gamma=1))
+            cex.names=.75, col1=hsv(h=.1,s=.2*1:5-.1,alpha=1),
+            col2=hsv(h=.6,s=.2*1:5-.1,alpha=1))
 
-compareBars2(netpass.margins.prior,25*netpass.margins.post,3,c("Prior","Post"),
+compareBars2(margins.prior,25*margins.post,3,c("Prior","Post"),
             main="Margins before/after Medium TroubleShooting Task",
             sub="Observables:  cfgCor=Medium, logCor=High, logEff=Medium",
             legend.loc = "topright",
-            cex.names=.75, col1=hsv(h=.1,s=.2*1:5-.1,gamma=1),
-            col2=hsv(h=.6,s=.2*1:5-.1,gamma=1))
+            cex.names=.75, col1=hsv(h=.1,s=.2*1:5-.1,alpha=1),
+            col2=hsv(h=.6,s=.2*1:5-.1,alpha=1))
 
 
 

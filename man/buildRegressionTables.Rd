@@ -54,8 +54,13 @@ buildRegressionTables(regs, pvecs, mean = 0, std = 1)
   configurations of the parent variable.
 }
 \references{
-  Almond, R.G. (Draft) Building Bayesian Network Proficiency Models from
-Factor Analysis Results.  ETS Research Memorandum (not yet submitted).
+
+  Almond, R. G. (2010). \sQuote{I can name that Bayesian network in two
+  matrixes.} \emph{International Journal of Approximate Reasoning.}
+  \bold{51}, 167-178.
+
+  Whittaker, J. (1990).  \emph{Graphical Models in Applied Multivariate
+    Statistics}.  Wiley.
 }
 \author{Russell Almond}
 \section{Warning}{

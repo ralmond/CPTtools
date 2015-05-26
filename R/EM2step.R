@@ -1,8 +1,11 @@
-library(stats4) ## Needed for optim
+#library(stats4) ## Needed for optim
 
 ### This does an optimization given the posterior matrix.
 mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
-                    rules="Compensatory",link="partialCredit",linkScale=NULL,...) {
+                    rules="Compensatory",link="partialCredit",linkScale=NULL,
+                    Q=TRUE, tvals=lapply(skillLevels,
+                                function (sl) effectiveThetas(length(sl))),
+                    ...) {
   k <- length(obsLevels)
   pvec <- numeric(0)
   iparam <- 0
@@ -42,15 +45,21 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
   if (!is.list(rules)) rules <- list(rules)
   if (length(rules) != k-1) rules <- rep(rules,k-1)
 
-  pdims <- sapply(skillLevels,length)
-  tvals <- lapply(pdims,effectiveThetas)
+  p <- length(skillLevels)
+  if (length(Q)==1) {
+    Q <- matrix(TRUE,k-1,p)
+  } else if (!is.matrix(Q) || nrow(Q) != k-1 || ncol(Q) != p) {
+    stop("Q must be a",k-1,"by",p,"matrix.")
+  }
+
   thetas <- do.call("expand.grid",tvals)
 
   llike <- function (pv) {
     et <- matrix(0,nrow(thetas),k-1)
     for (kk in 1:(k-1)) {
       et[,kk] <- do.call(rules[[kk]],
-                        list(thetas,exp(pv[ialpha[[kk]]]),
+                        list(thetas[,Q[kk,],drop=FALSE],
+                             exp(pv[ialpha[[kk]]]),
                              pv[ibeta[[kk]]]))
     }
     probs <- do.call(link,list(et,k,obsLevels))
@@ -78,6 +87,6 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
       map$betas[[kk]] <- map$par[ibeta[[kk]]]
     }
   }
-  map 
+  map
 }
 

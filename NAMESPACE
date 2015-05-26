@@ -1,7 +1,9 @@
 #import(methods)
 #import(utils)
 
-export(calcDDTable, calcDDFrame, 
+#importFrom(stats4,optim)
+
+export(calcDDTable, calcDDFrame,
        gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,
        effectiveThetas, calcDSTable, calcDSFrame, eThetaFrame,
        calcDNTable, calcDNFrame,
@@ -37,4 +39,4 @@ export(betaci, proflevelci,
 ## S3method("[[", NeticaNode)
 ## S3method("[<-", NeticaNode)
 
-       
+

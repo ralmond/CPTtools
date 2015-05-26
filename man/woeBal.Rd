@@ -66,6 +66,18 @@ woeBal(hist, pos, neg, obs=NULL, title = "Evidence Balance Sheet",
   Madigan, D.,  Mosurski, K. and Almond, R. (1997) Graphical explanation
   in belief networks.  \emph{Journal of Computational Graphics and
     Statistics}, \bold{6}, 160-181.
+
+  Almond, R. G., Kim, Y. J., Shute, V. J. and  Ventura, M. (2013).
+  Debugging the Evidence Chain.  In Almond, R. G. and  Mengshoel,
+  O. (Eds.)  \emph{Proceedings of the 2013 UAI Application Workshops:
+  Big Data meet Complex Models and Models for Spatial, Temporal and
+  Network Data (UAI2013AW)}, 1-10.
+  \url{http://ceur-ws.org/Vol-1024/paper-01.pdf} 
+
+  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
+  Yan, D. (2015) \emph{Bayesian Networks in Educational Assessment.}
+  Springer.  Chapter 7.
+
   }
 \author{Russell Almond}
 \section{Side Effects}{

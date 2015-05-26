@@ -1,11 +1,11 @@
 Package: CPTtools
-Version: 0.2-3
-Date: 2013/04/08
+Version: 0.3-1
+Date: 2015/05/25
 Title: Tools for creating conditional probability tables
 Author: Russell Almond
 Maintainer: Russell Almond <ralmond@fsu.edu>
-Depends: R (>= 2.0), methods, MCMCpack, mvtnorm, stats4
-Description: This provides support for parameterized tables for Bayesian networks 
+Depends: R (>= 3.0)
+Description: Provides support for parameterized tables for Bayesian networks .
 License: Artistic-2.0 
 URL: http://pluto.coe.fsu.edu/RNetica
 

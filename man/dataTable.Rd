@@ -39,7 +39,8 @@ dataTable(data, parents, child, childStates)
   correctL <- c("Correct","Incorrect") 
 
   x <- read.csv(paste(library(help="CPTtools")$path,
-                     "randomPinned100.csv", sep=.Platform$file.sep),
+                     "testFiles", "randomPinned100.csv",
+                     sep=.Platform$file.sep),
               header=FALSE, as.is=TRUE,
               col.names = c("Skill1", "Skill2", "Skill3",
                 "Comp.Correct", "Comp.Grade",
