@@ -6,11 +6,11 @@
 \description{
 
   The function \code{ciTest} takes a 3-way contingency table and tests
-  for the conditional independenced of the first two variables given the
+  for the conditional independence of the first two variables given the
   third.  The function \code{localDepTest} is a wrapper which builds the
   table from factor variables.  In psychometrics, when the third
   variable represents a latent proficiency and the first two item
-  reponses, this is sometimes called \emph{local independence}.
+  responses, this is sometimes called \emph{local independence}.
 }
 \usage{
 localDepTest(obs1, obs2, prof)
@@ -27,7 +27,7 @@ ciTest(tab)
   the proficiency variable.}
 }
 \details{
-  Let 1 and 2 represent \code{obs1} and \code{obs2} repsectively and let
+  Let 1 and 2 represent \code{obs1} and \code{obs2} respectively and let
   3 represent \code{prof}.  In the case of \code{ciTest}, 1, 2 and 3
   represent the first second and 3rd dimensions of \code{tab}.  These
   function then compare the undirected model [13][23] (1 and 2 are
@@ -36,7 +36,7 @@ ciTest(tab)
   values of the chi-square statistic indicate a better fit of the
   unrestricted model compared to the conditional independence model.
 
-  Note that the Cochran-Mantel-Haenzel statistic (see
+  Note that the Cochran-Mantel-Haenszel statistic (see
   \code{\link[stats]{mantelhaen.test}}) is similar, but it assumes that
   there is no three-way interaction, so it essentially tests [13][23]
   versus [12][13][23].
@@ -49,7 +49,7 @@ ciTest(tab)
   distribution with \code{df} degrees of freedom, i.e., the p-value.}
 }
 \references{
-  Bishop, Fienberg and Holland (1975).  \emph{Discrete Multivariate
+  Bishop, Feinberg and Holland (1975).  \emph{Discrete Multivariate
   Analysis:  Theory and Practice.}  MIT Press.
 }
 

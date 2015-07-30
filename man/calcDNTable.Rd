@@ -4,8 +4,8 @@
 \title{Creates the probability table for DiBello--Normal distribution}
 \description{
   The \code{calcDNTable} function takes a description of input and
-  output variables for a Bayesian network distribution and a colleciton
-  of IRT-like parameter (discrimination, difficulty) and caluclates a
+  output variables for a Bayesian network distribution and a collection
+  of IRT-like parameter (discrimination, difficulty) and calculates a
   conditional probability table using the DiBello--Normal distribution
   (see Details).  The \code{calcDNFrame} function
   returns the value as a data frame with labels for the parent states.
@@ -33,7 +33,7 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
 \details{
   The DiBello--Normal distribution (Almond et al, Draft) is a variant of the
   DiBello--Samejima distribution (Almond et al, 2001) for creating conditional
-  probabilty tables for Bayesian networks which uses a regression-like
+  probability tables for Bayesian networks which uses a regression-like
   (probit) link function in place of Samejima's graded response link
   function. The basic procedure unfolds in three steps.
   \enumerate{
@@ -61,8 +61,8 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
   \code{rule}.  This should be a function of three arguments:
   \code{theta} --- the vector of effective theta values for each parent,
   \code{alphas} --- the vector of discrimination parameters, and
-  \code{beta} --- a scaler value giving the difficulty.  The initial
-  distribuiton supplies five functions appropriate for use with
+  \code{beta} --- a scalar value giving the difficulty.  The initial
+  distribution supplies five functions appropriate for use with
   \code{calcDSTable}:  \code{\link{Compensatory}},
   \code{\link{Conjunctive}}, and \code{\link{Disjunctive}},
   \code{\link{OffsetConjunctive}}, and \code{\link{OffsetDisjunctive}}.
@@ -92,7 +92,7 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
   For \code{calcDNTable}, a matrix whose rows correspond configurations
   of the parent variable states (\code{skillLevels}) and whose columns
   correspond to \code{obsLevels}.  Each row of the table is a
-  probability distributon, so the whole matrix is a conditional
+  probability distribution, so the whole matrix is a conditional
   probability table.  The order of the parent rows is the same as is
   produced by applying \code{expand.grid} to \code{skillLevels}.
 

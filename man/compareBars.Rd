@@ -35,7 +35,7 @@ compareBars2(data1, data2, profindex,
   \item{\dots}{ Other arguments to \code{barplot}.}
   \item{ylim}{ Default limits for Y axis.}
   \item{cex.names}{Character magnification for names. }
-  \item{digits}{ Number of digits for overlayed numeric variables.}
+  \item{digits}{ Number of digits for overlaid numeric variables.}
   \item{legend.loc}{Location for legend, see
     \code{\link[graphics]{legend}}.}
   \item{legend.cex}{Character magnification for legend. }
@@ -68,7 +68,7 @@ compareBars2(data1, data2, profindex,
 \section{Note}{
   The function \code{compareBars2} is a somewhat experimental extension
   to \code{compareBars} which adds error bars to the posterior.  The
-  result is not entirely satistfactory, and this function may change
+  result is not entirely satisfactory, and this function may change
   with future releases.
 }
 \references{
@@ -93,14 +93,14 @@ margins.post <- data.frame(
 
 foo <-
 compareBars(margins.prior,margins.post,3,c("Prior","Post"),
-            main="Margins before/after Medium TroubleShooting Task",
+            main="Margins before/after Medium Trouble Shooting Task",
             sub="Observables:  cfgCor=Medium, logCor=High, logEff=Medium",
             legend.loc = "topright",
             cex.names=.75, col1=hsv(h=.1,s=.2*1:5-.1,alpha=1),
             col2=hsv(h=.6,s=.2*1:5-.1,alpha=1))
 
 compareBars2(margins.prior,25*margins.post,3,c("Prior","Post"),
-            main="Margins before/after Medium TroubleShooting Task",
+            main="Margins before/after Medium Trouble Shooting Task",
             sub="Observables:  cfgCor=Medium, logCor=High, logEff=Medium",
             legend.loc = "topright",
             cex.names=.75, col1=hsv(h=.1,s=.2*1:5-.1,alpha=1),

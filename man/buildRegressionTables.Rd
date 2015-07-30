@@ -12,8 +12,8 @@ buildRegressionTables(regs, pvecs, mean = 0, std = 1)
 }
 \arguments{
   \item{regs}{A list with names corresponding to the variables in the
-    model giving a series of regression co-efficients (see Details).}
-  \item{pvecs}{A list with naems corresponding to the variables in the
+    model giving a series of regression coefficients (see Details).}
+  \item{pvecs}{A list with names corresponding to the variables in the
     model giving a series of probability vectors in order from highest
     state to lowest state (see Details).}
   \item{mean}{A vector of means for the continuous variables.}
@@ -32,17 +32,17 @@ buildRegressionTables(regs, pvecs, mean = 0, std = 1)
   The function \code{buildRegressions()} creates an appropriate list.
 
   The \code{pvecs} should be a list whose names are the names of the
-  variables.  Each element shoud be a named vector of probabilities in
+  variables.  Each element should be a named vector of probabilities in
   order from the \emph{Highest} to the \emph{Lowest} state, e.g.
   \code{c(High=.2,Med=.5,Low=.3)}.
 
-  The values \code{mean} and \code{std} should either be scalers or
+  The values \code{mean} and \code{std} should either be scalars or
   vectors of the same length as the number of elements in \code{regs}
   and \code{pvecs}.  If vectors, they should have names corresponding to
   the variable names.  Note that the order of the elements does not need
   to be the same in all four arguments, but that the names of all four
   arguments need to be identical (unless \code{mean} or \code{std} are
-  given as scalers, in which case they will be appropriately
+  given as scalars, in which case they will be appropriately
   replicated.)
 
 }

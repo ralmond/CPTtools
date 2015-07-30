@@ -18,7 +18,7 @@ structMatrix(X, threshold = 0.1)
 \details{
   For a multivariate normal model, zero entries in the inverse
   covariance matrix correspond to conditional independence statements
-  true in the multivariate normal distribution (Whitakker, 1990;
+  true in the multivariate normal distribution (Whitaker, 1990;
   Dempster, 1972).  Thus, every non-zero entry in the inverse
   correlation matrix corresponds to an edge in an undirected graphical
   model for the structure.

@@ -3,7 +3,7 @@
 \title{Produces a hanging barplot}
 \description{
   This produces a series of stacked bar plots staggered so that the
-  baseline corresponds to a particular state level.  This is primariliy
+  baseline corresponds to a particular state level.  This is primarily
   designed for producing plots of probability vectors coming out of
   Bayes net scoring.
 }
@@ -36,10 +36,10 @@ stackedBarplot(height, width = 1, space = 0.2, offset = 0, names.arg = NULL,
     value produces a hanging barplot.}
   \item{names.arg}{If not missing, used as axis labels (see
     \code{\link[graphics]{axis}}).} 
-  \item{legend.text}{If node null, a lengend is generated (see
+  \item{legend.text}{If node null, a legend is generated (see
     \code{\link[graphics]{legend}}).} 
   \item{horiz}{A logical value.  If true, stacked bars are printed
-    horizontially instead of vertically.}
+    horizontally instead of vertically.}
   \item{density}{Density of shading lines (see
     \code{\link[graphics]{rect}}).  This should be a scalar or a vector
     of length equal to the number of rows of \code{height}.}
@@ -48,7 +48,7 @@ stackedBarplot(height, width = 1, space = 0.2, offset = 0, names.arg = NULL,
     of length equal to the number of rows of \code{height}.}
   \item{col}{Color used for each bar.  This should be a scalar or a vector
     of length equal to the number of rows of \code{height}. If not
-    supplied a greyscale gradient is built.}
+    supplied a grayscale gradient is built.}
   \item{border}{Color for the rectangle borders (see
     \code{\link[graphics]{rect}}). This should be a scalar or a vector
     of length equal to the number of rows of \code{height}.}
@@ -60,7 +60,7 @@ stackedBarplot(height, width = 1, space = 0.2, offset = 0, names.arg = NULL,
     vector of length 2.}
   \item{ylim}{Limits in user co-ordinates for the y-axis.  Should be a
     vector of length 2.}
-  \item{xpd}{A logical value controling clippling.  (see
+  \item{xpd}{A logical value controlling clipping.  (see
     \code{\link[graphics]{par}}).} 
   \item{axis}{A logical value.  If true, a numeric scale is printed on
     the appropriate axis.}
@@ -111,7 +111,7 @@ margins <- as.matrix(margins)
 baseline <- apply(margins[1:2,],2,sum)
 
 stackedBarplot(margins,offset=-baseline,
-            main="Margininal Distributions for NetPASS skills",
+            main="Marginal Distributions for NetPASS skills",
             sub="Baseline at 2nd Semester level.",
             col=hsv(223/360,.2,0.10*(5:1)+.5))
 

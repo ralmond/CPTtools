@@ -89,7 +89,7 @@ OCP2(x, n, lclabs, pi, pilab = names(pi), lcnames = names(x),
 }
 \details{
 
-  Most cognitively diagostic models for assessments assume that students
+  Most cognitively diagnostic models for assessments assume that students
   with different patterns of skills will have different patterns of
   success and failures.  The goal of this plot type is to empirically
   check to see if the various groups conform to their expected
@@ -119,7 +119,7 @@ OCP2(x, n, lclabs, pi, pilab = names(pi), lcnames = names(x),
   further partitioned into two sets, and the labels for the latent
   classes for different sets are plotted on different lines.  This is
   particularly useful for testing whether attributes which are not
-  thought to be relevant to a given problem are actually irrelvant.
+  thought to be relevant to a given problem are actually irrelevant.
 
 }
 \value{

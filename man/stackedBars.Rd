@@ -3,7 +3,7 @@
 \title{ Produces a stacked, staggered barplot}
 \description{
   This produces a series of stacked bar plots staggered so that the
-  baseline corresponds to a particular state level.  This is primariliy
+  baseline corresponds to a particular state level.  This is primarily
   designed for producing plots of probability vectors coming out of
   Bayes net scoring.
 }
@@ -22,16 +22,16 @@ stackedBars(data, profindex, ...,
   \item{cex.names}{ Magnification for names. }
   \item{percent}{Logical value.  If true data values are treated as
     percentages instead of probabilities.}
-  \item{digits}{ Number of digits for overlayed numeric variables.}
+  \item{digits}{ Number of digits for overlaid numeric variables.}
   \item{labrot}{If true, labels are rotated 90 degrees.}
 }
 \details{
   This plot type assumes that each column in its first argument is a
   probability vector.  It then produces a stacked bar for each column.
-  The baseline of the bar is offset by the probility for being in the
+  The baseline of the bar is offset by the probability for being in the
   category marked by \code{profindex} or below.
 
-  The probability values are overlayed on the bars.
+  The probability values are overlaid on the bars.
 }
 \references{ This plot type was initially developed in Jody Underwood's
   Evolve project.
@@ -52,12 +52,12 @@ margins <- data.frame (
 )
 
 stackedBars(margins,3,
-            main="Margininal Distributions for NetPASS skills",
+            main="Marginal Distributions for NetPASS skills",
             sub="Baseline at 3rd Semester level.",
             cex.names=.75, col=hsv(223/360,.2,0.10*(5:1)+.5))
 
 stackedBars(margins,3,
-            main="Margininal Distributions for NetPASS skills",
+            main="Marginal Distributions for NetPASS skills",
             sub="Baseline at 3rd Semester level.",
             percent=FALSE,digits=2,
             cex.names=.75, col=hsv(223/360,.2,0.10*(5:1)+.5))

@@ -4,8 +4,8 @@
 \title{Creates the probability table for the discrete partial credit model}
 \description{
   The \code{calcDPCTable} function takes a description of input and
-  output variables for a Bayesian network distribution and a colleciton
-  of IRT-like parameter (discrimination, difficulty) and caluclates a
+  output variables for a Bayesian network distribution and a collection
+  of IRT-like parameter (discrimination, difficulty) and calculates a
   conditional probability table using the discrete partial credit distribution
   (see Details).  The \code{calcDPCFrame} function
   returns the value as a data frame with labels for the parent states.
@@ -54,7 +54,7 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
     states minus one by number of parents logical matrix.  As a special
     case, if all variable are used for all levels, then it can be a
     scalar value.}
-  \item{tvals}{A list of the same length ast \code{skillLevels}. Each
+  \item{tvals}{A list of the same length as \code{skillLevels}. Each
     element should be a numeric vector values on the theta (logistic)
     scale corresponding to the levels for that parent variable.  The
     default spaces them equally according to the normal distribution
@@ -76,14 +76,14 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
       \dQuote{effective theta} for that skill profile.}
     \item{}{The effective theta table is input into the \code{link}
       function to produce a probability
-      distrubution over the states of the outcome variables.}
+      distribution over the states of the outcome variables.}
   }
 
   The parent (conditioning) variables are described by the
   \code{skillLevels} argument which should provide for each parent
   variable in order the names of the states ranked from highest to
   lowest value.  The default implementation uses the function
-  \code{\link{effectiveThetas}} to caluclate equally spaced points on
+  \code{\link{effectiveThetas}} to calculate equally spaced points on
   the normal curve.  This can be overridden by supplying a \code{tvals}
   argument.  This should be a list of the same length as
   \code{skillLevels} with each element having the same length as the
@@ -97,7 +97,7 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   Let \eqn{X} be the child variable of the distribution, and assume that
   it can take on \eqn{M} possible states labeled \eqn{x_1} through
   \eqn{x_M} in increasing order.  (Note:  that \code{calcDPCTable}
-  assumes variable states are ordered the other direction:  from higest
+  assumes variable states are ordered the other direction:  from highest
   to lowest.)   For each state but the lowest state (the last one in the
   input order) defines a combination rule
   \eqn{Z_m(\theta_1,\ldots,\theta_K;alphas,betas)}.  Applying these
@@ -110,7 +110,7 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   parameters or even the same functional form.  The argument
   \code{rules} should contain a list of the names of the combination
   functions, the first one corresponding to \eqn{Z_M(\cdot)}, and so
-  forth in decending order.  As a special case, if \code{rules} has only
+  forth in descending order.  As a special case, if \code{rules} has only
   one element, than it is used for all of the transitions.  Similarly,
   the \code{lnAlphas} and \code{betas} should also be lists of the
   parameters of the combination functions corresponding to the
@@ -166,7 +166,7 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   For \code{calcDPCTable}, a matrix whose rows correspond configurations
   of the parent variable states (\code{skillLevels}) and whose columns
   correspond to \code{obsLevels}.  Each row of the table is a
-  probability distributon, so the whole matrix is a conditional
+  probability distribution, so the whole matrix is a conditional
   probability table.  The order of the parent rows is the same as is
   produced by applying \code{expand.grid} to \code{skillLevels}.
 

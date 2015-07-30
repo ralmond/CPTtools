@@ -1,6 +1,6 @@
 \name{proflevelci}
 \alias{proflevelci}
-\title{Produce cumulative sum credability intervals}
+\title{Produce cumulative sum credibility intervals}
 \description{
   Produces credibility intervals for hanging barplots.  Assumes that
   each column represents a sum of proportions and produces corresponding
@@ -36,16 +36,16 @@ proflevelci(data, profindex, limits=list(lower=.025,upper=.975),a=.5, b=.5)
   The \code{proflevelci} function splits the states up into those above
   the line and below the line using \code{profindex}.  It then generates
   credibility intervals using \code{\link{betaci}} for the cumulative
-  sums in each group.  The primary purpose is to create confidince
+  sums in each group.  The primary purpose is to create confidence
   intervals for stacked bar charts (see \code{\link{compareBars2}}).
   
 }
 \value{
   A list of data sets of the same length as the \code{limits} argument.
   Each data set has the same shape as the \code{data} argument and
-  represents a quatile of the data associated with the value in limits.
+  represents a quantile of the data associated with the value in limits.
   With the default limits of \code{lower} and \code{upper}, the result
-  is a list of two lements
+  is a list of two elements
   \item{lower}{Gives the lower bounds of the confidence interval.}
   \item{upper}{Gives the upper bounds of the confidence interval.}
 }

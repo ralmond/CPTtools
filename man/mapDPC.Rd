@@ -24,7 +24,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
     output of \code{\link{calcDPCTable}(skillLevels, obsLevels,
       lnAlphas, betas, rules, link, linkScale)}.  As zero counts would
     cause problems, the prior conditional probability table is
-    normally added to the counts to make the arugment a posterior
+    normally added to the counts to make the argument a posterior
     counts. 
   }
 
@@ -64,7 +64,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
     case, if all variable are used for all levels, then it can be a
     scalar value.}
 
-  \item{tvals}{A list of the same length ast \code{skillLevels}. Each
+  \item{tvals}{A list of the same length as \code{skillLevels}. Each
     element should be a numeric vector values on the theta (logistic)
     scale corresponding to the levels for that parent variable.  The
     default spaces them equally according to the normal distribution
@@ -84,7 +84,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
   find the values of \code{lnAlphas} and \code{betas} (and if used
   \code{linkScale}) parameters which are most likely to have generated
   the data in the \code{postTable} argument.  The \code{lnAlphas},
-  \code{betas} and \code{linkScale} arguments provide the inital values
+  \code{betas} and \code{linkScale} arguments provide the initial values
   for those parameters.
 
   Let \eqn{p_{i,j}} be the value in the \eqn{i}th row and the \eqn{j}th
@@ -100,14 +100,14 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
 \value{
   A list with components:
   \describe{
-    \item{lnAlphas}{A vetor of the same structure as \code{lnAlphas}
+    \item{lnAlphas}{A vector of the same structure as \code{lnAlphas}
       containing the estimated values.}
-    \item{betas}{A vetor of the same structure as \code{betas}
+    \item{betas}{A veto of the same structure as \code{betas}
       containing the estimated values.}
     \item{linkScale}{If the \code{linkScale} was supplied, the estimated
       value.}
-    \item{covergence}{An integer code. \code{0} indicates successful
-      completion, postive values are various error codes (see
+    \item{convergence}{An integer code. \code{0} indicates successful
+      completion, positive values are various error codes (see
       \code{\link[stats]{optim}}).}
     \item{value}{The deviance of the fit DPC model.}
   }
@@ -170,7 +170,7 @@ response pattern of graded scores.  \emph{Psychometrika Monograph No.
   tol <- .01
   maxdistdif <- max(abs(fitdist-truedist))
   if (maxdistdif > tol) {
-    stop("Posteror and True CPT differ, maximum difference ",maxdistdif)
+    stop("Posterior and True CPT differ, maximum difference ",maxdistdif)
   }
   if (any(abs(unlist(postLnAlphas)-unlist(trueLnAlphas))>tol)) {
     stop("Log(alphas) differ by more than tolerance")

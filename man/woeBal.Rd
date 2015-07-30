@@ -15,7 +15,7 @@ woeBal(hist, pos, neg, obs=NULL, title = "Evidence Balance Sheet",
   \item{hist}{A matrix whose rows represent time points (after tests)
     and columns represent probabilities.}
   \item{pos}{Names or numbers of states which should be regarded as
-    \dQuote{postivie}}
+    \dQuote{positive}}
   \item{neg}{Names or numbers of states which should be regarded as
     \dQuote{negative}}
   \item{obs}{An optional character vector of the same length as the
@@ -33,17 +33,17 @@ woeBal(hist, pos, neg, obs=NULL, title = "Evidence Balance Sheet",
 }
 \details{
   This constructs a weight of evidence balance sheet (Madigan,
-  Musorski, and Almond, 1997) showing the changes
+  Mosurski, and Almond, 1997) showing the changes
   to the probability distribution and weight of evidence for each
   change in the probability.  The probabilities are given in the
   \code{hist} argument in which each row should be a probability
   distribution for the target variable.  The labels for the plot are
   taken from the row labels of the \code{hist} argument.
 
-  Madigan, Musorski and Almond (1997) note that the definition of weight
+  Madigan, Mosurski and Almond (1997) note that the definition of weight
   of evidence is somewhat problematic if the hypothesis variable is not 
   binary.  In that case, they recommend partitioning the states into a
-  \emph{postive} and \emph{negative} set.  The \code{pos} and \code{neg}
+  \emph{positive} and \emph{negative} set.  The \code{pos} and \code{neg}
   are meant to describe that partition.  They can be any expression
   suitable for selecting columns from the \code{hist} matrix.  This
   function calls \code{woeHist()} to calculate weights of evidence.

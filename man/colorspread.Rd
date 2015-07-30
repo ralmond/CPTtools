@@ -25,8 +25,8 @@ colorspread(col, steps, maxsat = FALSE, rampval = FALSE)
     saturation 1, instead of whatever is appropriate for the input.
 }
   \item{rampval}{
-    A logical value.  If ture, the value as well as the saturation of
-    the color is rampe.
+    A logical value.  If true, the value as well as the saturation of
+    the color is ramped.
 }
 }
 \details{

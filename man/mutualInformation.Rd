@@ -2,7 +2,7 @@
 \alias{mutualInformation}
 \title{Calculates Mutual Information for a two-way table.}
 \description{
-  Calculates the mutal information for a two-way table of observed
+  Calculates the mutual information for a two-way table of observed
   counts or a joint probability distribution.  The mutual information is
   a measure of association between two random variables.
 }
@@ -10,7 +10,7 @@
 mutualInformation(table)
 }
 \arguments{
-  \item{table}{A two way table or probability distribuiton.  Possibly
+  \item{table}{A two way table or probability distribution.  Possibly
     the output of the \code{table} command.}
 }
 \details{

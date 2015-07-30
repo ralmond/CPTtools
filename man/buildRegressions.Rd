@@ -1,6 +1,6 @@
 \name{buildRegressions}
 \alias{buildRegressions}
-\title{Creates a series of regessions from a covariance matrix}
+\title{Creates a series of regressions from a covariance matrix}
 \description{
   This function takes a covariance matrix and list of variables and
   their parents and returns a collection of regression model parameters
@@ -22,7 +22,7 @@ buildRegressions(Sigma, means = 0,
 \details{
   This function performs one regression for each element of the
   \code{parents} list. The name of the dependent variable for each
-  regressison is given by \code{names(parents)} and the independent
+  regression is given by \code{names(parents)} and the independent
   variables is given by the values of \code{parents}.  (The function
   \code{\link{buildParentList}()} builds a suitable list of elements.)
 

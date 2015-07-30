@@ -16,7 +16,7 @@ partialCredit(et, linkScale = NULL, obsLevels = NULL)
     conditional probability table and one column for each state of the
     child variables except for the last.
 }
-  \item{linkScale}{Unused.  For compatability with other link functions. 
+  \item{linkScale}{Unused.  For compatibility with other link functions. 
 }
   \item{obsLevels}{
     A character vector giving the names of the child variable states.
@@ -80,7 +80,7 @@ partialCredit(et, linkScale = NULL, obsLevels = NULL)
   The development here follows Muraki (1992) rather than Samejima
   (1969).  
   
-  The \code{linkScale} parameter is unused.  It is for compatability
+  The \code{linkScale} parameter is unused.  It is for compatibility
   with other link function choices.
 }
 \seealso{
