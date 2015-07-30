@@ -32,7 +32,7 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
     true (e.g., 1 - the probability that an examinee will make a
     careless error).} 
   \item{bypass}{A vector of the same length as \code{skillLevels}.  For
-    each parent variable, this represents the probabity that the process
+    each parent variable, this represents the probability that the process
     will act as if that input condition is met, even if it is not met.}
   \item{thresholds}{If the input variables have more than two states,
     values that are equal to or higher than this threshold are
@@ -60,7 +60,7 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
   reduced to a binary variable by using the \code{threshold} argument.
   Any values which are equal to or higher than the \code{threshold} for
   that variable are assumed to be true.  (In this case, higher means
-  closer to the the begining of the list of possible values.)
+  closer to the the beginning of the list of possible values.)
 
   The noisy-min is a generalization
 
@@ -71,7 +71,7 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
   For \code{calcNoisyAndTable}, a matrix whose rows correspond configurations
   of the parent variable states (\code{skillLevels}) and whose columns
   correspond to \code{obsLevels}.  Each row of the table is a
-  probability distributon, so the whole matrix is a conditional
+  probability distribution, so the whole matrix is a conditional
   probability table.  The order of the parent rows is the same as is
   produced by applying \code{expand.grid} to \code{skillLevels}.
 
@@ -88,7 +88,7 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
   Pearl, J. (1988) \emph{Probabilistic Reasoning in Intelligent Systems:
   Networks of Plausible Inference.}  Morgan Kaufmann.
 
-  Diez, F. J. (1993) Parameter adjustement in Bayes networks.  The
+  Diez, F. J. (1993) Parameter adjustment in Bayes networks.  The
   generalized noisy OR-gate.  In Heckerman and Mamdani (eds)
   \emph{Uncertainty in Artificial Intelligence 93.}  Morgan Kaufmann.
   99--105. 
@@ -121,7 +121,7 @@ and <- calcNoisyAndFrame(list(c("True","False"),c("True","False")),
 stopifnot (all(and$Right==c(1,0,0,0)))
 
 
-## DINA, logical-and except that is allows for a small chance of slippling.
+## DINA, logical-and except that is allows for a small chance of slipping.
 dina <- calcNoisyAndFrame(list(c("True","False"),c("True","False")),
                           noSlip=.9)
 stopifnot (all(abs(dina$Right-c(.9,0,0,0))<.0001))

@@ -18,13 +18,13 @@ normalizeTable(table)
   \item{table}{A data frame describing a conditional probability table.
     Assumes that the conditions are expressed as factor variables, and
     all numeric columns represent states of the child variable.}
-  \item{scaleFactor}{A scaler or vector of length equal to the number of
+  \item{scaleFactor}{A scalar or vector of length equal to the number of
     rows of \code{table}.}
 }
 \details{
   For \code{rescaleTable()}, every numeric column of \code{table} is
   multiplied by \code{scaleFactor}.  This can be used to create a set of
-  hyper-Drichlet parameters by multiplying a conditional probability
+  hyper-Dirichlet parameters by multiplying a conditional probability
   table by the effective sample size.
 
   For \code{normalizeTable()}, the \code{scaleFactor} is set to be
@@ -34,7 +34,7 @@ normalizeTable(table)
 }
 \value{
   A data frame of the same shape as \code{table} with the numeric
-  enteries suitably scaled.
+  entries suitably scaled.
 }
 \author{Russell Almond}
 \note{ 

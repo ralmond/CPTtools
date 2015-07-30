@@ -4,8 +4,8 @@
 \title{Creates the probability table for DiBello--Samejima distribution}
 \description{
   The \code{calcDSTable} function takes a description of input and
-  output variables for a Bayesian network distribution and a colleciton
-  of IRT-like parameter (discrimination, difficulty) and caluclates a
+  output variables for a Bayesian network distribution and a collection
+  of IRT-like parameter (discrimination, difficulty) and calculates a
   conditional probability table using the DiBello-Samejima distribution
   (see Details).  The \code{calcDSFrame} function
   returns the value as a data frame with labels for the parent states.
@@ -44,7 +44,7 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
       combination function.  This produces an \dQuote{effective theta}
       for that skill profile.}
     \item{}{The effective theta is input into Samejima's graded-response
-      model to produce a probability distrubution over the states of the
+      model to produce a probability distribution over the states of the
       outcome variables.}
   }
 
@@ -54,7 +54,7 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   lowest value.  The original method (Almond et al., 2001)
   used equally spaced points on the interval \eqn{[-1,1]} for the
   effective thetas of the parent variables.  The current implementation
-  uses the function \code{\link{effectiveThetas}} to caluclate equally
+  uses the function \code{\link{effectiveThetas}} to calculate equally
   spaced points on the normal curve.
   
   The combination of the individual effective theta values into a joint
@@ -62,8 +62,8 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   \code{rule}.  This should be a function of three arguments:
   \code{theta} --- the vector of effective theta values for each parent,
   \code{alphas} --- the vector of discrimination parameters, and
-  \code{beta} --- a scaler value giving the difficulty.  The initial
-  distribuiton supplies five functions appropriate for use with
+  \code{beta} --- a scalar value giving the difficulty.  The initial
+  distribution supplies five functions appropriate for use with
   \code{calcDSTable}:  \code{\link{Compensatory}},
   \code{\link{Conjunctive}}, and \code{\link{Disjunctive}},
   \code{\link{OffsetConjunctive}}, and \code{\link{OffsetDisjunctive}}.
@@ -104,7 +104,7 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   For \code{calcDSTable}, a matrix whose rows correspond configurations
   of the parent variable states (\code{skillLevels}) and whose columns
   correspond to \code{obsLevels}.  Each row of the table is a
-  probability distributon, so the whole matrix is a conditional
+  probability distribution, so the whole matrix is a conditional
   probability table.  The order of the parent rows is the same as is
   produced by applying \code{expand.grid} to \code{skillLevels}.
 

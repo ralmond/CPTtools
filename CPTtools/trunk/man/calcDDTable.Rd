@@ -1,7 +1,7 @@
 \name{calcDDTable}
 \alias{calcDDTable}
 \alias{calcDDFrame}
-\title{Calculates DiBello--Dirichlet model probabilty and parameter tables}
+\title{Calculates DiBello--Dirichlet model probability and parameter tables}
 \description{
   The DiBello--Dirichlet model creates a hyper-Dirichlet prior
   distribution by interpolating between an \code{masterProfile} and a
@@ -27,7 +27,7 @@ calcDDFrame(skillLevels, obsLevels, skillWeights, masterProfile,
     Details). Its length should match \code{obsLevels}.}
   \item{noviceProfile}{The Dirichlet prior for \dQuote{novices} (see
     Details).  Its length should match \code{obsLevels} or as a special
-    case a scaler quantity gives a uniform prior.  Default is uniform
+    case a scalar quantity gives a uniform prior.  Default is uniform
     prior with weight 1/2.}
   \item{rule}{Function for computing effective theta (see Details).}
 }
@@ -62,8 +62,8 @@ calcDDFrame(skillLevels, obsLevels, skillWeights, masterProfile,
   \code{rule}.  This should be a function of three arguments:
   \code{theta} --- the vector of effective theta values for each parent,
   \code{alphas} --- the vector of discrimination parameters, and
-  \code{beta} --- a scaler value giving the difficulty.  The initial
-  distribuiton supplies three functions appropriate for use with
+  \code{beta} --- a scalar value giving the difficulty.  The initial
+  distribution supplies three functions appropriate for use with
   \code{\link{calcDSTable}}:  \code{\link{Compensatory}},
   \code{\link{Conjunctive}}, and \code{\link{Disjunctive}}.  Note that
   the \code{beta} argument is effectively ignored because of the later
@@ -82,8 +82,8 @@ calcDDFrame(skillLevels, obsLevels, skillWeights, masterProfile,
   For \code{calcDDTable}, a matrix whose rows correspond configurations
   of the parent variable states (\code{skillLevels}) and whose columns
   correspond to \code{obsLevels}.  Each row of the table is the
-  parameters of a Dirichlet distributon, so the whole matrix is the
-  parameters for a hyper-Dirichelet distribution.  The order of the
+  parameters of a Dirichlet distribution, so the whole matrix is the
+  parameters for a hyper-Dirichlet distribution.  The order of the
   parent rows is the same as is produced by applying \code{expand.grid}
   to \code{skillLevels}. 
 
@@ -97,11 +97,11 @@ calcDDFrame(skillLevels, obsLevels, skillWeights, masterProfile,
   used to model the parameters of an unconstrained hyper-Dirichlet
   distribution.
 
-  This was originally designed for use in Situational Judgement Tests
+  This was originally designed for use in Situational Judgment Tests
   where experts might not agree on the \dQuote{key}.
 
   Note:  Zeros in the \code{masterProfile} indicate responses that a
-  master would \strong{never} make.  They will result in zero proability
+  master would \strong{never} make.  They will result in zero probability
   of mastery for any response which yields that outcome.
 }
 \references{

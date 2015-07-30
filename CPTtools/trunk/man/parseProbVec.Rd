@@ -1,7 +1,7 @@
 \name{parseProbVec}
 \alias{parseProbVec}
 \alias{parseProbVecRow}
-\title{Parses Probabilitiy Vector Strings}
+\title{Parses Probability Vector Strings}
 \description{
 This takes a bunch of strings of the form \code{"[High:.3,Med:.5,Low:.2]"}
 and parses it into a vector \code{c(High=.3,Med=.5,Low=.2)}.  

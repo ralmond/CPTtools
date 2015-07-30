@@ -72,7 +72,7 @@ After a number of columns with this pattern, the last column is:
   \item{\code{ ext }}{Extend Series (Geometric)  }
   \item{\code{ ind }}{Induce Rules (Geometric)  }
   \item{\code{ mod }}{Model (Geometric) }
-  \item{\code{ rec }}{Recursive Rules (Geomeric)  }
+  \item{\code{ rec }}{Recursive Rules (Geometric)  }
   \item{\code{ tab }}{Tabular Representations (Geometric)  }
   \item{\code{ ver }}{Verbal Rules (Geometric)  }
   \item{\code{ pic }}{Pictorial Representations (Geometric)  }
@@ -126,7 +126,7 @@ After a number of columns with this pattern, the last column is:
       incorrect items was \code{Extended} or \code{AccuracyOnly}}
     \item{\code{All_Items}}{a numeric vector giving the number of items
       in ACED}
-    \item{\code{ Form_Order }}{a factor varaibles describing whether
+    \item{\code{ Form_Order }}{a factor variables describing whether
     (\code{AB}) Form A was the pretest and Form B was the posttest or
     (\code{BA}) vise versa.}
   \item{\code{ Level_Code }}{a factor variable describing the academic
@@ -190,7 +190,7 @@ After a number of columns with this pattern, the last column is:
   sequencing of items (turned off, it scheduled items in a fixed linear
   sequence).  
 
-  It was orginally built to cover all algebraic sequences (arithmetic,
+  It was originally built to cover all algebraic sequences (arithmetic,
   geometric and other recursive), but only the branch of the system
   using geometric sequences was tested.  Shute, Hansen and Almond (2008)
   describe the field trial.  Students from a local middle school (who
@@ -218,7 +218,7 @@ After a number of columns with this pattern, the last column is:
   All of the students (including the control students) were given a
   25-item pretest and a 25-item posttest with items similar to the ones
   used in ACED.  The design was counterbalanced, with half of the
-  students recieving Form A as the prestest and Form B as the posttest
+  students receiving Form A as the pretest and Form B as the posttest
   and the other half the other way around, to allow the two forms to be
   equated using the pretest data.  The details are buried in
   \code{ACED.prePost}.

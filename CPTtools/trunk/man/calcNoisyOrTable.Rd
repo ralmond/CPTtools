@@ -24,7 +24,7 @@ calcNoisyOrFrame(skillLevels, obsLevels = c("True", "False"),
     also be a vector of integers.  Its length should be 2, and the first
     value is considered to be logically equivalent to "true".}
   \item{suppression}{A vector of the same length as \code{skillLevels}.  For
-    each parent variable, this represents the probabity that the process
+    each parent variable, this represents the probability that the process
     will act as if that input condition is not met, even if it is met.}
   \item{noGuess}{A scalar value between 0 and 1.  This represents the
     probability that the the output will be false even when all of the
@@ -54,14 +54,14 @@ calcNoisyOrFrame(skillLevels, obsLevels = c("True", "False"),
   reduced to a binary variable by using the \code{threshold} argument.
   Any values which are equal to or higher than the \code{threshold} for
   that variable are assumed to be true.  (In this case, higher means
-  closer to the the begining of the list of possible values.)
+  closer to the the beginning of the list of possible values.)
 
 }
 \value{
   For \code{calcNoisyOrTable}, a matrix whose rows correspond configurations
   of the parent variable states (\code{skillLevels}) and whose columns
   correspond to \code{obsLevels}.  Each row of the table is a
-  probability distributon, so the whole matrix is a conditional
+  probability distribution, so the whole matrix is a conditional
   probability table.  The order of the parent rows is the same as is
   produced by applying \code{expand.grid} to \code{skillLevels}.
 
@@ -78,7 +78,7 @@ calcNoisyOrFrame(skillLevels, obsLevels = c("True", "False"),
   Pearl, J. (1988) \emph{Probabilistic Reasoning in Intelligent Systems:
   Networks of Plausible Inference.}  Morgan Kaufmann.
 
-  Diez, F. J. (1993) Parameter adjustement in Bayes networks.  The
+  Diez, F. J. (1993) Parameter adjustment in Bayes networks.  The
   generalized noisy OR-gate.  In Heckerman and Mamdani (eds)
   \emph{Uncertainty in Artificial Intelligence 93.}  Morgan Kaufmann.
   99--105. 
@@ -110,13 +110,13 @@ or <- calcNoisyOrFrame(list(c("True","False"),c("True","False")),
 stopifnot (all(or$Right==c(1,1,1,0)))
 
 
-## DINO, logical-or except that is allows for a small chance of slippling.
+## DINO, logical-or except that is allows for a small chance of slipping.
 dino <- calcNoisyOrFrame(list(c("True","False"),c("True","False")),
                           noGuess=.9)
 stopifnot (all(abs(dino$True-c(1.0,1.0,1.0,.1))<.0001))
 
 
-##NIDO, logical-or except that inputs can roromly be bypassed
+##NIDO, logical-or except that inputs can randomly be bypassed
 nido <- calcNoisyOrFrame(list(c("True","False"),c("True","False")),
                           suppression=c(.3,.4))
 stopifnot (all(abs(nido$True-c(.88,.6,.7,0))<.0001))

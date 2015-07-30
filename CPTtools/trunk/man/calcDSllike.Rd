@@ -5,7 +5,7 @@
   (Normal) distribution}
 \description{
   These functions take \code{data} which represent draws from a
-  categorical data with the given DiBello--Samejima distribuiton and
+  categorical data with the given DiBello--Samejima distribution and
   returns the log-likelihood of the given data.
 }
 \usage{
@@ -61,7 +61,7 @@ calcDNllike(data, parents, skillLevels, child, obsLevels,
 \author{Russell Almond}
 \note{
   This function is primarily about testing the log likelihood
-  caluclations used internally in StatShop.
+  calculations used internally in StatShop.
 }
 \seealso{\code{\link{dataTable}}, \code{\link{calcDSTable}},
   \code{\link{Compensatory}},\code{\link{OffsetConjunctive}},

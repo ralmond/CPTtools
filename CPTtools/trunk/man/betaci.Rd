@@ -3,7 +3,7 @@
 \title{Credibility intervals for a proportion based on beta distribution}
 \description{
   This generates upper and lower bounds for a highest posterior
-  densisity credibility interval for a beta distribution by looking at
+  density credibility interval for a beta distribution by looking at
   appropriate quantiles of the beta distribution.  This is designed to
   work with sums of classification probabilities.
 }
@@ -30,11 +30,11 @@ betaci(sumData, totals = NULL, limits = c(lower = 0.025, upper = 0.975),
 
   To avoid problems with zero cells (or cells with values equal to
   \code{totals}), a small prior is added to the beta calculations.  By
-  default a Jeffreys prior \eqn{(.5,.5)} is added to the data.  Thus the
+  default a Jeffrey's prior \eqn{(.5,.5)} is added to the data.  Thus the
   final returned value is:
   \deqn{\code{qbeta}(prob,sumData+a,totals-sumData+b)}
   where \code{prob} varies over the values in \code{limits}.  Note that
-  \code{a} and \code{b} can be scalers or an array conformable with
+  \code{a} and \code{b} can be scalars or an array conformable with
   \code{totals}.  
 }
 \value{

@@ -1,10 +1,10 @@
 \name{MathGrades}
 \alias{MathGrades}
 \docType{data}
-\title{Grades on 5 mathmatics tests from Mardia, Kent and Bibby}
+\title{Grades on 5 mathematics tests from Mardia, Kent and Bibby}
 \description{
   Summary statistics for a data set consisting of marks on five
-  mathmatics exams originally presented in Mardia, Kent and Bibby
+  mathematics exams originally presented in Mardia, Kent and Bibby
   (1979).  The raw data are not given, but rather the summary statistics
   reported in Whittaker (1990) are provided.
 }
@@ -32,7 +32,7 @@
 \references{
 
   Mardia, K.V. and Kent, J.T. and Bibby, J.M. (1979) \emph{Multivariate
-    Analsysis}. Academic Press.
+    Analysis}. Academic Press.
 
   Whittaker, J. (1990).  \emph{Graphical Models in Applied Multivariate
     Statistics}.  Wiley.

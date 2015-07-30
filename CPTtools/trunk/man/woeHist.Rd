@@ -14,7 +14,7 @@ woeHist(hist, pos, neg)
   \item{hist}{A matrix whose rows represent time points (after tests)
     and columns represent probabilities.}
   \item{pos}{Names or numbers of states which should be regarded as
-    \dQuote{postivie}}
+    \dQuote{positive}}
   \item{neg}{Names or numbers of states which should be regarded as
     \dQuote{negative}}
 }
@@ -26,18 +26,18 @@ woeHist(hist, pos, neg)
     100 log10 Pr(E|H)/Pr(E| not H) =
     100 [ log10 Pr(H|E)/Pr(not H|E) - log10 Pr(H)/Pr(not H)}
   Where \eqn{\overline H}{not H} is used to indicate the negation of the
-  hypothesis.  Good recomends taking the log base 10 and multipling by
-  100, and calls the resulting units \dfn{centebans}.   The second
+  hypothesis.  Good recommends taking the log base 10 and multiplying by
+  100, and calls the resulting units \dfn{centibans}.   The second
   definition of weight of evidence as a difference in log odd leads
   naturally to the idea of an incremental weight of evidence for each
   new observation. 
 
-  Following Madigan, Musorski and Almond (1997), all that is needed to
+  Following Madigan, Mosurski and Almond (1997), all that is needed to
   calculate the WOE is the marginal distribution for the hypothesis
   variable at each time point.  They also note that the definition is
   somewhat problematic if the hypothesis variable is not binary.  In
   that case, they recommend partitioning the states into a
-  \emph{postive} and \emph{negative} set.  The \code{pos} and \code{neg}
+  \emph{positive} and \emph{negative} set.  The \code{pos} and \code{neg}
   are meant to describe that partition.  They can be any expression
   suitable for selecting columns from the \code{hist} matrix.
 }

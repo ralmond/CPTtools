@@ -2,7 +2,7 @@
 \alias{dataTable}
 \title{Constructs a table of counts from a set of discrete observations.}
 \description{
-  This contructs a table of counts in a special format useful for
+  This constructs a table of counts in a special format useful for
   conditional probability tables.  The rows correspond to configurations
   of the parent variables and the columns correspond to possible states
   of the child variables.

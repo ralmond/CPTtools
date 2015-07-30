@@ -5,7 +5,7 @@
 \description{
   This evaluates the combination function but not the link function of
   of an effective theta distribution.  It produces a table of effective
-  thetas one for each configuration of the parent values acording to the
+  thetas one for each configuration of the parent values according to the
   combination function given in the \code{model} argument.
 }
 \usage{
@@ -37,7 +37,7 @@ eThetaFrame(skillLevels, lnAlphas, beta, rule = "Compensatory")
       rule for combination.}
     \item{}{The effective theta is input into a link function (e.g.,
       Samejima's graded-response function) to produce a probability
-      distrubution over the states of the outcome variables.}
+      distribution over the states of the outcome variables.}
   }
   This function applies the first two of those steps and returns a data
   frame with the original skill levels and the effective thetas.
@@ -48,7 +48,7 @@ eThetaFrame(skillLevels, lnAlphas, beta, rule = "Compensatory")
   lowest value.  The original method (Almond et al., 2001)
   used equally spaced points on the interval \eqn{[-1,1]} for the
   effective thetas of the parent variables.  The current implementation
-  uses the function \code{\link{effectiveThetas}} to caluclate equally
+  uses the function \code{\link{effectiveThetas}} to calculate equally
   spaced points on the normal curve.
 
     The combination of the individual effective theta values into a joint
@@ -56,8 +56,8 @@ eThetaFrame(skillLevels, lnAlphas, beta, rule = "Compensatory")
   \code{rule}.  This should be a function of three arguments:
   \code{theta} --- the vector of effective theta values for each parent,
   \code{alphas} --- the vector of discrimination parameters, and
-  \code{beta} --- a scaler value giving the difficulty.  The initial
-  distribuiton supplies five functions appropriate for use with
+  \code{beta} --- a scalar value giving the difficulty.  The initial
+  distribution supplies five functions appropriate for use with
   \code{calcDSTable}:  \code{\link{Compensatory}},
   \code{\link{Conjunctive}}, and \code{\link{Disjunctive}},
   \code{\link{OffsetConjunctive}}, and \code{\link{OffsetDisjunctive}}.
@@ -70,7 +70,7 @@ eThetaFrame(skillLevels, lnAlphas, beta, rule = "Compensatory")
 \value{
   For a data frame with one column for each parent variable and an
   additional column for the effective theta values.  The number of rows
-  is the product of the number of states in each of the componense of
+  is the product of the number of states in each of the components of
   the \code{skillLevels} argument.
 }
 \references{

@@ -24,7 +24,7 @@ tables (CPTs) for Bayesian networks.  The package has two output
 representations for a CPT.  The first is a \code{data.frame} object
 where the first several columns are factor variables corresponding the
 the parent variables, and the remaining columns are numeric variables
-correponding to the state of the child variables.  The rows represent
+corresponding to the state of the child variables.  The rows represent
 possible configurations of the parent variables.  An example is shown below.
 
 \preformatted{
@@ -69,7 +69,7 @@ three steps:
     theta using a combination rule (\code{\link{Compensatory}},
     \code{\link{OffsetConjunctive}}).}
   \item{Convert the effective theta for each row of the table into
-    conditional proabilities using a link function
+    conditional probabilities using a link function
     (\code{\link{gradedResponse}}, \code{\link{partialCredit}}).}
 }
 
@@ -88,7 +88,7 @@ This parameterization serves as basis for the model used in the
 \code{\link[Peanut:Peanut-package]{Peanut}} package.
   
 }
-\section{Other parametetric CPT models}{
+\section{Other parametric CPT models}{
 
   The first two steps of the discrete partial credit framework outlined
   above are due to a suggestion by Lou DiBello (Almond et al, 2001).
@@ -100,7 +100,7 @@ This parameterization serves as basis for the model used in the
 
   \describe{
     \item{\code{\link{calcDDTable}}}{Calculates DiBello-Dirichlet model
-      probabilty and parameter tables.}
+      probability and parameter tables.}
     \item{\code{\link{calcDNTable}}}{Creates the probability table for
       DiBello-Normal distribution.} 
     \item{\code{\link{calcDSTable}}}{Creates the probability table for
@@ -129,7 +129,7 @@ This parameterization serves as basis for the model used in the
   entries in an inverse correlation matrix produces an undirected
   graphical model.  Ordering in the nodes in a perfect ordering allows
   the undirected model to be converted into a directed model (Bayesian
-  network).  The conditional proability tables can then be created
+  network).  The conditional probability tables can then be created
   through a series of regressions.
 
   The following functions implement this protocol:
@@ -140,7 +140,7 @@ This parameterization serves as basis for the model used in the
       Cardinality search.}
     \item{\code{\link{buildParentList}}}{Builds a list of parents of
       nodes in a graph.}
-    \item{\code{\link{buildRegressions}}}{Creates a series of regessions
+    \item{\code{\link{buildRegressions}}}{Creates a series of regressions
       from a covariance matrix.}
     \item{\code{\link{buildRegressionTables}}}{Builds conditional
       probability tables from regressions.}
@@ -185,24 +185,24 @@ This parameterization serves as basis for the model used in the
   Madigan, Mosurski and Almond (1997) describe a graphical weight of
   evidence balance sheet (see also Almond et al, 2015, Chapter 7; Almond
   et al, 2013).  The function \code{\link{woeHist}} calculates the weights of
-  evidence for a series of observatations and the function
+  evidence for a series of observations and the function
   \code{\link{woeBal}} produces a graphical display.  
 
   Sinharay and Almond (2006) propose a graphical fit test for
-  conditional proability tables (see also, Almond et al, 2015, Chapter
+  conditional probability tables (see also, Almond et al, 2015, Chapter
   10).  The function \code{\link{OCP}} implements this test, and the
   function \code{\link{betaci}} creates the beta credibility intervals
   around which the function is built.
 
   The key to Bayesian network models are the assumptions of conditional
-  independence which underly the model.  The function
+  independence which underlie the model.  The function
   \code{\link{localDepTest}} tests these assumptions based on observed
   (or imputed) data tables.
 
-  The function \code{\link{mutualInformation}} calcualtes the mutual
+  The function \code{\link{mutualInformation}} calculates the mutual
   information of a two-way table, a measure of the strength of
   association.  This is similar to the measure used in many Bayes net
-  pacakges (e.g., \code{\link[RNetica]{MutualInfo}}).
+  packages (e.g., \code{\link[RNetica]{MutualInfo}}).
                         
 }
 \section{Data sets}{
@@ -210,12 +210,12 @@ This parameterization serves as basis for the model used in the
   Two data sets are provided with this package:
   \describe{
     \item{\code{\link{ACED}}}{Data from ACED field trial (Shute, Hansen,
-      and Amond, 2008).  This example is based on a field trial of a
+      and Almond, 2008).  This example is based on a field trial of a
       Bayesian network based Assessment for Learning system, and contains
       both item-level response and high-level network summaries.  A
       complete description of the Bayes net can be found at
       \url{http://ecd.ralmond.net/ecdwiki/ACED/ACED}.}
-    \item{\code{\link{MathGrades}}}{Grades on 5 mathmatics tests from
+    \item{\code{\link{MathGrades}}}{Grades on 5 mathematics tests from
       Mardia, Kent and Bibby (from Whittaker, 1990).}
     }
 }
@@ -254,7 +254,7 @@ Maintainer: \packageMaintainer{CPTtools}
     Intelligence and Statistics 2001}  Jaakkola and Richardson (eds).,
   Morgan Kaufmann, 137--143.  
 
-  Diez, F. J. (1993) Parameter adjustement in Bayes networks.  The
+  Diez, F. J. (1993) Parameter adjustment in Bayes networks.  The
   generalized noisy OR-gate.  In Heckerman and Mamdani (eds)
   \emph{Uncertainty in Artificial Intelligence 93.}  Morgan Kaufmann.
   99--105. 
@@ -341,12 +341,12 @@ margins.post <- data.frame(
  Model=c(Novice=.10,Semester1=.25,Semester2=.37,Semseter3=.23,Semester4=.05))
 
 stackedBars(margins.post,3,
-            main="Margininal Distributions for NetPASS skills",
+            main="Marginal Distributions for NetPASS skills",
             sub="Baseline at 3rd Semester level.",
             cex.names=.75, col=hsv(223/360,.2,0.10*(5:1)+.5))
 
 compareBars(margins.prior,margins.post,3,c("Prior","Post"),
-            main="Margins before/after Medium TroubleShooting Task",
+            main="Margins before/after Medium Trouble Shooting Task",
             sub="Observables:  cfgCor=Medium, logCor=High, logEff=Medium",
             legend.loc = "topright",
             cex.names=.75, col1=hsv(h=.1,s=.2*1:5-.1,alpha=1),

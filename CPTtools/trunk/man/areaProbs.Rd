@@ -23,14 +23,14 @@ areaProbs(pvec, condmean, condstd, mean = 0, std = 1)
   \item{mean}{The mean of the continuous variable.}
   \item{std}{The standard deviation of the continuous variable.}
   \item{condmean}{The conditional mean of the continuous variable.}
-  \item{condstd}{The conditional standard devaiation of the continuous
+  \item{condstd}{The conditional standard deviation of the continuous
     variable.}
 }
 \details{
   Let \eqn{S} be a discrete variable whose states
   \eqn{s_k} are given by \code{names(pvec)[k]} and for which the
   marginal probability \eqn{Pr(S=s_k) = p_k} is given by \code{pvec[k]}.
-  Let \eqn{Y} be a continous normal variable with mean \code{mean} and
+  Let \eqn{Y} be a continuous normal variable with mean \code{mean} and
   standard deviation \code{std}.  These function map between \eqn{S} and
   \eqn{Y}.
 

@@ -6,7 +6,7 @@
 }
 \description{
   These functions take a vector of \dQuote{effective theta} values for a
-  colletion of parent variables and calculates the effective theta value
+  collection of parent variables and calculates the effective theta value
   for the child variable according to the named rule.  Used in
   calculating DiBello--Samejima and DiBello--Normal probability tables.
   These versions have a single slope parameter (alpha) and one
@@ -18,7 +18,7 @@ OffsetDisjunctive(theta, alpha, betas)
 }
 \arguments{
   \item{theta}{A matrix of effective theta values whose columns correspond to
-    parent variables and whos rows correspond to possible skill profiles.}
+    parent variables and whose rows correspond to possible skill profiles.}
   \item{alpha}{A single common discrimination parameter.  (Note these
     function expect discrimination parameters and not log discrimination
     parameters as used in \code{\link{calcDSTable}}.)} 
