@@ -31,7 +31,7 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
   \item{rule}{Function for computing effective theta (see Details).}
 }
 \details{
-  The DiBello--Normal distribution (Almond et al, Draft) is a variant of the
+  The DiBello--Normal distribution (Almond et al, 2015) is a variant of the
   DiBello--Samejima distribution (Almond et al, 2001) for creating conditional
   probability tables for Bayesian networks which uses a regression-like
   (probit) link function in place of Samejima's graded response link
@@ -106,8 +106,8 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
   observables, see \code{\link{calcDSTable}}.  
 }
 \references{
-  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
-  Yan, D. (Draft) \emph{Bayesian Networks in Educational Assessment.}
+  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Yan, D. and Williamson, D.M.
+  (2015) \emph{Bayesian Networks in Educational Assessment.}
   Springer.  Chapter 8.
 
   Almond, R.G., DiBello, L., Jenkins, F., Mislevy, R.J.,  

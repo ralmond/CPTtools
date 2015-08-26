@@ -21,10 +21,10 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
 \arguments{
   \item{postTable}{
     A table of cell counts which should have the same structure as the
-    output of \code{\link{calcDPCTable}(skillLevels, obsLevels,
-      lnAlphas, betas, rules, link, linkScale)}.  As zero counts would
-    cause problems, the prior conditional probability table is
-    normally added to the counts to make the argument a posterior
+    output of \code{\link{calcDPCTable}(skillLevels, obsLevels,} 
+    \code{lnAlphas, betas, rules, link,} \code{linkScale)}.  As zero
+    counts would cause problems, the prior conditional probability table
+    is normally added to the counts to make the argument a posterior
     counts. 
   }
 
@@ -116,8 +116,8 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
   that function for details.
 }
 \references{
-  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
-  Yan, D. (Draft) \emph{Bayesian Networks in Educational Assessment.}
+  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Yan, D. and Williamson, D.M.
+  (2015). \emph{Bayesian Networks in Educational Assessment.}
   Springer.  Chapter 8.
 
   Muraki, E. (1992).  A Generalized Partial Credit Model:  Application
@@ -133,8 +133,9 @@ response pattern of graded scores.  \emph{Psychometrika Monograph No.
 }
 \author{Russell Almond}
 \seealso{
-  \code{\link[stats]{optim}}), \code{\link{calcDPCTable}},\code{\link{Compensatory}},
-  \code{\link{OffsetConjunctive}},\code{\link{gradedResponse}},
+  \code{\link[stats]{optim}}, \code{\link{calcDPCTable}},
+  \code{\link{Compensatory}},
+  \code{\link{OffsetConjunctive}}, \code{\link{gradedResponse}},
   \code{\link{partialCredit}} 
 }
 \examples{
