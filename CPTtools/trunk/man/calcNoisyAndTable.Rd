@@ -81,8 +81,8 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
 
 }
 \references{
-  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
-  Yan, D. (Draft) \emph{Bayesian Networks in Educational Assessment.}
+  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Yan, D. and Williamson, D.M. 
+  (2015) \emph{Bayesian Networks in Educational Assessment.}
   Springer.  Chapter 8.
 
   Pearl, J. (1988) \emph{Probabilistic Reasoning in Intelligent Systems:

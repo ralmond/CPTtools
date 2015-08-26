@@ -64,13 +64,13 @@ areaProbs(pvec, condmean, condstd, mean = 0, std = 1)
   
 }
 \references{
-  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and
-  Yan, D. (Draft) \emph{Bayesian Networks in Educational Assessment.}
+  Almond, R.G., Mislevy, R.J., Steinberg, L.S., Yan, D. and Williamson,
+  D.M. (2015) \emph{Bayesian Networks in Educational Assessment.}
   Springer.  Chapter 8.
 
-  Almond, R.G. (Draft) Building Bayesian Network Proficiency Models from
-Factor Analysis Results.  ETS Research Memorandum (not yet submitted).
-
+  Almond, R.G. \sQuote{I Can Name that Bayesian Network in Two
+    Matrixes.}  \emph{International Journal of Approximate Reasoning},
+    \bold{51}, 167--178.
 }
 \author{Russell Almond}
 \note{ 

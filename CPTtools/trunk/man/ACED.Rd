@@ -78,7 +78,7 @@ After a number of columns with this pattern, the last column is:
   \item{\code{ pic }}{Pictorial Representations (Geometric)  }
   }
 
-  \code{ACED.scores} is data frame with 230 observations on 73
+  \code{ACED.items} is data frame with 230 observations on 73
   variables.  These are mostly item-level scores from the field trial. 
   \describe{
     \item{\code{Cond_code}}{a numeric vector giving the experimental
@@ -106,7 +106,7 @@ After a number of columns with this pattern, the last column is:
     giving the difficulty (easy, medium or hard) and a letter (a, b or
     c) used to indicate alternate tasks following the same task model.
     Finally, following a period, there is a version number (all of the
-    tasks are version 1.
+    tasks are version 1).
 
     After the variables, the last column is:
     \item{\code{Cond}}{a factor describing the experimental condition
