@@ -169,6 +169,21 @@ OffsetDisjunctive <- function (theta, alpha, betas) {
   theta*alpha
 }
 
+### List of rules which should be considered offset functions
+OffsetRules <- c("OffsetConjunctive","OffsetDisjunctive")
+getOffsetRules<- function() { OffsetRules}
+setOffsetRules<- function(newval) {
+  assignInMyNamespace("OffsetRules",newval)
+}
+
+isOffsetRule <- function (rl) {
+  if (is.character(rl) || is.list(rl))
+    return(rl %in% OffsetRules)
+  else
+    return(FALSE)
+}
+
+
 ### This function builds up a contingency table for the various combinations
 ### of parent and child state.
 dataTable <- function (data, parents, child, childStates) {
