@@ -1,3 +1,9 @@
+2016-05-04  Almond  <ralmond@macox.com>
+
+	* R/DSLikelihoods.R (OffsetDisjunctive): Added isOffsetRules
+	functions, to test whether we have regular (a corresponds to
+	parents) or offset-style (b-corresponds to parents).
+
 2015-05-25  Russell G. Almond  <ralmond@Limu>
 
 	* inst/testFiles/ACEDdata.R: Added ACED which should be useful in
