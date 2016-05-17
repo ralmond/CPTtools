@@ -5,10 +5,10 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Distinguishes Offset from ordinary rules.}
 \description{
-  An \emph{offset rule} is one where there is one intercept ($\beta$)
+  An \emph{offset rule} is one where there is one intercept (beta)
   parameter for each parent and there is a single slope
   parameters. As opposed to a regression-style rule where there is a
-  different slope ($\alpha$) for each parent and single intercept.  This
+  different slope (alpha) for each parent and single intercept.  This
   function distinguishes between the twho types of rules.
 }
 \usage{
