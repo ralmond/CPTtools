@@ -122,4 +122,17 @@ gradedResponse <- function (et,linkScale=NULL,obsLevels=NULL) {
   probs
 }
 
-
+normalLink <- function (et,linkScale=NULL,obsLevels=NULL) {
+  if (is.null(linkScale))
+    stop("Link Scale parameter required for normal link.")
+  m <- ncol(et)+1
+  cuts <- qnorm( ((m-1):1)/m)
+  ## Only play attention to the first column.
+  pt <- prorm(outer(-et[,1],cuts,"+")/linkScale)
+  pt <- cbind(1,pt,0)
+  probs <- pt[,1:m]-pt[,1+(1:m)]
+  if (!is.null(obsLevels)) {
+    dimnames(probs) <- list(NULL,obsLevels)
+  }
+  probs
+}

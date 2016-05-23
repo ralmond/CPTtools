@@ -6,7 +6,7 @@
 export(calcDDTable, calcDDFrame,
        gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,
        effectiveThetas, calcDSTable, calcDSFrame, eThetaFrame,
-       calcDNTable, calcDNFrame,
+       calcDNTable, calcDNFrame, normalLink,
        Compensatory, Conjunctive, Disjunctive,
        OffsetConjunctive, OffsetDisjunctive,
        getOffsetRules, setOffsetRules, isOffsetRule,

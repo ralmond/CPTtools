@@ -1,3 +1,7 @@
+2016-05-22  Russell G. Almond  <ralmond@Limu>
+
+	* R/DGR.R (normalLink): Added normal Link.
+
 2016-05-04  Almond  <ralmond@macox.com>
 
 	* R/DSLikelihoods.R (OffsetDisjunctive): Added isOffsetRules
