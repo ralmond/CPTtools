@@ -242,6 +242,12 @@ stopifnot (all (abs(cptCorrect-cptCorrect1) <.001))
 cptConj <- calcDPCTable(list(S1=skill1l,S2=skill2l),correctL,
                         log(1),c(S1=0.5,S2=.7),rule="OffsetConjunctive")
 
+## Test for no parent case
+cptTheta <- calcDPCTable(list(),skill1l,numeric(),0,rule="Compensatory",
+                         link="normalLink",linkScale=.5)
+cpfTheta <- calcDPCFrame(list(),skill1l,numeric(),0,rule="Compensatory",
+                         link="normalLink",linkScale=.5)
+
 
 ## Simple model, Skill 1 needed for step 1, Skill 2 for Step 2.
 cptPC1 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,

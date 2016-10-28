@@ -113,6 +113,9 @@ calcDNFrame <- function (skillLevels, obsLevels, lnAlphas, beta, std,
 
 ### Calculates the effective thetas for the Compensatory distribution.
 Compensatory <- function (theta, alphas, beta) {
+  if (nrow(theta)==0L || length(alphas)==0L) {
+    return(-beta)    # No parent case
+  }
   nparents <- length(alphas)
   if (ncol(theta) != nparents) {
     stop("Dimension missmatch between theta and alpha.")
@@ -124,6 +127,9 @@ Compensatory <- function (theta, alphas, beta) {
 ### Calculates the effective thetas for the Conjunctive combination
 ### rule. 
 Conjunctive <- function (theta, alphas, beta) {
+  if (nrow(theta)==0L || length(alphas)==0L) {
+    return(-beta)    # No parent case
+  }
   nparents <- length(alphas)
   if (ncol(theta) != nparents) {
     stop("Dimension missmatch between theta and alpha.")
@@ -135,6 +141,9 @@ Conjunctive <- function (theta, alphas, beta) {
 ### Calculates the effective thetas for the Disjunctive combination
 ### rule. 
 Disjunctive <- function (theta, alphas, beta) {
+  if (nrow(theta)==0L || length(alphas)==0L) {
+    return(-beta)    # No parent case
+  }  
   nparents <- length(alphas)
   if (ncol(theta) != nparents) {
     stop("Dimension missmatch between theta and alpha.")
