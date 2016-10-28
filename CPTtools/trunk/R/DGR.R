@@ -42,7 +42,7 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
 
   thetas <- do.call("expand.grid",tvals)
 
-  et <- matrix(0,nrow(thetas),k-1)
+  et <- matrix(0,ifelse(nrow(thetas)==0L,1L,nrow(thetas)),k-1) #Take care of no parent case
   for (kk in 1:(k-1)) {
     et[,kk] <- do.call(rules[[kk]],
                       list(thetas[,Q[kk,],drop=FALSE],
@@ -57,10 +57,15 @@ function (skillLevels, obsLevels, lnAlphas, betas,
           linkScale=NULL,Q=TRUE,
           tvals=lapply(skillLevels,
               function (sl) effectiveThetas(length(sl)))) {
-  result <- data.frame(expand.grid(skillLevels),
-                       calcDPCTable(skillLevels,paste(obsLevels),
-                                    lnAlphas,betas,rules,link,
-                                    linkScale,Q,tvals))
+  markers <- expand.grid(skillLevels)
+  tab <- calcDPCTable(skillLevels,paste(obsLevels),
+                      lnAlphas,betas,rules,link,
+                      linkScale,Q,tvals)
+  if (length(skillLevels)>0L) {
+    result <- data.frame(markers,tab)
+  } else {
+    result <- data.frame(tab)
+  }
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
     ## R is "helpfully" fixing our numeric labels.  Need to insist.
@@ -128,9 +133,9 @@ normalLink <- function (et,linkScale=NULL,obsLevels=NULL) {
   m <- ncol(et)+1
   cuts <- qnorm( ((m-1):1)/m)
   ## Only play attention to the first column.
-  pt <- prorm(outer(-et[,1],cuts,"+")/linkScale)
+  pt <- pnorm(outer(-et[,1],cuts,"+")/linkScale)
   pt <- cbind(1,pt,0)
-  probs <- pt[,1:m]-pt[,1+(1:m)]
+  probs <- pt[,1:m,drop=FALSE]-pt[,1+(1:m),drop=FALSE]
   if (!is.null(obsLevels)) {
     dimnames(probs) <- list(NULL,obsLevels)
   }
