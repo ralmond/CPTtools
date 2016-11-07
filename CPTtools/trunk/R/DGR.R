@@ -98,7 +98,7 @@ partialCredit <- function (et,linkScale=NULL,obsLevels=NULL) {
   }
   pt <- cbind(exp(1.7*zt),1)
   pt <- sweep(pt,1,apply(pt,1,sum),"/")
-  probs <- pt[,1:m]
+  probs <- pt[,1:m,drop=FALSE]
   probs <- ifelse(probs<0,0,probs)
   if (!is.null(obsLevels)) {
     dimnames(probs) <- list(NULL,obsLevels)
@@ -119,7 +119,7 @@ gradedResponse <- function (et,linkScale=NULL,obsLevels=NULL) {
     zt <- t(zt)
   }
   pt <- cbind(0,zt,1)
-  probs <- pt[,2:(m+1)]-pt[,1:m]
+  probs <- pt[,2:(m+1),drop=FALSE]-pt[,1:m,drop=FALSE]
   # probs <- ifelse(probs<0,0,probs)
   if (!is.null(obsLevels)) {
     dimnames(probs) <- list(NULL,obsLevels)
@@ -131,6 +131,7 @@ normalLink <- function (et,linkScale=NULL,obsLevels=NULL) {
   if (is.null(linkScale))
     stop("Link Scale parameter required for normal link.")
   m <- ncol(et)+1
+
   cuts <- qnorm( ((m-1):1)/m)
   ## Only play attention to the first column.
   pt <- pnorm(outer(-et[,1],cuts,"+")/linkScale)

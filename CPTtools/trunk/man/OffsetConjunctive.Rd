@@ -66,6 +66,10 @@ Morgan Kaufmann, 137--143.
   DiBello--Samejima and DiBello--Normal models.  Other structure
   functions are possible and can be excepted by those functions as long
   as they have the same signature as these functions.
+
+  Note that the offset conjunctive and disjunctive model don't really
+  make much sense in the no parent case.  Use \code{\link{Compensatory}}
+  instead. 
 }
 \examples{
   skill <- c("High","Medium","Low")

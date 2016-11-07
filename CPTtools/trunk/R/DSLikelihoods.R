@@ -23,7 +23,7 @@ calcDSTable <- function (skillLevels, obsLevels, lnAlphas, beta, dinc=0,
   thetas <- do.call("expand.grid",tvals)
   etheta <- do.call(rule,list(thetas,exp(lnAlphas),beta))
   #print(etheta)
-  
+
   k <- length(obsLevels)
   if (k > 2) {
     ## dinc parameters are given from highest state to lowest,
@@ -120,26 +120,34 @@ Compensatory <- function (theta, alphas, beta) {
   if (ncol(theta) != nparents) {
     stop("Dimension missmatch between theta and alpha.")
   }
-  theta <- apply(sweep(theta,2,alphas,"*"),1,sum)
-  theta/sqrt(nparents) - beta
+  if (nparents==0) {
+    -beta
+  } else {
+    theta <- apply(sweep(theta,2,alphas,"*"),1,sum)
+    theta/sqrt(nparents) - beta
+  }
 }
 
 ### Calculates the effective thetas for the Conjunctive combination
-### rule. 
+### rule.
 Conjunctive <- function (theta, alphas, beta) {
   if (nrow(theta)==0L || length(alphas)==0L) {
     return(-beta)    # No parent case
   }
   nparents <- length(alphas)
-  if (ncol(theta) != nparents) {
+  if (nparents>0 && ncol(theta) != nparents) {
     stop("Dimension missmatch between theta and alpha.")
   }
-  theta <- apply(sweep(theta,2,alphas,"*"),1,min)
-  theta - beta
+  if (nparents==0) {
+    -beta
+  } else {
+    theta <- apply(sweep(theta,2,alphas,"*"),1,min)
+    theta - beta
+  }
 }
 
 ### Calculates the effective thetas for the Disjunctive combination
-### rule. 
+### rule.
 Disjunctive <- function (theta, alphas, beta) {
   if (nrow(theta)==0L || length(alphas)==0L) {
     return(-beta)    # No parent case
@@ -148,8 +156,12 @@ Disjunctive <- function (theta, alphas, beta) {
   if (ncol(theta) != nparents) {
     stop("Dimension missmatch between theta and alpha.")
   }
-  theta <- apply(sweep(theta,2,alphas,"*"),1,max)
-  theta - beta
+  if (nparents==0) {
+    -beta
+  } else {
+    theta <- apply(sweep(theta,2,alphas,"*"),1,max)
+    theta - beta
+  }
 }
 
 ### Calculates the effective thetas for the OffsetConjunctive
@@ -203,7 +215,7 @@ dataTable <- function (data, parents, child, childStates) {
 
 ### This calculates the actual DiBello Samejima log likelihood
 calcDSllike <- function (data,parents,skillLevels, child, obsLevels,
-                        lnAlphas, beta, dinc=0, 
+                        lnAlphas, beta, dinc=0,
                         rule="Compensatory") {
   ## Reversing parents gets us to the same order as matrixes are
   ## stored in StatShop
@@ -217,7 +229,7 @@ calcDSllike <- function (data,parents,skillLevels, child, obsLevels,
 
 ### This calculates the actual DiBello Normal log likelihood
 calcDNllike <- function (data,parents,skillLevels, child, obsLevels,
-                        lnAlphas, beta, std, 
+                        lnAlphas, beta, std,
                         rule="Compensatory") {
   ## Reversing parents gets us to the same order as matrixes are
   ## stored in StatShop
