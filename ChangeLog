@@ -1,3 +1,17 @@
+2016-11-06  Russell G. Almond  <ralmond@Limu>
+
+	* R/EM2step.R (mapDPC, llike): Added LinksScale parameter (or more
+	properly log of link scale parameter) to gradient decent
+	algortihm.  Not sure this is the best way to handle this.  Also,
+	need some way of handinging hyper-Dirichlet distributions.
+	
+
+2016-11-05  Russell G. Almond  <ralmond@Limu>
+
+	* R/DSLikelihoods.R (Compensatory, Disjunctive, Conjunctive): Fix
+	for zero parent case. 
+
+
 2016-05-22  Russell G. Almond  <ralmond@Limu>
 
 	* R/DGR.R (normalLink): Added normal Link.

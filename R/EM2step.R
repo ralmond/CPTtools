@@ -7,64 +7,87 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
                                 function (sl) effectiveThetas(length(sl))),
                     ...) {
   k <- length(obsLevels)
-  pvec <- numeric(0)
-  iparam <- 0
-  ialpha <- vector("list",k-1)
+  pvec <- numeric(0L)
+  iparam <- 0L
+  ialpha <- vector("list",k-1L)
   if (!is.list(lnAlphas)) {
     nalpha <- length(lnAlphas)
-    ialpha <- rep(list(1:nalpha),k-1)
+    if (nalpha > 0L) {
+      ia <- 1L:nalpha
+    } else {
+      ia <- numeric(0L)
+    }
+    ialpha <- rep(list(ia),k-1L)
     pvec <- c(pvec,lnAlphas)
-    iparam <- (k-1)*nalpha
+    iparam <- nalpha
   } else {
-    if (length(lnAlphas)!=k-1) {
+    if (length(lnAlphas)!=k-1L) {
       stop("Number of Alpha vectors should match number of states less one.")
     }
-    for (kk in 1:(k-1)) {
+    for (kk in 1L:(k-1L)) {
       nalpha <- length(lnAlphas[[kk]])
-      ialpha[[kk]] <- iparam+(1:nalpha)
+      ialpha[[kk]] <- iparam+(1L:nalpha)
       pvec <- c(pvec,lnAlphas[[kk]])
       iparam <- iparam + nalpha
     }
   }
-  ibeta <- vector("list",k-1)
+  ibeta <- vector("list",k-1L)
   if (!is.list(betas)) {
     nbeta <- length(betas)
     pvec <- c(pvec,betas)
-    ibeta <- rep(list(iparam+(1:nbeta)),k-1)
+    if (nbeta > 0L) {
+      ib <- iparam+1L:nbeta
+    } else {
+      ib <- numeric(0L)
+    }
+    ibeta <- rep(list(ib),k-1L)
+    iparam <- iparam + nbeta
   } else {
-    if (length(betas)!=k-1) {
+    if (length(betas)!=k-1L) {
       stop("Number of Beta vectors should match number of states less one.")
     }
-    for (kk in 1:(k-1)) {
+    for (kk in 1L:(k-1L)) {
       nbeta <- length(betas[[kk]])
-      ibeta[[kk]] <- iparam+(1:nbeta)
+      ibeta[[kk]] <- iparam+(1L:nbeta)
       pvec <- c(pvec,betas[[kk]])
       iparam <- iparam + nbeta
     }
   }
+  if (length(linkScale) > 0L) {
+    iscale <- iparam+1L:length(linkScale)
+    pvec <- c(pvec,log(linkScale))
+  } else {
+    iscale <- NULL
+  }
+
   if (!is.list(rules)) rules <- list(rules)
-  if (length(rules) != k-1) rules <- rep(rules,k-1)
+  if (length(rules) != k-1L) rules <- rep(rules,k-1L)
 
   p <- length(skillLevels)
-  if (length(Q)==1) {
-    Q <- matrix(TRUE,k-1,p)
-  } else if (!is.matrix(Q) || nrow(Q) != k-1 || ncol(Q) != p) {
+  if (length(Q)==1L) {
+    Q <- matrix(TRUE,k-1L,p)
+  } else if (!is.matrix(Q) || nrow(Q) != k-1L || ncol(Q) != p) {
     stop("Q must be a",k-1,"by",p,"matrix.")
   }
 
   thetas <- do.call("expand.grid",tvals)
 
   llike <- function (pv) {
-    et <- matrix(0,nrow(thetas),k-1)
-    for (kk in 1:(k-1)) {
+    et <- matrix(0,max(nrow(thetas),1L),k-1L)
+    for (kk in 1L:(k-1L)) {
       et[,kk] <- do.call(rules[[kk]],
                         list(thetas[,Q[kk,],drop=FALSE],
                              exp(pv[ialpha[[kk]]]),
                              pv[ibeta[[kk]]]))
     }
-    probs <- do.call(link,list(et,k,obsLevels))
-    -2*sum(postTable*log(probs))
-  }
+    if (!is.null(iscale)) {
+      ls <- exp(pv[iscale])
+    } else {
+      ls <- NULL
+    }
+    probs <- do.call(link,list(et,ls,obsLevels))
+    -2*sum(as.vector(postTable)*as.vector(log(probs)))
+ }
   map <- optim(pvec,llike,...)
   if (map$convergence !=0) {
     warning("Optimization did not converge.")
@@ -72,20 +95,23 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
   }
   ## Extract alpha and beta vectors.
   if (!is.list(lnAlphas)) {
-    map$lnAlphas <- map$par[ialpha[[1]]]
+    map$lnAlphas <- map$par[ialpha[[1L]]]
   } else {
-    map$lnAlphas <- vector("list",k-1)
-    for (kk in 1:(k-1)) {
+    map$lnAlphas <- vector("list",k-1L)
+    for (kk in 1L:(k-1L)) {
       map$lnAlphas[[kk]] <- map$par[ialpha[[kk]]]
     }
   }
   if (!is.list(betas)) {
-    map$betas <- map$par[ibeta[[1]]]
+    map$betas <- map$par[ibeta[[1L]]]
   } else {
-    map$betas <- vector("list",k-1)
-    for (kk in 1:(k-1)) {
+    map$betas <- vector("list",k-1L)
+    for (kk in 1L:(k-1L)) {
       map$betas[[kk]] <- map$par[ibeta[[kk]]]
     }
+  }
+  if (!is.null(iscale)) {
+    map$linkScale <- exp(map$par[iscale])
   }
   map
 }

@@ -80,6 +80,7 @@ Morgan Kaufmann, 137--143.
   eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Compensatory")
   eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Conjunctive")
   eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Disjunctive")
+
 }
 \keyword{distribution}% at least one, from doc/KEYWORDS
 
