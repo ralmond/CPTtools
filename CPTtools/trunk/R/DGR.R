@@ -35,14 +35,17 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
 
   p <- length(skillLevels)
   if (length(Q)==1) {
-    Q <- matrix(TRUE,k-1,p)
+    Q <- matrix(TRUE,k-1,min(p,1))
   } else if (!is.matrix(Q) || nrow(Q) != k-1 || ncol(Q) != p) {
     stop("Q must be a",k-1,"by",p,"matrix.")
   }
 
   thetas <- do.call("expand.grid",tvals)
+  if (nrow(thetas) == 0L) {
+    thetas <- data.frame(X0=0)
+  }
 
-  et <- matrix(0,ifelse(nrow(thetas)==0L,1L,nrow(thetas)),k-1) #Take care of no parent case
+  et <- matrix(0,nrow(thetas),k-1) #Take care of no parent case
   for (kk in 1:(k-1)) {
     et[,kk] <- do.call(rules[[kk]],
                       list(thetas[,Q[kk,],drop=FALSE],
@@ -142,3 +145,4 @@ normalLink <- function (et,linkScale=NULL,obsLevels=NULL) {
   }
   probs
 }
+
