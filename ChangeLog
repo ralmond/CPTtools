@@ -1,3 +1,8 @@
+2016-11-07  Russell G. Almond  <ralmond@Limu>
+
+	* R/DGR.R (partialCredit, gradedResponse, normalLink): Added
+	drop=FALSE, to handle no parent case.
+
 2016-11-06  Russell G. Almond  <ralmond@Limu>
 
 	* R/EM2step.R (mapDPC, llike): Added LinksScale parameter (or more
