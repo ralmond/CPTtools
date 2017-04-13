@@ -23,4 +23,7 @@ TODO -- Normal link function
 
 TODO -- reverse state order
 
+TODO -- better error messages when parent names doen't match expected
+values (Pnet2Qmat)
+
 
