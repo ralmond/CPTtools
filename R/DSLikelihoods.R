@@ -198,10 +198,16 @@ setOffsetRules<- function(newval) {
 }
 
 isOffsetRule <- function (rl) {
-  if (is.character(rl) || is.list(rl))
+  if (is.character(rl))
     return(rl %in% OffsetRules)
-  else
-    return(FALSE)
+  else if (is.function(rl)) {
+    rl <- deparse(substitute(rl))
+    return (rl %in% OffsetRules)
+  }
+  else if (is.list(rl)) {
+    sapply(rl,isOffsetRule)
+  }
+  return(FALSE)
 }
 
 
