@@ -25,6 +25,10 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
                               function (sl) effectiveThetas(length(sl)))) {
 
   k <- length(obsLevels)
+  if (k < 2) {
+    stop("There must be at least two obsLevels to caluclate a CPT, got",
+         obsLevels)
+  }
   if (!is.list(lnAlphas)) lnAlphas <- list(lnAlphas)
   if (length(lnAlphas) != k-1) lnAlphas <- rep(lnAlphas,k-1)
   if (!is.list(betas)) betas <- list(betas)
