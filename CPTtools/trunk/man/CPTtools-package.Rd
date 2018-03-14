@@ -70,7 +70,8 @@ three steps:
     \code{\link{OffsetConjunctive}}).}
   \item{Convert the effective theta for each row of the table into
     conditional probabilities using a link function
-    (\code{\link{gradedResponse}}, \code{\link{partialCredit}}).}
+    (\code{\link{gradedResponse}}, \code{\link{partialCredit}},
+    \code{\link{normalLink}}).} 
 }
 
 The \code{\link{partialCredit}} link function is particularly flexible
@@ -102,9 +103,12 @@ This parameterization serves as basis for the model used in the
     \item{\code{\link{calcDDTable}}}{Calculates DiBello-Dirichlet model
       probability and parameter tables.}
     \item{\code{\link{calcDNTable}}}{Creates the probability table for
-      DiBello-Normal distribution.} 
+      DiBello-Normal distribution.  This is equivalent to using the
+    \code{\link{normalLink}} in the DPC framework. This also uses a link
+    scale parameter.} 
     \item{\code{\link{calcDSTable}}}{Creates the probability table for
-      DiBello-Samejima distribution.} 
+      DiBello-Samejima distribution. This is equivalent to using the
+    \code{\link{gradedResponse}} in the DPC framework.} 
     \item{\code{\link{calcDSllike}}}{Calculates the log-likelihood for
       data from a DiBello-Samejima (Normal) distribution.}
   }

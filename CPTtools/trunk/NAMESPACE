@@ -1,7 +1,11 @@
 #import(methods)
-#import(utils)
 
-#importFrom(stats4,optim)
+importFrom("grDevices", "col2rgb", "grey.colors", "hsv", "rgb2hsv")
+importFrom("graphics", "abline", "axis", "barplot", "box", "legend",
+           "lines", "mtext", "par", "plot.new", "plot.window", "rect",
+           "segments", "text", "title", "xinch", "yinch")
+importFrom("stats", "optim", "pchisq", "pnorm", "qbeta", "qnorm")
+importFrom("utils", "assignInMyNamespace", "read.csv")
 
 export(calcDDTable, calcDDFrame,
        gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,

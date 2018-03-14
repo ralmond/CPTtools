@@ -78,8 +78,15 @@ gradedResponse(et, linkScale = NULL, obsLevels = NULL)
   with other link function choices.
 }
 \seealso{
-  \code{\link{eThetaFrame}},\code{\link{calcDPCTable}},
-  \code{\link{gradedResponse}},
+  Other Link functions:
+  \code{\link{gradedResponse}},\code{\link{normalLink}}
+
+  Functions which directly use the link function:
+  \code{\link{eThetaFrame}}, \code{\link{calcDPCTable}},
+  \code{\link{mapDPC}} 
+
+  Earlier version of the graded response link:
+  \code{\link{calcDSTable}}
 }
 \examples{
 ## Set up variables

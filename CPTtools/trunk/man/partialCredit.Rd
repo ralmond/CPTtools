@@ -19,12 +19,13 @@ partialCredit(et, linkScale = NULL, obsLevels = NULL)
   \item{linkScale}{Unused.  For compatibility with other link functions. 
 }
   \item{obsLevels}{
-    A character vector giving the names of the child variable states.
+    An optional character vector giving the names of the child variable states.
     If supplied, it should have length \code{ncol(et)+1}.  
 }
 }
 \details{
-  This function takes care of the third step in the algorithm of
+ 
+ This function takes care of the third step in the algorithm of
   \code{\link{calcDPCTable}}.  Its input is a matrix of effective theta
   values (comparable to the last column of the output of
   \code{\link{eThetaFrame}}), one column for each of the child variable
@@ -84,8 +85,14 @@ partialCredit(et, linkScale = NULL, obsLevels = NULL)
   with other link function choices.
 }
 \seealso{
-  \code{\link{eThetaFrame}},\code{\link{calcDPCTable}},
-  \code{\link{partialCredit}},
+  Other Link functions:
+  \code{\link{gradedResponse}},\code{\link{normalLink}}
+
+  Functions which directly use the link function:
+  \code{\link{eThetaFrame}}, \code{\link{calcDPCTable}},
+  \code{\link{mapDPC}} 
+
+
 }
 \examples{
 ## Set up variables
