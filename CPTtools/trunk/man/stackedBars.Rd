@@ -62,5 +62,5 @@ stackedBars(margins,3,
             percent=FALSE,digits=2,
             cex.names=.75, col=hsv(223/360,.2,0.10*(5:1)+.5))
 }
-\keyword{hplot}% at least one, from doc/KEYWORDS
+\keyword{hplot}
 
