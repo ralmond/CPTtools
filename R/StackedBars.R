@@ -311,3 +311,28 @@ function (data1, data2, profindex,groupNames=c("Prior","Post"),
 ## #dev.off()
 
 
+barchart.CPF <- function(x, data=NULL, ..., baseCol="firebrick",
+                         auto.key=TRUE,par.settings=list()) {
+  if (nrow(x)==1L) {
+    if (is.null(baseCol))
+      ps <- par.settings
+    else
+      ps <- c(par.settings,
+              superpose.polygon=list(col=rev(colorspread(baseCol,ncol(x)))))
+    barchart(as.matrix(x),data,auto.key=auto.key, par.settings=ps,...)
+    } else {
+      xx <- as.CPA(x)
+      dd <- dim(xx)
+      nstates <- dd[length(dd)]
+      for (ddd in 1L:(length(dd)-1L)) {
+        dimnames(xx)[[ddd]] <- paste(names(dd)[ddd],"=",dimnames(xx)[[ddd]])
+      }
+      if (is.null(baseCol))
+        ps <- par.settings
+      else
+        ps <- list(par.settings,
+                   superpose.polygon=list(col=rev(colorspread(baseCol,nstates))))
+      barchart(xx,data,auto.key=auto.key, par.settings=ps,...)
+    }
+}
+

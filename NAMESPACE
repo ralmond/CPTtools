@@ -6,6 +6,7 @@ importFrom("graphics", "abline", "axis", "barplot", "box", "legend",
            "segments", "text", "title", "xinch", "yinch")
 importFrom("stats", "optim", "pchisq", "pnorm", "qbeta", "qnorm")
 importFrom("utils", "assignInMyNamespace", "read.csv")
+importFrom("lattice", "barchart")
 
 export(calcDDTable, calcDDFrame,
        gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,
@@ -23,10 +24,11 @@ export(rescaleTable, normalizeTable, scaleMatrix,
        structMatrix, mcSearch, buildParentList,
        pvecToCutpoints, pvecToMidpoints, numericPart,
        getTableParents,getTableStates, scaleTable,
-       areaProbs, buildRegressions, buildRegressionTables)
+       areaProbs, buildRegressions, buildRegressionTables,
+       as.CPA, is.CPA, as.CPF, is.CPF)
 
 ## From WOE package
-export(betaci, proflevelci,
+export(betaci, proflevelci, barchart.CPF,
        stackedBarplot, compareBars, stackedBars, compareBars2,
        colorspread, OCP, OCP2,
        buildFactorTab, build2FactorTab, buildMarginTab,
