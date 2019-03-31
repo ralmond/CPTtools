@@ -313,25 +313,25 @@ function (data1, data2, profindex,groupNames=c("Prior","Post"),
 
 barchart.CPF <- function(x, data=NULL, ..., baseCol="firebrick",
                          auto.key=TRUE,par.settings=list()) {
-  if (nrow(x)==1L) {
-    if (is.null(baseCol))
-      ps <- par.settings
-    else
-      ps <- c(par.settings,
-              superpose.polygon=list(col=rev(colorspread(baseCol,ncol(x)))))
+  nstates <- length(getTableStates(x))
+  if (is.null(baseCol))
+    ps <- par.settings
+  else
+    ps <- list(par.settings,
+               superpose.polygon=list(col=rev(colorspread(baseCol,nstates))))
+  if (nrow(x)==1L) { ## No Parent Case
     barchart(as.matrix(x),data,auto.key=auto.key, par.settings=ps,...)
-    } else {
+  } else if (length(getTableParents(x))==1L) { ## One parent
+    xx <- numericPart(x)
+    rownames(xx) <- factorPart(x)
+    barchart(xx,data,auto.key=auto.key, par.settings=ps,...)
+  } else { ## Two or more parents
       xx <- as.CPA(x)
       dd <- dim(xx)
       nstates <- dd[length(dd)]
       for (ddd in 1L:(length(dd)-1L)) {
         dimnames(xx)[[ddd]] <- paste(names(dd)[ddd],"=",dimnames(xx)[[ddd]])
       }
-      if (is.null(baseCol))
-        ps <- par.settings
-      else
-        ps <- list(par.settings,
-                   superpose.polygon=list(col=rev(colorspread(baseCol,nstates))))
       barchart(xx,data,auto.key=auto.key, par.settings=ps,...)
     }
 }

@@ -22,7 +22,7 @@ export(calcDDTable, calcDDFrame,
 
 export(rescaleTable, normalizeTable, scaleMatrix,
        structMatrix, mcSearch, buildParentList,
-       pvecToCutpoints, pvecToMidpoints, numericPart,
+       pvecToCutpoints, pvecToMidpoints, numericPart, factorPart,
        getTableParents,getTableStates, scaleTable,
        areaProbs, buildRegressions, buildRegressionTables,
        as.CPA, is.CPA, as.CPF, is.CPF)
