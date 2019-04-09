@@ -7,6 +7,7 @@ importFrom("graphics", "abline", "axis", "barplot", "box", "legend",
 importFrom("stats", "optim", "pchisq", "pnorm", "qbeta", "qnorm")
 importFrom("utils", "assignInMyNamespace", "read.csv")
 importFrom("lattice", "barchart")
+importFrom("methods","is")
 
 export(calcDDTable, calcDDFrame,
        gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,
@@ -25,7 +26,11 @@ export(rescaleTable, normalizeTable, scaleMatrix,
        pvecToCutpoints, pvecToMidpoints, numericPart, factorPart,
        getTableParents,getTableStates, scaleTable,
        areaProbs, buildRegressions, buildRegressionTables,
-       as.CPA, is.CPA, as.CPF, is.CPF)
+       as.CPA, is.CPA, as.CPF, is.CPF,
+       normalize.matrix,
+       normalize, normalize.array, normalize.data.frame,
+       normalize.CPA, normalize.default,
+       normalize.CPF)
 
 ## From WOE package
 export(betaci, proflevelci, barchart.CPF,

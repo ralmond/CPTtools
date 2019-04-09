@@ -1,3 +1,8 @@
+2019-04-07  Russell Almond  <ralmond@Limu>
+
+	* R/Tables.R (normalize): Moved normalize (as well as as.CPF and
+	as.CPA) here.
+
 2017-06-01  Russell G. Almond  <ralmond@Limu>
 
 	* R/DGR.R (calcDPCTable): Added sanity check for 0 or 1-state
