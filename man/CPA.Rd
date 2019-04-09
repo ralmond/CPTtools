@@ -56,12 +56,12 @@ as.CPA(x)
   \code{c("CPA","array")}).  The \code{CPA} class interprets the
   \code{dimnames} of the array in terms of the conditional probability
   table.  The first \eqn{p} values of \code{names(dimnames(x))} are the
-  input names of the edges (see \code{\link{NodeInputNames}()} or the
+  input names of the edges (see \code{\link[RNetica]{NodeInputNames}()} or the
   variable names (or the parent variable, see
-  \code{\link{NodeParents}()}, if the input names were not specified),
+  \code{\link[RNetica]{NodeParents}()}, if the input names were not specified),
   and the last value is the name of the child variable.  Each of the
   elements of \code{dimnames(x)} should give the state names (see
-  \code{\link{NodeStates}()}) for the respective value.  In particular,
+  \code{\link[RNetica]{NodeStates}()}) for the respective value.  In particular,
   the conversion function \code{\link{as.CPF}()} relies on the existence
   of this meta-data, and \code{as.CPA()} will raise a warning if an
   array without the appropriate dimnames is supplied.
@@ -70,10 +70,10 @@ as.CPA(x)
   probability table, the normalization constraint is not enforced.  Thus
   a \code{CPA} object could be used to store likelihoods, probability
   potentials, contingency table counts, or other similarly shaped
-  objects.  The function \code{normalize} scales the values of a
+  objects.  The function \code{\link{normalize}} scales the values of a
   \code{CPA} so that the normalization constraint is enforced.
 
-  The method \code{\link{NodeProbs}()} returns a \code{CPA} object.
+  The method \code{\link[RNetica]{NodeProbs}()} returns a \code{CPA} object.
 
   The function \code{as.CPA()} is designed to convert between
   \code{\link{CPF}}s (that is, conditional probability tables stored as
@@ -112,7 +112,7 @@ as.CPA(x)
   interpretation. 
 }
 \seealso{
-  \code{\link{NodeProbs}()}, \code{\link{Extract.NeticaNode}},
+  \code{\link[RNetica]{NodeProbs}()}, \code{\link[RNetica]{Extract.NeticaNode}},
   \code{\link{CPF}}, \code{\link{normalize}()}
 }
 \examples{
@@ -134,7 +134,8 @@ stopifnot(
 )
 
 \dontrun{
-  as.CPF(node[])
+  ## Requires RNetica
+  as.CPA(node[])
 }
 }
 \keyword{ array }

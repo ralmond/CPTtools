@@ -9,7 +9,7 @@
 
 }
 \usage{
-barchart.CPF(x, data = NULL, ..., baseCol = "firebrick",
+\method{barchart}{CPF}(x, data = NULL, ..., baseCol = "firebrick",
              auto.key=TRUE, par.settings)
 }
 \arguments{
@@ -58,12 +58,12 @@ barchart.CPF(x, data = NULL, ..., baseCol = "firebrick",
 
 }
 \value{
-  An object of class trellis that when printed will produce the graph.
+  An object of class lattice that when printed will produce the graph.
 }
 \author{Russell Almond}
 \seealso{
   \code{\link{as.CPA}}, \code{\link{colorspread}},
-  \code{\link[trellis]{barchart.array}}, \code{\link{calcDPCFrame}}
+  \code{\link[lattice]{barchart.array}}, \code{\link{calcDPCFrame}}
 }
 \examples{
 

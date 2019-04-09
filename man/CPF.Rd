@@ -50,10 +50,10 @@ as.CPF(x)
   normalization constraint is not enforced.  Thus a \code{CPF} object
   could be used to store likelihoods, probability potentials,
   contingency table counts, or other similarly shaped objects.  The
-  function \code{normalize} scales the numeric values of \code{CPF} so
+  function \code{\link{normalize}} scales the numeric values of \code{CPF} so
   that each row is normalized.
 
-  The \code{[} method for a \code{\linkS4class{NeticaNode}} %]
+  The \code{[} method for a \code{\link[RNetica]{NeticaNode}} %]
   returns a \code{CPF} (if the node is not deterministic).
 
   The function \code{as.CPF()} is designed to convert between
@@ -96,7 +96,7 @@ as.CPF(x)
   special structure.
 }
 \seealso{
-  \code{\link{NodeProbs}()}, \code{\link{Extract.NeticaNode}},
+  \code{\link[RNetica]{NodeProbs}()}, \code{\link[RNetica]{Extract.NeticaNode}},
   \code{\link{CPA}}, \code{\link{normalize}()}
 }
 \examples{
@@ -121,6 +121,7 @@ stopifnot(
 as.CPF(as.CPA(arf))
 
 \dontrun{
+  ## Requires RNetica
   as.CPF(NodeProbs(node))
 }
 }
