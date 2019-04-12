@@ -59,7 +59,7 @@ as.CPF(x)
   The function \code{as.CPF()} is designed to convert between
   \code{\link{CPA}}s (that is, conditional probability tables stored as
   arrays) and \code{CPF}s. In particular, \code{as.CPF} is designed to
-  work with the output of \code{NodeProbs()} or a similarly formatted
+  work with the output of \code{\link[RNetica]{NodeProbs}()} or a similarly formatted
   array.  It assumes that \code{names(dimnames(x))} are the names of the
   variables, and \code{dimnames(x)} is a list of character vectors
   giving the names of the states of the variables. (See

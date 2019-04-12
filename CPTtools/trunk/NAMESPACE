@@ -39,7 +39,8 @@ export(betaci, proflevelci, barchart.CPF,
        buildFactorTab, build2FactorTab, buildMarginTab,
        marginTab,parseProbVec, readHistory,
        mutualInformation, ciTest, localDepTest,
-       woeBal, woeHist)
+       woeBal, woeHist,
+       fcKappa, gkLambda)
 
 ## S3method(print, NeticaBN)
 ## S3method(toString, NeticaBN)

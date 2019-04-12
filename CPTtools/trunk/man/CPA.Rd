@@ -74,7 +74,6 @@ as.CPA(x)
   \code{CPA} so that the normalization constraint is enforced.
 
   The method \code{\link[RNetica]{NodeProbs}()} returns a \code{CPA} object.
-
   The function \code{as.CPA()} is designed to convert between
   \code{\link{CPF}}s (that is, conditional probability tables stored as
   data frames) and \code{CPA}s.  It assumes that the factors variables

@@ -1,3 +1,8 @@
+2019-04-10  Rusell Almond  <ralmond@Cherry>
+
+	* R/kappalambda.R (gkLambda): Added kappa and lambda here, as it
+	seems to be generally useful.
+
 2019-04-07  Russell Almond  <ralmond@Limu>
 
 	* R/Tables.R (normalize): Moved normalize (as well as as.CPF and
