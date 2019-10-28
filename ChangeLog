@@ -1,3 +1,8 @@
+2019-10-27  Rusell Almond  <ralmond@Cherry>
+
+	* R/StackedBars.R (isMonotonic): Added test for monotinicity here,
+	as it is necessary in certain model building operations.
+
 2019-04-10  Rusell Almond  <ralmond@Cherry>
 
 	* R/kappalambda.R (gkLambda): Added kappa and lambda here, as it
