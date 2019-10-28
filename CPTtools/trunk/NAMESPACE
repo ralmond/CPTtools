@@ -42,6 +42,11 @@ export(betaci, proflevelci, barchart.CPF,
        woeBal, woeHist,
        fcKappa, gkLambda)
 
+export(isMonotonic,
+       isIncreasing, isDecreasing,
+       isNondecreasing, isNonincreasing)
+
+
 ## S3method(print, NeticaBN)
 ## S3method(toString, NeticaBN)
 ## S3method(Ops, NeticaBN)
