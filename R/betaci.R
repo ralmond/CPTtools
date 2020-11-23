@@ -12,6 +12,15 @@ function (sumData, totals = NULL,
          qbeta(prob,sumData+a,totals-sumData+b))
 }
 
+dirchci <- function (counts, lnames=names(counts),
+                     a = rep(1/length(counts),length(counts)),
+                     limits=c(lower=0.025,mid=.5,upper=0.975)) {
+  tot <- sum(counts+a)
+  dat <- cumsum(counts+a)[-length(counts)]
+  data.frame(Level = lnames[-length(counts)],
+             lapply(limits, qbeta,dat, tot-dat))
+}
+
 
 "proflevelci" <- function(data,profindex,
                           limits=list(lower=.025,upper=.975),
