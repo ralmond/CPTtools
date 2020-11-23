@@ -1,11 +1,22 @@
 Package: CPTtools
-Version: 0.6-2
-Date: 2019/10/27
 Title: Tools for creating conditional probability tables
-Author: Russell Almond
-Maintainer: Russell Almond <ralmond@fsu.edu>
-Depends: R (>= 3.0), lattice, methods
-Description: Provides support for parameterized tables for Bayesian networks .
-License: Artistic-2.0 
+Version: 0.7.1.0000
+Authors@R: 
+    person(given = "Russell",
+           family = "Almond",
+           role = c("aut", "cre"),
+           email = "ralmond@fsu.edu",
+           comment = c(ORCID = "0000-0002-8876-9337"))
+Description: Provides support parameterized tables for Bayesian
+             networks, particularly the IRT-like DiBello tables.
+             Also, provides some tools for visualing the networks.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
 URL: http://pluto.coe.fsu.edu/RNetica
-
+Depends:  methods
+Imports: grDevices, graphics, stats, utils, methods
+Suggests: ggplot2, lattice
+  
