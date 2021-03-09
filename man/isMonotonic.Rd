@@ -18,7 +18,7 @@
 \usage{
 isMonotonic(vec, strict = TRUE)
 isIncreasing(vec)
-isNodecreasing(vec)
+isNondecreasing(vec)
 isDecreasing(vec)
 isNonincreasing(vec)
 }

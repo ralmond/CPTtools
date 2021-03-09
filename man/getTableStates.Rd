@@ -36,7 +36,8 @@ getTableStates(table)
 \seealso{\code{\link{rescaleTable}} }
 \examples{
 #conditional table
-X2.ptf <- data.frame(Theta=c("Expert","Novice"),
+# Note in R 4.0, parents must be explicitly made into factors
+X2.ptf <- data.frame(Theta=factor(c("Expert","Novice")),
                      correct=c(4,2),
                      incorrect=c(2,4))
 #Unconditional table

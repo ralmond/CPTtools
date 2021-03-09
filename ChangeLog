@@ -1,3 +1,10 @@
+2021-03-05  Russell Almond  <ralmond@cherry>
+
+	* R/Tables.R (as.CPA): Issue with R no longer automagically
+	coverting character data to factors.  Decided to fix test case
+	instead of code, as need to distinguish between state markers and
+	other data.
+
 2019-10-27  Rusell Almond  <ralmond@Cherry>
 
 	* R/StackedBars.R (isMonotonic): Added test for monotinicity here,

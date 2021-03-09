@@ -94,14 +94,22 @@ as.CPF(x)
 
   Note, this is an S3 class, as it is basically a data.frame with
   special structure.
+
+  \emph{Change in R 4.0}.  Note that under R 4.0, character vectors are
+  no longer automaticall coerced into factors when added to data
+  frames.  This is probably a good thing, as the code can assume that a
+  column that is a factor is an index for a variable, and one that is a
+  character is a comment or some other data.
 }
+
 \seealso{
   \code{\link[RNetica]{NodeProbs}()}, \code{\link[RNetica]{Extract.NeticaNode}},
   \code{\link{CPA}}, \code{\link{normalize}()}
 }
 \examples{
-arf <- data.frame(A=rep(c("a1","a2"),each=3),
-                  B=rep(c("b1","b2","b3"),2),
+# Note:  in R 4.0, the factor() call is required.
+arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
+                  B=factor(rep(c("b1","b2","b3"),2)),
                   C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
 arf <- as.CPF(arf)
 stopifnot(is.CPF(arf))

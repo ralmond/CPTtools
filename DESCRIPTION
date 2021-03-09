@@ -1,6 +1,9 @@
 Package: CPTtools
 Title: Tools for creating conditional probability tables
-Version: 0.7.1.0000
+Version: 0.7-2
+Date: 2021/03/05
+Author: Russell Almond
+Maintainer: Russell Almond <ralmond@fsu.edu>
 Authors@R: 
     person(given = "Russell",
            family = "Almond",
@@ -10,13 +13,13 @@ Authors@R:
 Description: Provides support parameterized tables for Bayesian
              networks, particularly the IRT-like DiBello tables.
              Also, provides some tools for visualing the networks.
-License: MIT + file LICENSE
+License: Artistic-2.0 + LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 URL: http://pluto.coe.fsu.edu/RNetica
 Depends:  methods
-Imports: grDevices, graphics, stats, utils, methods
+Imports: grDevices, graphics, stats, utils
 Suggests: ggplot2, lattice
   
