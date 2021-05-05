@@ -73,7 +73,7 @@ Morgan Kaufmann, 137--143.
 }
 \examples{
   skill <- c("High","Medium","Low")
-  thetas <- expand.grid(list(S1=(3:1 -2), S2 = (3:1 -2)))
+  thetas <- expand.grid(list(S1=seq(1,-1), S2 = seq(1, -1)))
   OffsetDisjunctive(thetas, 1.0, c(S1=0.25,S2=-0.25))
   OffsetConjunctive(thetas, 1.0, c(S1=0.25,S2=-0.25))
   eThetaFrame(list(S1=skill,S2=skill), 1.0, c(S1=0.25,S2=-0.25),

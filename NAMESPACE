@@ -31,6 +31,14 @@ export(rescaleTable, normalizeTable, scaleMatrix,
        normalize.CPA, normalize.default,
        normalize.CPF)
 
+S3method(normalize,data.frame)
+S3method(normalize,array)
+S3method(normalize,matrix)
+S3method(normalize,CPF)
+S3method(normalize,CPA)
+S3method(normalize,default)
+
+
 ## From WOE package
 export(betaci, proflevelci, barchart.CPF,
        stackedBarplot, compareBars, stackedBars, compareBars2,

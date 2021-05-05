@@ -9,7 +9,8 @@
 
 }
 \usage{
-EAPBal(hist, contexts = names(hist), obs = NULL, varname = deparse(hist),
+EAPBal(hist, contexts = names(hist), obs = NULL,
+varname = deparse(substitute(hist)),
 elim = c(-1, 1), etic = 4, title = paste("EAP Balance Sheet:", varname),
 col = "slategray", posCol = "cyan", negCol = "red",
 stripCol = c("white", "lightgray"), lcex = 0.65)
@@ -63,7 +64,8 @@ stripCol = c("white", "lightgray"), lcex = 0.65)
 }
 \author{Russell Almond}
 \seealso{
-  \code{\link{woeBal}}, \code{\link[graphics]{barplot}}, \code{Colors}}
+  \code{\link{woeBal}}, \code{\link[graphics]{barplot}},
+  \code{\link[grDevices]{colors}} 
 }
 \examples{
 sampleSequence <- read.csv(paste(library(help="CPTtools")$path,

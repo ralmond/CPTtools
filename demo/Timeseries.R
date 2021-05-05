@@ -52,7 +52,7 @@ c011c1.eap <- filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=fct_reorder(cont
     coord_flip(ylim=c(-1,1))+theme_light()+labs(x="",y="EAP[Physics]")
 c011c1.diff <- filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=fct_reorder(context,timestamp),y=ndiff(Physics_EAP))) +
   geom_col(aes(fill=..y..))+scale_fill_gradient2(low="red",mid="yellow",high="green",midpoint=0)+
-  coord_flip(ylim=c(-1,1))+theme_light()+labs(x="",y="ΔEAP[Physics]") + theme(axis.text.y=element_blank())
+  coord_flip(ylim=c(-1,1))+theme_light()+labs(x="",y="\u0394EAP[Physics]") + theme(axis.text.y=element_blank())
 
 plot_grid(c011c1.eap,c011c1.diff)
 

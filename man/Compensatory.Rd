@@ -71,7 +71,7 @@ Morgan Kaufmann, 137--143.
   as they have the same signature as these functions.
 }
 \examples{
-  thetas <- expand.grid(list(S1=(3:1 -2), S2 = (3:1 -2)))
+  thetas <- expand.grid(list(S1=seq(1,-1), S2 = seq(1, -1)))
   Compensatory(thetas, c(S1=1.25,S2=.75), 0.33)
   Conjunctive(thetas, c(S1=1.25,S2=.75), 0.33)
   Disjunctive(thetas, c(S1=1.25,S2=.75), 0.33)
