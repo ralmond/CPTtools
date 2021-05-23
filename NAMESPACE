@@ -1,4 +1,3 @@
-#import(methods)
 
 importFrom("grDevices", "col2rgb", "grey.colors", "hsv", "rgb2hsv")
 importFrom("graphics", "abline", "axis", "barplot", "box", "legend",
@@ -6,7 +5,7 @@ importFrom("graphics", "abline", "axis", "barplot", "box", "legend",
            "segments", "text", "title", "xinch", "yinch")
 importFrom("stats", "optim", "pchisq", "pnorm", "qbeta", "qnorm")
 importFrom("utils", "assignInMyNamespace", "read.csv")
-importFrom("lattice", "barchart")
+#importFrom("lattice", "barchart")
 importFrom("methods","is")
 
 export(calcDDTable, calcDDFrame,
@@ -32,6 +31,14 @@ export(rescaleTable, normalizeTable, scaleMatrix,
        normalize.CPA, normalize.default,
        normalize.CPF)
 
+S3method(normalize,data.frame)
+S3method(normalize,array)
+S3method(normalize,matrix)
+S3method(normalize,CPF)
+S3method(normalize,CPA)
+S3method(normalize,default)
+
+
 ## From WOE package
 export(betaci, proflevelci, barchart.CPF,
        stackedBarplot, compareBars, stackedBars, compareBars2,
@@ -39,7 +46,7 @@ export(betaci, proflevelci, barchart.CPF,
        buildFactorTab, build2FactorTab, buildMarginTab,
        marginTab,parseProbVec, readHistory,
        mutualInformation, ciTest, localDepTest,
-       woeBal, woeHist,
+       woeBal, woeHist, EAPBal,
        fcKappa, gkLambda)
 
 export(isMonotonic,
@@ -52,15 +59,4 @@ S3method(normalize, CPA)
 S3method(normalize, CPF)
 S3method(normalize, default)
 S3method(normalize, matrix)
-
-## S3method(print, NeticaBN)
-## S3method(toString, NeticaBN)
-## S3method(Ops, NeticaBN)
-## S3method(print, NeticaNode)
-## S3method(toString, NeticaNode)
-## S3method(Ops, NeticaNode)
-## S3method("[", NeticaNode)
-## S3method("[[", NeticaNode)
-## S3method("[<-", NeticaNode)
-
 

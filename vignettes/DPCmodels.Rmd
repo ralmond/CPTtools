@@ -1,0 +1,482 @@
+---
+title: "Discrete Partial Credit Models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Discrete Partial Credit Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CPTtools)
+```
+
+# DiBello Framework
+
+In educational settings, conditional probability tables (CPTs) are
+generally monotonic:  the more of a skill that the student possess,
+the more likely the student is to do well when posed with a task that
+uses that skill.  The `CPTtools` package contains a framework for
+building conditional probability tables for use in Bayes net models
+that statisfy the monotonicity constraint.  These are generally called
+_DiBello models_ after a suggestion by Lou DiBello (Almond et al,
+2001; Almond et al, 2015).  
+
+DiBello's idea was that each observable outcome variable in an
+educational setting corresponded to a direction in latent space, which
+he called the _effective theta_ (in item response theory, IRT,
+$\theta$ is commonly use to represent the ability being measured).
+DiBello's idea was to map each configuration of the parent variables
+(in educational settings, often representing configurations of skills
+the student is thought to possess) to a point in this effective theta
+dimension.  Then standard models from IRT (e.g., the graded repsonse
+and generalized partial credit models) could be used to calculate the
+conditional probabilities to put in the table. 
+
+The general procedure has three steps:
+
+1. Map the state of the parent variables to points on a real number
+   line.  In particular, let $\tilde\theta_{km}$ be the number
+   associate with State $m$ for Parent $k$.  Let $\tilde\theta_{i'}$
+   be the vector of such variables that correspond to one row of the
+   table. 
+
+2. Combine the parent effective thetas using a combination function,
+   $Z_{js}(\tilde\theta_{i'})$. This yields an _effective theta_ for
+   each cell of the conditional probability table.  
+
+3. Apply a link function, $g(\cdot)$, to go from the effective thetas
+   to the conditional probabilities. 
+
+As R is a functional language, the combination function and link
+function are passed as arguments to the key function: `calcDPCTable`
+or `calcDPCFrame`.  These can be passed by name or the actual function
+can be passed.  The `CPTtools` package supplies the most commonly used
+combination and link functions, but others are possible. 
+
+Each step is described in more detail below.
+
+# Effective Thetas
+
+In item response theory (IRT), the scale of the latent dimension,
+$\theta$ is not identified.  Commonly, to identify the scale,
+psychometricians will assume that $\theta$ has a unit normal
+distribution in the target population.  Thus a person who is a 0 on
+the theta scale is at the median for the population and a person who
+is at 1 is better than 5/6 of the people in the target population on
+the target skill. 
+
+Almond et al. (2015) using equally spaced quantiles of the normal
+distribution for effective thetas.  The function `effectiveThetas()`
+does this.  It takes a single argument, the number of states and
+returns a vector of effective thetas.   
+
+```{r effectiveTheta, echo=TRUE}
+round(effectiveThetas(2),3)
+round(effectiveThetas(3),3)
+round(effectiveThetas(4),3)
+round(effectiveThetas(5),3)
+```
+
+The effective values are passed to the `calcDPCTable()` function via the
+`tvals` argument.  This should be a list of vectors of effective
+thetas, one vector for each parent variable.  The default value simply
+applies the `effectiveTheta()` function to the length of the number of
+skills in each parent variable. 
+
+The function `eThetaFrame()`, although designed to test/illustate
+combination functions, is useful for understanding effective thetas.
+Here the `Compensatory` combination function is set up to take the
+average of the parent values. 
+
+```{r eThetaFrame}
+skill1 <- c("High","Medium","Low")
+skill2 <- c("Master","Non-master")
+eThetaFrame(list(S1=skill1,S2=skill2), log(c(S1=1,S2=1)), 0,"Compensatory") 
+
+```
+The last column gives the _effective theta_ for the row.  This is the
+number the corresponds to the ability of a person who has the skills
+marked in the row to complete the target task.  For example, a person
+who is "High" on Skill 1 and has "Mastered" Skill 2 is 1.16 standard
+deviations above the average ability to achieve a good outcome on the
+specified observable. 
+
+# Combination Functions
+
+Lou DiBello suggested that different observable could be summarized in
+different ways using a _combination function_ (or structure function,
+or rule), $Z_j(\cdot)$.  Note that this can be different functional
+forms for different variables, with pedagogical experts free to choose
+a structure function depending on how they thought a student would
+approach a task. 
+
+The originally proposed structure functions were 
+
+* `Compensatory` -- Having more of one skills compensates for having
+  less of another, so performance will be related to a (weighted)
+  average of the skills. 
+
+* `Conjunctive` -- Having all skills are generally necessary, so
+  performance will be related to the weakest skill. 
+
+* `Disjunctive` -- Skills each represent an alternative solution path
+  and students will chose the strongest skill.  So performance will be
+  related to the strongest skill. 
+
+* `Inhibitor` -- One skill is necessary, but only at a minimal level.
+  Once that threshold is met, the other skills determine performance.
+  For example, a mathematical word problem requires sufficient reading
+  skill to understand the prompt, but after that, additional reading
+  skills are not relevant. 
+
+The general signature of a structure function is
+`Z(theta,alphas,beta)` where `theta` is a matrix of effective values
+(see above), `alphas` is a (collection of) slope parameter(s) and
+`beta` is a (collection of) difficulty (negative intercept)
+parameter(s). The output should be a vector of effective theta values
+corresponding to the rows of `theta`.  See the function `eThetaFrame()`
+for examples.  The `Compensatory()` structure function is basically the
+linear predictor of a generalized linear model, so is the basis for
+understanding other combination functions. `Conjunctive()` and
+`Disjunctive` are variants on the idea.  `OffsetConjuctive()` and
+`OffsetDisjunctive()` are improvements which use different sets of
+alphas and betas. 
+
+## Compensatory
+
+Let $\tilde{\theta_k}$ be the effective theta associated with the $k$th
+parent variable for a particular individual (or row in the CPT), and
+let $\alpha_k$ be the discrimination parameter associated with the
+$k$th parent variable, and let $\beta$ be a difficulty parameter.
+Then the combined effective theta is given as 
+
+$$ \frac{1}{\sqrt{K}} \sum_{k=1}^K \alpha_k \tilde{\theta_k} - \beta \
+.$$
+This is essentially a generalized linear model (in the case of binary
+outcome, a logistic regression).  The $1/\sqrt{K}$ term is a variance
+stablization term:  in ensures that the variance of the linear
+predictor is related to the average of the discriminations instead of
+growing as the number of parent variables increases.  
+
+This the the basic combination function, and probably the easiest to
+explain as intuition from regression works pretty well here.  A
+discrimination value of 1 corresponds to average importance; higher
+values mean that skill is more important and lower values mean that
+the skill is less important.  For educational models, it is customary
+to restrict the discriminations to be positive (this identifies the
+direction of the latent scale), although negative discriminations
+might make sense if the skill variables represent attitudes or other
+psychological traits or states.  For that reason, log descrimination
+parameters are often used instead of discrimination.  On the log
+scale, a log descrimination of 0 corresponds to average importance.
+
+Note that the difficulty is the negative of the interecept. The value
+is related to the probability that a person who is average in all of
+the input skills has of answering the question.  This is roughly on an
+inverse normal scale, so a 0 corresponds to a 50-50 chance of solving
+the problem (or obtaining that level).
+
+The psychological intuition is that the parent variables represent
+skills which complement and can to a certain degree substitute for
+each other in solving the problem.  For example, consider a Physics
+problem which can be solved either by working through the force
+vectors and Newton's laws of motion, or by writing down the engergy
+equations and solving hem.  Students who were comfortable with both
+techniques would have an even better chance of success because they
+could solve the problem with one technique and use the other to check
+their work.
+
+
+The function `eThetaFrame()` is useful for inspecting/testing the
+combination function.  The example below shows a typical use of the
+combination function.  Note that in each case, the combined value is a
+weighted average of the two inputs.
+
+```{r Compensatory, echo=TRUE}
+skill <- c("High","Medium","Low")
+eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Compensatory")
+```
+
+The term _difficulty_ used for the negative intercept parameter has a
+slightly different meaning from the lay definition of difficulty.  In
+the lay definition, a task is difficult if a typical member of the
+population ($\theta=0$) has a low probability of success.  The
+difficulty parameter determines the ability level (along the effective
+theta dimension) where the probabiliy of success is 50/50.  Thus, it
+is really determining _demand_ for the skill (combination).  What
+determines the lay difficulty is a combination of the difficulty and
+discrimination.
+
+## Conjunctive, Disjunctive
+
+To get the conjunctive and disjunctive models, replace the sum in the
+equation above with a maximum or minimum.  Thus the `Conjunctive()`
+function is:
+$$ \min_{k=1}^K \alpha_k \tilde{\theta_k} - \beta \
+,$$
+and the `Disjunctive()` function is:
+$$ \max_{k=1}^K \alpha_k \tilde{\theta_k} - \beta \
+.$$
+The variance stablization term is dropped, as the min and max
+functions will not increase the variance as the number of parents
+increases.
+
+The Pyschological justification is that all skills are necessary for
+the _conjunctive_ model, so the weakest skill will drive importance.
+The _disjunctive_ model corresponds to alternate solution paths.  If
+the students knows what their strongest skills are, then these should
+dominate the performance.
+
+Again, the function `eThetaFrame()` is used to illustrate the 
+combination functions.  The examples below show a typicals use of the
+conjunctive and disjunctive function.  Note that in each case, the combined value is a weighted min or max of the two inputs.
+
+```{r Conjuctive, echo=TRUE}
+skill <- c("High","Medium","Low")
+eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Conjuctive")
+```
+
+```{r Disjuctive, echo=TRUE}
+skill <- c("High","Medium","Low")
+eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Disjuctive")
+```
+
+## OffsetConjunctive, OffsetDisjunctive
+
+The interpretation of the discrimination parameters in the conjuctive
+model is not realistic. Consider a mathematical word problem and a
+model with two skills:  mathematical manipulation and mathematical language.
+Typically, the demands on the two will be different; for example, the
+demand on on mathematical language might be minimal, while the demand
+on mathematical manipulation might be moderate.  Thus, it seems
+natural to have two different difficulty parameters.  
+
+The _Offset Conjuctive_ and _Offset Disjunctive_ models use one
+difficulty parameter for each parent variable.  To reduce the overall
+number of parameters, only a single common discrimination parameter is
+used.  This parameterization is much more natural because the
+discrimination parameter is often related to construct irrelevant
+sources of variability which affect all skills equally.  
+
+The new equations are: 
+$$ \alpha \min_{k=1}^K (\tilde{\theta_k} - \beta_k) \
+,$$
+for `OffsetConjuctive()` and 
+$$ \alpha \max_{k=1}^K (\tilde{\theta_k} - \beta_k) \
+,$$
+for `OffsetDisjunctive()`.  Note that the signatures of the
+`OffsetConjuctive()` and `Conjuctive()` functions are the same, but
+the former expects `beta` to be a vector and `alphas` a scalar, while
+the reverse is true for the latter.
+
+```{r OffsetConjuctive, echo=TRUE}
+skill <- c("High","Medium","Low")
+eThetaFrame(list(S1=skill,S2=skill), 1.0, c(S1=0.25,S2=-0.25),
+            "OffsetConjunctive")
+```
+
+```{r OffsetDisjuctive, echo=TRUE}
+skill <- c("High","Medium","Low")
+eThetaFrame(list(S1=skill,S2=skill), 1.0, c(S1=0.25,S2=-0.25),
+            "OffsetDisjunctive")
+```
+## Inhibitor 
+
+The Almond, et al (2001) paper (see also Almond, et al, 2015) also
+included a special asymmetric combination function called the
+_inhibitor_.  Once again consider a mathematical word problem written
+in English.  Here knowledge of English is an inhibitor skill, a
+certain minimal amount of English is needed to understand the goals of
+the question.  Once that threshold is met, then the other
+(mathematical) skills determine the probability of success.  If the
+English language comprehension threshold is not met, then the
+probability of success will be low (guessing).
+
+This can be expressed mathematically as:
+
+$$ \begin{cases} 
+\beta_0 & \mbox{if} \tilde{\theta_1} < \tilde{\theta_1}^* \\
+\alpha_2 \tilde{\theta_2} - \beta_2  &
+\mbox{if} \tilde{\theta_1} \ge \tilde{\theta_1}^* \\
+\end{cases}\ .$$
+
+No `Inhibitor()` function was included in `CPTtools` because of the
+difficulty in generalizing this formula.  First, the threshold
+parameter, $\tilde{\theta_1}^* $ doesn't fit naturally into either
+`alphas` or `beta`; so the signature of the function does not match.
+Second, the Inhibitor model does not generalize when there is more
+than two parent variables:  another combination rule would be needed
+to collapse the remaining dimensions onto a single dimenson.
+
+This is a good place to remark on the extensibility of the combination
+functions in the Discrete Partial Credit framework.  The various
+functions aligned with the framework (e.g., `eThetaFrame`,
+`calcDPCFrame`, and `mapDPC`) accept a function (or a character value
+giving the name of a function) which does the combination.  This
+function should have three formal parameters:
+
+* `theta` --- This is a matrix of effective theta values produces by
+  `expand.grid`.  For example, `thetas <-
+  expand.grid(list(S1=seq(1,-1), S2 = seq(1,-1)))`.
+  
+* `alphas` --- This is a vector of discrimination parameters.  As
+  several functions work with `log(alphas)`, these should all be
+  strictly positive.  
+  
+* `beta` --- This is a vector of difficulty parameters.
+
+Generally, the `theta` parameter is generated internally by the
+`CPTtools` functions, while the `alphas` (or `log(alphas)`) and `beta`
+are passed in by the user.  The `Peanut` package, in particular,
+allows associating `lnAlphas` and `betas` with a node in a graph.
+The `alphas` and `beta` generally have one of two shapes
+
+* Compensatory-shape---There is one `alpha` for each parent and a
+  single `beta`.
+  
+* Offset-shape---There is one `beta` for each parent and a single
+  `alpha`.
+  
+The function `isOffsetRule()` can check whether a named rule is
+Offset-shpae or Compensatory-shape.  There is an internal list of
+offset rules which can be inspected with `getOffsetRule()` and
+manipulated with `setOffsetRule()`.
+
+Currently, `CPTtools` supports the following rules:
+
+* Compensatory-shape:  `Compensatory`,`Conjunctive`,`Disjunctive`
+
+* Offset-shape:  `OffsetConjunctive`,`OffsetDisjunctive`
+
+# Link Functions
+
+In DiBello's models, the _effective theta_ for an item represents the
+ability of an examinee to solve the particular problem posed in the
+task.  This is a value that runs from negative to positive infinity,
+with higher values indicating a more successful outcome.  The next
+step is to map these onto probability of success.  Following the
+generalized linear modeling usage, these are called _link functions_.  
+
+DiBello's original idea was to press ideas models from IRT into
+service for this step.  The first one implemented was Samejima's
+graded response model.  Although this model worked well for
+observables, but not so well for intermediate proficiency variables.
+This inspired a new normal link function which worked more like a
+regression model.  The graded response model has certain
+restrictions.  In particular, all transitions must have the same
+discrimination.  The partial credit link function was introduced to
+relax that restriction, and enabled the use of more combination rules,
+including different combination rules for each transition.  
+
+## 2PL
+
+If the child variable only has two states, then both the graded
+response and generalized partial credit models collapse into the the
+2-parameter logistic (2PL) model.  This is a common model from item
+response theory (IRT), which states that the probability that 
+Examinee $i$ gets Item $j$ correct is:
+
+$$ P(X_{ij}|\tilde{\theta_{i}}) = \frac{\exp(D\alpha_j(\tilde{\theta_i}-\beta_j))}{1 +
+\exp(D\alpha_j(\tilde{\theta_i}-\beta_j))} .$$
+
+The constant $D=1.7$ is chosen so that the logistic function and the
+normal ogive curve are nearly identical.  This allows $\theta_i$ to be
+interpreted as a standard normal value, with $\theta=0$ as the population
+median and $\theta=1$ representing an individual one standard
+deviation above the median.  The following example shows the curve.
+
+```{r IRT, echo=TRUE}
+inv.logit <- function (z) {1/(1+exp(-1.7*z))}
+a <- 1 ## Discrimination
+b <- 0 ## Difficulty
+curve(inv.logit(a*(x-b)),xlim=c(-3,3),ylim=c(0,1),
+      main=paste("2 Parameter Logistic: a=",round(a,2),
+                 " b=",round(b,2)),
+      xlab="Ability (theta)", ylab="Probability of success.")
+```
+
+Note that the difficulty parameter is on the same scale as the ability
+parameter and represents the ability at which examinees will have a
+50-50 chance of success.  The discrimination describes how quickly the
+probability rises with increasing ability, and is often related to how
+many non-focal knowledge, skills and abilities are required to solve
+the problem.
+
+Note that the model can be rewritten as $P(X_{ij}|\tilde{\theta_{i}})
+= 1/(1+\exp(-D\cdot Z_j(\tilde{\theta_i}))).  Here $Z_j(\cdot)$ is the
+combination function, which has the difficulty and discrimination
+parameters built into it.  This more cleanly separates the link
+function from the combination rules.
+
+## Graded Response
+
+The graded response model is a generalization of the 2PL model for
+ordered categorical data introduces by Samejima (1969).  Let the
+possible values for the observable $X_{ij}$ be $\{0, 1, \ldots, K}$.
+Now, model each of the events $X_{ij} \ge k$ is modeled with a
+logistic curve:
+$$ \Pr(X_{ij} \ge k$ | \tilde{\theta_{i}}) = 1/(1+\exp(-D\cdot
+Z_{jk}(\tilde{\theta_{i}}))) ,$$
+for $k=1, \ldots, K$.  The probability that $X_{ij}=k$ can be found by
+differencing adjacent curves.  
+
+
+
+## Generalize Parial Credit
+
+### Multiple Combination Rules
+
+## Normal Offset
+
+
+# CPT construction Functions
+
+## DPC
+
+## Earlier Graded Response Functions
+
+## Other Models
+
+# Peanut Framework
+
+# References
+
+## Works Cited
+
+Almond, R.G., Mislevy, R.J., Steinberg, L.S., Yan, D. and Williamson, D.M. (2015). _Bayesian Networks in Educational Assessment._ Springer. Chapter 8.
+
+Almond, R.G., DiBello, L., Jenkins, F., Mislevy, R.J., Senturk, D., Steinberg, L.S. and Yan, D. (2001) Models for Conditional Probability Tables in Educational Assessment. _Artificial Intelligence and Statistics 2001_ Jaakkola and Richardson (eds)., Morgan Kaufmann, 137–143.
+
+
+Muraki, E. (1992).  A Generalized Partial Credit Model:  Application
+of an EM Algorithm.  _Applied Psychological Measurement_, **16**
+159-176.  DOI: 10.1177/014662169201600206
+
+Samejima, F. (1969) Estimation of latent ability using a
+response pattern of graded scores.  _Psychometrika Monograph No.
+  17_, **34**, (No. 4, Part 2).
+
+
+## List of Symbols
+
+* $i$ -- index for individual in the sample.
+* $i'$ -- index for configuration of parent variables.
+* $j$ -- index for observable outcome (child) variable.
+* $k$ -- index for parent variable
+* $s$ -- index for state of child (outcome) variable
+* $m$ -- index for state of parent variable.
+* $\tilde\theta_{km}$ -- effective theta for a the state of a single parent variable.
+* $\tilde\theta_{ji'}$ -- (vector values) effective thetas for a configuration of parent variables of Observable Outcome $j$.
+* $Z_{js}(\tilde\theta_{i'})$ -- combination function for State $s$ of Observable Outcome $j$.
+* $g(\cdot)$ -- link function for converting effective thetas into conditional probabilities.
+
+
+## List of functions

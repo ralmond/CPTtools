@@ -80,3 +80,27 @@ function (x,n,lclabs,pi, pilab=names(pi),
 ## grouplabs <- c(rep("-",3),"+")
 ## x <- c("(0,0)"=7,"(0,1)"=4,"(1,0)"=2,"(1,1)"=31)
 ## OCP (x,nn,grouplabs,pi,c("-","+"),ylim=c(0,1), reflty=2:3)
+
+
+## eCPTplot <- function(cpf,counts) {
+
+## }
+
+## pct <- tribble(
+##     ~Level, ~count, ~prob,
+##     "High", 1, 1/3,
+##     "Med", 2, 1/3,
+##     "Low", 3, 1/3
+## )
+
+## pct <- tibble(Level=ordered(c("High","Medium","Low"),
+##                             levels=c("High","Medium","Low")),
+##               count=1:3, prob=1/3)
+
+
+
+## full_join(pct,dirchci(pct$prob,pct$Level)) %>%
+##   mutate(xpos=(1:nrow(pct))/nrow(pct)+.5) %>%
+##   ggplot(aes(x=1,y=prob,fill=Level)) +
+##   geom_col() +
+##   geom_pointrange(aes(x=xpos,y=mid,ymin=lower,ymax=upper,shape=Level))

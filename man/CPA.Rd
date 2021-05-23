@@ -115,8 +115,9 @@ as.CPA(x)
   \code{\link{CPF}}, \code{\link{normalize}()}
 }
 \examples{
-arf <- data.frame(A=rep(c("a1","a2"),each=3),
-                  B=rep(c("b1","b2","b3"),2),
+# Note:  in R 4.0, the factor() call is required.
+arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
+                  B=factor(rep(c("b1","b2","b3"),2)),
                   C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
 arfa <- as.CPA(arf)
 stopifnot(

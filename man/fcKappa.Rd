@@ -14,7 +14,7 @@
 }
 \usage{
 fcKappa(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
-gcLambda(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
+gkLambda(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
 }
 \arguments{
   \item{tab}{A square matrix whose rows and columns represent rating
