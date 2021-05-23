@@ -356,15 +356,86 @@ Currently, `CPTtools` supports the following rules:
 
 * Offset-shape:  `OffsetConjunctive`,`OffsetDisjunctive`
 
-
-
 # Link Functions
+
+In DiBello's models, the _effective theta_ for an item represents the
+ability of an examinee to solve the particular problem posed in the
+task.  This is a value that runs from negative to positive infinity,
+with higher values indicating a more successful outcome.  The next
+step is to map these onto probability of success.  Following the
+generalized linear modeling usage, these are called _link functions_.  
+
+DiBello's original idea was to press ideas models from IRT into
+service for this step.  The first one implemented was Samejima's
+graded response model.  Although this model worked well for
+observables, but not so well for intermediate proficiency variables.
+This inspired a new normal link function which worked more like a
+regression model.  The graded response model has certain
+restrictions.  In particular, all transitions must have the same
+discrimination.  The partial credit link function was introduced to
+relax that restriction, and enabled the use of more combination rules,
+including different combination rules for each transition.  
 
 ## 2PL
 
+If the child variable only has two states, then both the graded
+response and generalized partial credit models collapse into the the
+2-parameter logistic (2PL) model.  This is a common model from item
+response theory (IRT), which states that the probability that 
+Examinee $i$ gets Item $j$ correct is:
+
+$$ P(X_{ij}|\tilde{\theta_{i}}) = \frac{\exp(D\alpha_j(\tilde{\theta_i}-\beta_j))}{1 +
+\exp(D\alpha_j(\tilde{\theta_i}-\beta_j))} .$$
+
+The constant $D=1.7$ is chosen so that the logistic function and the
+normal ogive curve are nearly identical.  This allows $\theta_i$ to be
+interpreted as a standard normal value, with $\theta=0$ as the population
+median and $\theta=1$ representing an individual one standard
+deviation above the median.  The following example shows the curve.
+
+```{r IRT, echo=TRUE}
+inv.logit <- function (z) {1/(1+exp(-1.7*z))}
+a <- 1 ## Discrimination
+b <- 0 ## Difficulty
+curve(inv.logit(a*(x-b)),xlim=c(-3,3),ylim=c(0,1),
+      main=paste("2 Parameter Logistic: a=",round(a,2),
+                 " b=",round(b,2)),
+      xlab="Ability (theta)", ylab="Probability of success.")
+```
+
+Note that the difficulty parameter is on the same scale as the ability
+parameter and represents the ability at which examinees will have a
+50-50 chance of success.  The discrimination describes how quickly the
+probability rises with increasing ability, and is often related to how
+many non-focal knowledge, skills and abilities are required to solve
+the problem.
+
+Note that the model can be rewritten as $P(X_{ij}|\tilde{\theta_{i}})
+= 1/(1+\exp(-D\cdot Z_j(\tilde{\theta_i}))).  Here $Z_j(\cdot)$ is the
+combination function, which has the difficulty and discrimination
+parameters built into it.  This more cleanly separates the link
+function from the combination rules.
+
 ## Graded Response
 
+The graded response model is a generalization of the 2PL model for
+ordered categorical data introduces by Samejima (1969).  Let the
+possible values for the observable $X_{ij}$ be $\{0, 1, \ldots, K}$.
+Now, model each of the events $X_{ij} \ge k$ is modeled with a
+logistic curve:
+$$ \Pr(X_{ij} \ge k$ | \tilde{\theta_{i}}) = 1/(1+\exp(-D\cdot
+Z_{jk}(\tilde{\theta_{i}}))) ,$$
+for $k=1, \ldots, K$.  The probability that $X_{ij}=k$ can be found by
+differencing adjacent curves.  
+
+
+
 ## Generalize Parial Credit
+
+### Multiple Combination Rules
+
+## Normal Offset
+
 
 # CPT construction Functions
 
@@ -374,6 +445,8 @@ Currently, `CPTtools` supports the following rules:
 
 ## Other Models
 
+# Peanut Framework
+
 # References
 
 ## Works Cited
@@ -381,6 +454,16 @@ Currently, `CPTtools` supports the following rules:
 Almond, R.G., Mislevy, R.J., Steinberg, L.S., Yan, D. and Williamson, D.M. (2015). _Bayesian Networks in Educational Assessment._ Springer. Chapter 8.
 
 Almond, R.G., DiBello, L., Jenkins, F., Mislevy, R.J., Senturk, D., Steinberg, L.S. and Yan, D. (2001) Models for Conditional Probability Tables in Educational Assessment. _Artificial Intelligence and Statistics 2001_ Jaakkola and Richardson (eds)., Morgan Kaufmann, 137–143.
+
+
+Muraki, E. (1992).  A Generalized Partial Credit Model:  Application
+of an EM Algorithm.  _Applied Psychological Measurement_, **16**
+159-176.  DOI: 10.1177/014662169201600206
+
+Samejima, F. (1969) Estimation of latent ability using a
+response pattern of graded scores.  _Psychometrika Monograph No.
+  17_, **34**, (No. 4, Part 2).
+
 
 ## List of Symbols
 
