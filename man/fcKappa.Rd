@@ -7,7 +7,7 @@
   The functions take a \dQuote{confusion matrix}, a square matrix were
   the rows and columns represent classifications by two different
   raters, and compute measures of rater agreement.  Cohen's kappa
-  (\code{gcKappa}) is corrected for random labeling of ratings.  Goodman
+  (\code{fcKappa}) is corrected for random labeling of ratings.  Goodman
   and Kruskall's lambda (\code{gkLambda}) is corrected for labeling
   every subject at the modal category.
   
