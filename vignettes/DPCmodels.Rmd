@@ -146,7 +146,7 @@ corresponding to the rows of `theta`.  See the function `eThetaFrame()`
 for examples.  The `Compensatory()` structure function is basically the
 linear predictor of a generalized linear model, so is the basis for
 understanding other combination functions. `Conjunctive()` and
-`Disjunctive` are variants on the idea.  `OffsetConjuctive()` and
+`Disjunctive` are variants on the idea.  `OffsetConjunctive()` and
 `OffsetDisjunctive()` are improvements which use different sets of
 alphas and betas. 
 
@@ -239,14 +239,14 @@ Again, the function `eThetaFrame()` is used to illustrate the
 combination functions.  The examples below show a typicals use of the
 conjunctive and disjunctive function.  Note that in each case, the combined value is a weighted min or max of the two inputs.
 
-```{r Conjuctive, echo=TRUE}
+```{r Conjunctive, echo=TRUE}
 skill <- c("High","Medium","Low")
-eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Conjuctive")
+eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Conjunctive")
 ```
 
-```{r Disjuctive, echo=TRUE}
+```{r Disjunctive, echo=TRUE}
 skill <- c("High","Medium","Low")
-eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Disjuctive")
+eThetaFrame(list(S1=skill,S2=skill), c(S1=1.25,S2=.75), 0.33, "Disjunctive")
 ```
 
 ## OffsetConjunctive, OffsetDisjunctive
@@ -259,7 +259,7 @@ demand on on mathematical language might be minimal, while the demand
 on mathematical manipulation might be moderate.  Thus, it seems
 natural to have two different difficulty parameters.  
 
-The _Offset Conjuctive_ and _Offset Disjunctive_ models use one
+The _Offset Conjunctive_ and _Offset Disjunctive_ models use one
 difficulty parameter for each parent variable.  To reduce the overall
 number of parameters, only a single common discrimination parameter is
 used.  This parameterization is much more natural because the
@@ -269,15 +269,15 @@ sources of variability which affect all skills equally.
 The new equations are: 
 $$ \alpha \min_{k=1}^K (\tilde{\theta_k} - \beta_k) \
 ,$$
-for `OffsetConjuctive()` and 
+for `OffsetConjunctive()` and 
 $$ \alpha \max_{k=1}^K (\tilde{\theta_k} - \beta_k) \
 ,$$
 for `OffsetDisjunctive()`.  Note that the signatures of the
-`OffsetConjuctive()` and `Conjuctive()` functions are the same, but
+`OffsetConjunctive()` and `Conjunctive()` functions are the same, but
 the former expects `beta` to be a vector and `alphas` a scalar, while
 the reverse is true for the latter.
 
-```{r OffsetConjuctive, echo=TRUE}
+```{r OffsetConjunctive, echo=TRUE}
 skill <- c("High","Medium","Low")
 eThetaFrame(list(S1=skill,S2=skill), 1.0, c(S1=0.25,S2=-0.25),
             "OffsetConjunctive")
