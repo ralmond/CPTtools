@@ -1,3 +1,8 @@
+2021-07-01  Russell Almond  <ralmond@cherry>
+
+	* R/kappalambda.R (gkGamma): Added gamma function to deal with
+	non-square cases.  
+
 2021-03-05  Russell Almond  <ralmond@cherry>
 
 	* R/Tables.R (as.CPA): Issue with R no longer automagically

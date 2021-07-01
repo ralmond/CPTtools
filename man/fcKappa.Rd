@@ -20,7 +20,7 @@ gkLambda(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
   \item{tab}{A square matrix whose rows and columns represent rating
     categories from two raters or classifiers and whose cells represent
     observed (or expected) counts.  If one classifier is regarded as
-    \dQuote{truth} it should be prepresented by columns.}
+    \dQuote{truth} it should be represented by columns.}
   \item{weights}{A character scalar which should be one of
     \dQuote{None}, \dQuote{Linear}, or \code{Quadratic} which gives the
     weighting to be used if \code{W} is not supplied directly (see
@@ -150,9 +150,6 @@ fcKappa(read,"Linear")
 fcKappa(read,"Quadratic")
 gkLambda(read,"Linear")
 gkLambda(read,"Quadratic")
-
-
-
 
 
 }

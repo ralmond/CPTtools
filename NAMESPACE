@@ -47,7 +47,7 @@ export(betaci, proflevelci, barchart.CPF,
        marginTab,parseProbVec, readHistory,
        mutualInformation, ciTest, localDepTest,
        woeBal, woeHist, EAPBal,
-       fcKappa, gkLambda)
+       fcKappa, gkLambda, gkGamma)
 
 export(isMonotonic,
        isIncreasing, isDecreasing,
