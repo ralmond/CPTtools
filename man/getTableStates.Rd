@@ -8,6 +8,7 @@
 }
 \usage{
 getTableStates(table)
+getTableParents(table)
 }
 \arguments{
   \item{table}{A conditional probability table expressed as a data frame.}

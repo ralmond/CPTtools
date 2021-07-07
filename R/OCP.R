@@ -104,3 +104,48 @@ function (x,n,lclabs,pi, pilab=names(pi),
 ##   ggplot(aes(x=1,y=prob,fill=Level)) +
 ##   geom_col() +
 ##   geom_pointrange(aes(x=xpos,y=mid,ymin=lower,ymax=upper,shape=Level))
+
+OCP.CPF <- function(obs, exp, ..., baseCol="chocolate",
+                    limits=c(lower=0.025,upper=0.975),
+                    auto.key=TRUE,par.settings=list()) {
+
+  if (!all.equal(getTableStates(obs),getTableStates(exp))) {
+    stop("Child variable states don't match.")
+  }
+  if (!all.equal(getTableParents(obs),getTableParents(exp))) {
+    stop("Parent variables don't match.")
+  }
+  if (nrow(obs)!=nrow(exp)) {
+    stop("Observed and expected table sizes don't match.")
+  }
+  Parents <- getTableParents(exp)
+  States <- getTableStates(exp)
+  nstates <- length(States)
+
+  ## Set up color scale
+  if (is.null(baseCol))
+    ps <- par.settings
+  else
+    ps <- list(par.settings,
+               superpose.polygon=list(col=rev(colorspread(baseCol,nstates))))
+
+  ## Build CI's for cumulative probabilities.
+  cobs <-t(apply(numericPart(exp)+numericPart(obs),1,cumsum))
+  cobs.tot <- matrix(cobs[,nstates],nrow(cobs),nstates)
+  cobs[,nstates] <- NA ## drop the last category
+  cobs.lower <- qbeta(limits["lower"],cobs,cobs.tot-cobs)
+  cobs.mid <- cobs/cobs.tot
+  cobs.upper <- qbeta(limits["upper"],cobs,cobs.tot-cobs)
+
+  ## Set up the barchart
+  form <- as.formula(paste("~p |",paste(Parents,collapse="+")))
+  exp_long <- tidyr::pivot_longer(exp,States,names_to="State",values_to="p")
+  exp_long$State <- ordered(exp_long$State,levels=States)
+  recover()
+  ##<<HERE>>
+
+  lattice::barchart(form,data=exp_long,
+                    groups=State,auto.key=auto.key,
+                    stack=TRUE, strip=strip.custom(strip.names=TRUE),...)
+}
+

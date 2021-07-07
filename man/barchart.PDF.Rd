@@ -79,6 +79,11 @@
 
      barchart.CPF(cpfTheta)
 
+     cptComp <- calcDPCFrame(list(S2=skill2l,S1=skill1l),correctL,
+                             lnAlphas=log(c(1.2,.8)), betas=0,
+                             rule="Compensatory")
+     barchart.CPF(cptComp,layout=c(3,1))
+
      cptPC1 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,
                              lnAlphas=log(1),
                              betas=list(full=c(S1=0,S2=999),partial=c(S2=999,S2=0)),
