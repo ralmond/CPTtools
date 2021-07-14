@@ -179,5 +179,5 @@ OCP2 (xx1,nnn,grouplabs1,pi,c("-","+"),ylim=c(0,1), reflty=c(2,4),
       main="Data for which Skill 3 is relevant")
 
 }
-\keyword{graphics}
+\keyword{hplot}
 

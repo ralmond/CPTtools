@@ -107,7 +107,14 @@ function (x,n,lclabs,pi, pilab=names(pi),
 
 OCP.CPF <- function(obs, exp, ..., baseCol="chocolate",
                     limits=c(lower=0.025,upper=0.975),
-                    auto.key=TRUE,par.settings=list()) {
+                    Parents = getTableParents(exp),
+                    States = getTableStates(exp),
+                    nstates=length(States),
+                    key=list(points=FALSE,rectangles=TRUE,text=States),
+                    par.settings=list(),
+                    point.pch = paste((nstates-1):0),
+                    point.col="black", point.cex=1.25,
+                    line.col="black", line.type=1) {
 
   if (!all.equal(getTableStates(obs),getTableStates(exp))) {
     stop("Child variable states don't match.")
@@ -118,16 +125,16 @@ OCP.CPF <- function(obs, exp, ..., baseCol="chocolate",
   if (nrow(obs)!=nrow(exp)) {
     stop("Observed and expected table sizes don't match.")
   }
-  Parents <- getTableParents(exp)
-  States <- getTableStates(exp)
-  nstates <- length(States)
 
   ## Set up color scale
-  if (is.null(baseCol))
+  if (is.null(baseCol)) {
     ps <- par.settings
-  else
-    ps <- list(par.settings,
-               superpose.polygon=list(col=rev(colorspread(baseCol,nstates))))
+  } else {
+    colscale <- rev(colorspread(baseCol,nstates))
+    ps <- c(par.settings,
+            list(superpose.polygon=list(col=colscale)))
+    key <- c(key,list(col=colscale))
+  }
 
   ## Build CI's for cumulative probabilities.
   cobs <-t(apply(numericPart(exp)+numericPart(obs),1,cumsum))
@@ -138,14 +145,152 @@ OCP.CPF <- function(obs, exp, ..., baseCol="chocolate",
   cobs.upper <- qbeta(limits["upper"],cobs,cobs.tot-cobs)
 
   ## Set up the barchart
-  form <- as.formula(paste("~p |",paste(Parents,collapse="+")))
+  if (length(Parents) == 0L) {
+    form <- as.formula("~p")
+  } else {
+    form <- as.formula(paste("~p |",paste(Parents,collapse="+")))
+  }
   exp_long <- tidyr::pivot_longer(exp,States,names_to="State",values_to="p")
   exp_long$State <- ordered(exp_long$State,levels=States)
-  recover()
-  ##<<HERE>>
+
+  ## Set up Y placement based on number of categories
+  YY <- .5 + ((nstates-1):0)/nstates
 
   lattice::barchart(form,data=exp_long,
-                    groups=State,auto.key=auto.key,
-                    stack=TRUE, strip=strip.custom(strip.names=TRUE),...)
+                    groups=State,auto.key=key,stack=TRUE,
+                    panel = function (x,y,subscripts,groups,...) {
+                      lattice::panel.barchart(x=x,y=y,subscripts=subscripts,
+                                              groups=groups,box.width=1,...)
+                      lattice::lpoints(t(cobs.mid)[subscripts],YY,
+                                       pch=point.pch,
+                                       col=point.col,cex=point.cex)
+                      lattice::lsegments(t(cobs.lower)[subscripts],YY,
+                                         t(cobs.upper)[subscripts],YY,
+                                         col=line.col,lty=line.type)
+                    },
+                    strip=lattice::strip.custom(strip.names=TRUE),
+                    par.settings=ps,
+                    ...)
+
 }
 
+
+OCP2.CPF <- function(obs1, obs2, exp, ..., baseCol="chocolate",
+                    limits=c(lower=0.025,upper=0.975),
+                    Parents = getTableParents(exp),
+                    States = getTableStates(exp),
+                    nstates=length(States),
+                    key=list(points=FALSE,rectangles=TRUE,text=States),
+                    par.settings=list(),
+                    point1.pch=paste((nstates-1):0),
+                    point1.col="black", point1.cex=1.25,
+                    line1.col="black", line1.type=1,
+                    point2.pch=paste((nstates-1):0),
+                    point2.col="cyan", point2.cex=1.25,
+                    line2.col="cyan", line2.type=2) {
+
+  if (!all.equal(getTableStates(obs1),getTableStates(exp))) {
+    stop("Child variable states don't match.")
+  }
+  if (!all.equal(getTableStates(obs2),getTableStates(exp))) {
+    stop("Child variable states don't match.")
+  }
+  if (!all.equal(getTableParents(obs1),getTableParents(exp))) {
+    stop("Parent variables don't match.")
+  }
+  if (!all.equal(getTableParents(obs2),getTableParents(exp))) {
+    stop("Parent variables don't match.")
+  }
+  if (nrow(obs1)!=nrow(exp) || nrow(obs2)!=nrow(exp)) {
+    stop("Observed and expected table sizes don't match.")
+  }
+
+
+  ## Set up color scale
+  if (is.null(baseCol)) {
+    ps <- par.settings
+  } else {
+    colscale <- rev(colorspread(baseCol,nstates))
+    ps <- c(par.settings,
+            list(superpose.polygon=list(col=colscale)))
+    key <- c(key,list(col=colscale))
+  }
+
+  ## Build CI's for cumulative probabilities.
+  cobs1 <-t(apply(numericPart(exp)+numericPart(obs1),1,cumsum))
+  cobs1.tot <- matrix(cobs1[,nstates],nrow(cobs1),nstates)
+  cobs1[,nstates] <- NA ## drop the last category
+  cobs1.lower <- qbeta(limits["lower"],cobs1,cobs1.tot-cobs1)
+  cobs1.mid <- cobs1/cobs1.tot
+  cobs1.upper <- qbeta(limits["upper"],cobs1,cobs1.tot-cobs1)
+
+  cobs2 <-t(apply(numericPart(exp)+numericPart(obs2),1,cumsum))
+  cobs2.tot <- matrix(cobs2[,nstates],nrow(cobs2),nstates)
+  cobs2[,nstates] <- NA ## drop the last category
+  cobs2.lower <- qbeta(limits["lower"],cobs2,cobs2.tot-cobs2)
+  cobs2.mid <- cobs2/cobs2.tot
+  cobs2.upper <- qbeta(limits["upper"],cobs2,cobs2.tot-cobs2)
+
+
+  ## Set up the barchart
+  if (length(Parents) == 0L) {
+    form <- as.formula("~p")
+  } else {
+    form <- as.formula(paste("~p |",paste(Parents,collapse="+")))
+  }
+  exp_long <- tidyr::pivot_longer(exp,States,names_to="State",values_to="p")
+  exp_long$State <- ordered(exp_long$State,levels=States)
+
+  ## Set up Y placement based on number of categories
+  YY1 <- 1 + ((nstates-1):0)/(2*nstates)
+  YY2 <- .5 + ((nstates-1):0)/(2*nstates)
+  cat(YY1,"\n")
+  cat(YY2,"\n")
+
+  lattice::barchart(form,data=exp_long,
+                    groups=State,auto.key=key,stack=TRUE,
+                    panel = function (x,y,subscripts,groups,...) {
+                      lattice::panel.barchart(x=x,y=y,subscripts=subscripts,
+                                              groups=groups,box.width=1,...)
+                      lattice::lpoints(t(cobs1.mid)[subscripts],YY1,
+                                       pch=point1.pch,
+                                       col=point1.col,cex=point1.cex)
+                      lattice::lsegments(t(cobs1.lower)[subscripts],YY1,
+                                         t(cobs1.upper)[subscripts],YY1,
+                                         col=line1.col,lty=line1.type)
+                      lattice::lpoints(t(cobs2.mid)[subscripts],YY2,
+                                       pch=point2.pch,
+                                       col=point2.col,cex=point2.cex)
+                      lattice::lsegments(t(cobs2.lower)[subscripts],YY2,
+                                         t(cobs2.upper)[subscripts],YY2,
+                                         col=line2.col,lty=line2.type)
+                    },
+                    strip=lattice::strip.custom(strip.names=TRUE),
+                    par.settings=ps,
+                    ...)
+
+}
+
+
+cptChi2 <- function(obs, exp) {
+
+  if (!all.equal(getTableStates(obs),getTableStates(exp))) {
+    stop("Child variable states don't match.")
+  }
+  if (!all.equal(getTableParents(obs),getTableParents(exp))) {
+    stop("Parent variables don't match.")
+  }
+  if (nrow(obs)!=nrow(exp)) {
+    stop("Observed and expected table sizes don't match.")
+  }
+
+  ## Build CI's for cumulative probabilities.
+  cobs <- numericPart(exp)+numericPart(obs)
+  cobs.tot <-apply(cobs,1,sum)
+  nexp <- sweep(numericPart(exp),1,cobs.tot,"*")
+  
+  df = nrow(cobs)*(ncol(cobs)-1)
+  chi2 <- sum((cobs-nexp)^2/nexp)
+  attr(chi2,"d.f.") <- df
+  chi2
+}

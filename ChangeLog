@@ -1,3 +1,7 @@
+2021-07-12  Russell Almond  <ralmond@cherry>
+
+	* R/OCP.R (cptChi2): Split calculating chi-square as second function. 
+
 2021-07-06  Russell Almond  <ralmond@cherry>
 
 	* R/OCP.R (OCP.CPF): Added the new OCP function.  Haven't gotten

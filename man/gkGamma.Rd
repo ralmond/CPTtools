@@ -18,13 +18,12 @@ gkGamma(tab)
     two different classifications and whose cells represent
     observed (or expected) counts.}
 }
-}
 \details{
 
   Let \eqn{A} and \eqn{B} be ordinal variables (both oriented in the
   same direction either high to low or low to high).  Then \code{tab} is
   a cross-tabulation of the two variables (e.g., what is produced by
-  the \code{\linik[base]{table}} funciton).  In the case that one of the
+  the \code{\link[base]{table}} funciton).  In the case that one of the
   variables is a classification by a Bayesian network, this could also
   be an expected tabulation.  It also could be normalized by dividing by
   the total to give probabilities.
