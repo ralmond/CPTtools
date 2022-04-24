@@ -36,9 +36,9 @@ OCP2.CPF(obs1, obs2, exp, ..., baseCol = "chocolate",
         point1.pch = paste((nstates-1):0),
         point1.col = "black", point1.cex = 1.25,
         line1.col = "black", line1.type=1,
-        point1.pch = paste((nstates-1):0),
-        point1.col = "cyan", point1.cex = 1.25,
-        line1.col = "cyan", line1.type=1)
+        point2.pch = paste((nstates-1):0),
+        point2.col = "cyan", point2.cex = 1.25,
+        line2.col = "cyan", line2.type=1)
 
 }
 \arguments{
@@ -71,7 +71,7 @@ OCP2.CPF(obs1, obs2, exp, ..., baseCol = "chocolate",
   The cannonical use for this plot is to test the conditional
   probability model used in particular Bayesian network.  The \code{exp}
   argument is the proposed table.  If the parents are fully observed,
-  then the \code{\link{obs}} argument would be a contingency table with
+  then the \code{obs} argument would be a contingency table with
   the rows representing parent configurations and the columns the data.
   If the parents are not fully observed, then obs can be replaced by an
   expected contingincy table (see Almond, et al, 2015).
@@ -139,7 +139,7 @@ OCP2.CPF(obs1, obs2, exp, ..., baseCol = "chocolate",
 }
 \author{Russell Almond}
 \seealso{
-  \code{\link{betaci}}, \code{\link{OCP}}, \code{\link{barchart.PDF}},
+  \code{\link{betaci}}, \code{\link{OCP}}, \code{\link{barchart.CPF}},
   \code{\link{cptChi2}}
 }
 

@@ -26,7 +26,7 @@ cptChi2(obs, exp)
   The cannonical use for this plot is to test the conditional
   probability model used in particular Bayesian network.  The \code{exp}
   argument is the proposed table.  If the parents are fully observed,
-  then the \code{\link{obs}} argument would be a contingency table with
+  then the \code{obs} argument would be a contingency table with
   the rows representing parent configurations and the columns the data.
   If the parents are not fully observed, then obs can be replaced by an
   expected contingincy table (see Almond, et al, 2015).
@@ -66,7 +66,7 @@ cptChi2(obs, exp)
   
 }
 \seealso{
-  \code{\link{betaci}}, \code{\link{OCP}}, \code{\link{barchart.PDF}},
+  \code{\link{betaci}}, \code{\link{OCP}}, \code{\link{barchart.CPF}},
   \code{\link{OCP.CPF}}
 
 }
