@@ -53,4 +53,10 @@ export(isMonotonic,
        isIncreasing, isDecreasing,
        isNondecreasing, isNonincreasing)
 
+S3method(normalize, array)
+S3method(normalize, data.frame)
+S3method(normalize, CPA)
+S3method(normalize, CPF)
+S3method(normalize, default)
+S3method(normalize, matrix)
 
