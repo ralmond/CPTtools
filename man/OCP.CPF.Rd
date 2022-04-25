@@ -38,7 +38,7 @@ OCP2.CPF(obs1, obs2, exp, ..., baseCol = "chocolate",
         line1.col = "black", line1.type=1,
         point2.pch = paste((nstates-1):0),
         point2.col = "cyan", point2.cex = 1.25,
-        line2.col = "cyan", line2.type=1)
+        line2.col = "cyan", line2.type=2)
 
 }
 \arguments{
@@ -60,7 +60,7 @@ OCP2.CPF(obs1, obs2, exp, ..., baseCol = "chocolate",
   \item{point.pch,point1.pch,point2.pch}{Characters used to plot data points.}
   \item{point.col,point1.col,point2.col}{The colour to be used for the
     overlay points.} 
-  \item{point.cex,point1.cex,point2.ces}{The size (cex) to be used for
+  \item{point.cex,point1.cex,point2.cex}{The size (cex) to be used for
     the overlay points.} 
   \item{line.col,line1.col,line2.col}{The colour to be used for the
     overlay lines.} 

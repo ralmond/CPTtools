@@ -357,9 +357,8 @@ compareBars(margins.prior,margins.post,3,c("Prior","Post"),
             col2=hsv(h=.6,s=.2*1:5-.1,alpha=1))
 
 ## Weight of evidence balance sheets
-sampleSequence <- read.csv(paste(library(help="CPTtools")$path,
-                                "testFiles","SampleStudent.csv",
-                                sep=.Platform$file.sep),
+sampleSequence <- read.csv(system.file("testFiles","SampleStudent.csv",
+                                       package="CPTtools"),
                            header=TRUE,row.names=1)
 
 woeBal(sampleSequence[,c("H","M","L")],c("H"),c("M","L"),lcex=1.25)

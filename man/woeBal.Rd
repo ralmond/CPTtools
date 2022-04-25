@@ -89,9 +89,8 @@ woeBal(hist, pos, neg, obs=NULL, title = "Evidence Balance Sheet",
   \code{\link[graphics]{barplot}}, \code{Colors}}
 \examples{
 
-sampleSequence <- read.csv(paste(library(help="CPTtools")$path,
-                                "testFiles","SampleStudent.csv",
-                                sep=.Platform$file.sep),
+sampleSequence <- read.csv(system.file("testFiles","SampleStudent.csv",
+                                       package="CPTtools"),
                            header=TRUE,row.names=1)
 
 woeBal(sampleSequence[,c("H","M","L")],c("H"),c("M","L"),lcex=1.25)

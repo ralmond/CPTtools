@@ -157,7 +157,7 @@ OCP.CPF <- function(obs, exp, ..., baseCol="chocolate",
   YY <- .5 + ((nstates-1):0)/nstates
 
   lattice::barchart(form,data=exp_long,
-                    groups=State,auto.key=key,stack=TRUE,
+                    groups=exp_long$State,auto.key=key,stack=TRUE,
                     panel = function (x,y,subscripts,groups,...) {
                       lattice::panel.barchart(x=x,y=y,subscripts=subscripts,
                                               groups=groups,box.width=1,...)
@@ -248,7 +248,7 @@ OCP2.CPF <- function(obs1, obs2, exp, ..., baseCol="chocolate",
   cat(YY2,"\n")
 
   lattice::barchart(form,data=exp_long,
-                    groups=State,auto.key=key,stack=TRUE,
+                    groups=exp_long$State,auto.key=key,stack=TRUE,
                     panel = function (x,y,subscripts,groups,...) {
                       lattice::panel.barchart(x=x,y=y,subscripts=subscripts,
                                               groups=groups,box.width=1,...)
