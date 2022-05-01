@@ -1,0 +1,33 @@
+---
+title: "Building Bayesian networks using Regression"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Discrete Partial Credit Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CPTtools)
+```
+
+buildRegressions
+
+buildRegressionTables
+
+buildParentList
+
+scaleMatrix
+
+mcSearch
+
+
+normalLink
+

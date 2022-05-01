@@ -1,0 +1,50 @@
+---
+title: "Conditional Probability Frames and Arrays"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Discrete Partial Credit Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CPTtools)
+```
+
+## Conditional Probabilities over Discrete variables.
+
+## CPF
+
+is.CPF
+as.CPF
+
+## CPA
+
+is.CPA
+as.CPA
+
+## Utilities
+
+barchart.CPF
+
+
+getTableStates
+getTableParents
+numericPart
+
+
+normalize
+rescaleTable
+normalizeTable
+scaleTable
+
+
+dataTable
+
