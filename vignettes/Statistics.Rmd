@@ -2,7 +2,7 @@
 title: "Statistical Summaries of Conditional Probability Tables"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Discrete Partial Credit Models}
+  %\VignetteIndexEntry{Statistical Summeries of Conditional Probability Tables}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

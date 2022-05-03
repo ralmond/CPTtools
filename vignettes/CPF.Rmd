@@ -2,7 +2,7 @@
 title: "Conditional Probability Frames and Arrays"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Discrete Partial Credit Models}
+  %\VignetteIndexEntry{Conditional Probablity Frames}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,25 +20,147 @@ library(CPTtools)
 
 ## Conditional Probabilities over Discrete variables.
 
+In a discrete Bayesian network, each node, $Y$,  has an assoicated
+conditional probability table (_CPT_).  Let $X_1, \ldots, X_K$ be the
+parent nodes, each of which has $|X_k|$ states.  The conditional
+probablity distribution $\Pr(Y|X_1=x_1,\ldots,X_k=X_K)$ os a distrete
+distribution over the $|Y|=M$ states of $Y$.  Note that there are
+$|X_1|\times\cdots\times|Y_K|=S$ possible configurations of the parent
+variables, so that the conditional proability distribution is actually
+a set of $S$ probability distributions.  If they are stacked into a
+matrix, $S\times M$ matrix, this is the CPT.  If there are no parents,
+the unconditional probability table consists of a single row ($S=1$).
+
+The `CPTtools` package offers two ways of representing conditional
+probability distributions (as well as a number of tools for
+manipulating them.)
+
+* `"CPF"` (_Conditional Probability Frame_).  This is an R
+  `data.frame` whose first $K$ columns are factor variables corresponding
+  to the parents, and hence define the condition, and whose last $M$
+  columns are numeric variables corresponding to 
+  the states of the child variable $Y$.
+  
+* `"CPA"` (_Conditional Proability Array_).  This is a $K+1$
+  dimensional array where the first $K$ dimensions correspond to the
+  parent variables and the last dimension the child
+  
+Note that the contents of the `CPF` and `CPA` are not constrained to
+be probability distributions (i.e., each row need not sum to one).  In
+particular, contigency tables, tables of counts of cases occuring in
+various configurations, are natuaral the natural conjugate the the
+CPT, and are often used as data.  These can also be stored in the
+`CPF` and `CPA` classes. 
+
 ## CPF
 
-is.CPF
-as.CPF
+The class `"CPF"` is a subclass of `data.frame`; usually, `CPF`
+objects have class `c("CPF","data.frame")`.  This means that
+operations which operate on data frames should do something sensible
+with `CPF`s.  Note that the columns representing the parent variable
+states must be of class `factor()`, which might require an explicit
+call to `factor()` or `as.factor()`, if the values are character.  The
+function `as.CPF()` coerces an object to be a `CPF` 
+and `is.CPF()` tests whether or not it is a CPF.
+
+```{r CPF}
+# Note:  in R 4.0, the factor() call is required.
+arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
+                  B=factor(rep(c("b1","b2","b3"),2)),
+                  C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
+arf <- as.CPF(arf)
+arf
+```
+
+Note that by convention, the names of the columns for the parent
+variables are the names of the parent variables, and the names of the
+numeric columns have the format "_childname_`.`_statename_".
+
+### Graphics
+
+The `CPTtools` package supplies a method for the `lattice::barchart()`
+generic function for `CPF`s (`barchart.CPF()`).  Each conditional
+probability distribution is represented by a separate bar using color
+intensity to indicate the states.  Here are some examples.
+
+First, set up some information about the variables, in particular, the
+lists of states for each varaible.
+
+```{r setup}
+
+## Set up variables
+skill1l <- c("High","Medium","Low") 
+skill2l <- c("High","Medium","Low","LowerYet") 
+correctL <- c("Correct","Incorrect") 
+pcreditL <- c("Full","Partial","None")
+gradeL <- c("A","B","C","D","E") 
+```
+
+Next, generate some bar charts illustrating the method.  We are using
+the function `CPTtools::calcDPCFrame()` to build the `CPF` objects.
+(This function is more fully described in the vignette
+`DPCModels.Rmd`).
+
+```{r NoParents, fig.caption="Unconditional proability table"}
+cpfTheta <- calcDPCFrame(list(),skill1l,numeric(),0,rule="Compensatory",
+                         link="normalLink",linkScale=.5)
+     
+barchart.CPF(cpfTheta)
+```
+
+```{r Binary, fig.caption="Binary child variable"}
+cptComp <- calcDPCFrame(list(S2=skill2l,S1=skill1l),correctL,
+                        lnAlphas=log(c(1.2,.8)), betas=0,
+                           rule="Compensatory")
+barchart.CPF(cptComp,layout=c(3,1))
+```
+
+
+```{r PartialCredit, fig.caption="Ordered categorial child variable"}     
+cptPC1 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,
+                       lnAlphas=log(1),
+                       betas=list(full=c(S1=0,S2=999),partial=c(S2=999,S2=0)),
+                       rule="OffsetDisjunctive")
+barchart.CPF(cptPC1,baseCol="slateblue")
+```
+
 
 ## CPA
 
-is.CPA
-as.CPA
+The class `"CPA"` is a subclass of `array`; usually, `CPA`
+objects have class `c("CPA","data.frame")`.  This means that
+operations which operate on arrays should do something sensible
+with `CPA`s.  All of the entries in the CPA are numeric, the names of
+the parent variables and the state labels are given in the
+`dimnames()` of the array.  The function `as.CPA()` coerces an object
+to be a `CPA` and `is.CPA()` tests whether or not it is a CPA. 
 
-## Utilities
+```{r CPA}
+arr <- array(1:24,c(2,3,4),
+             dimnames=list(A=c("a1","a2"),B=c("b1","b2","b3"),
+                           C=c("c1","c2","c3","c4")))
+arr <- as.CPA(arr)
+arr
+```
 
-barchart.CPF
+Note that `as.CPF()` and `as.CPA()` can be used to freely convert
+between the two formats:
 
+```{r conversion}
+cat("The dimensions of this CPA are ",
+    paste(dim(as.CPA(arf)),collapse=" x "),
+    ".\n")
+print(as.CPF(arr))
+```
+
+
+## Accessing data and metadata
 
 getTableStates
 getTableParents
 numericPart
 
+## Scaling and Normalization
 
 normalize
 rescaleTable
@@ -48,3 +170,7 @@ scaleTable
 
 dataTable
 
+
+## Ordinal Variables
+
+isMonotonic, isIncreasing, isNondecreasing, is Decreasing, isNonincreasing
