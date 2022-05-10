@@ -295,3 +295,25 @@ tab <- dataTable(x, c("Skill1","Skill3"),"Comp.Correct",correctL)
 data.frame(expand.grid(list(Skill1=skill1l,Skill3=skill3l)),tab)
 
 ```
+
+## Acknowledgements
+
+Work on RNetica, CPTtools and Peanut has been sponsored in part by the
+following grants:
+
+* Bill & Melinda Gates Foundation grant "Games as Learning/Assessment:
+Stealth Assessment" (#0PP1035331, Val Shute, PI)
+
+* National Science Foundation grant "DIP:
+Game-based Assessment and Support of STEM-related Competencies"
+(#1628937, Val Shute, PI).
+
+* National Science Foundation grant "Mathematical Learning via
+Architectual Design and Modeling Using E-Rebuild." (#1720533,
+Fengfeng Ke, PI)
+
+* Intitute of Educational Statistics grant "Exploring Adaptive
+  Cognitive and Affective Learning Support for Next-Generation STEM
+  Learning Games", (R305A170376,Russell Almond, PI)
+  
+  
