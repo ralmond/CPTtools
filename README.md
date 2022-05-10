@@ -3,10 +3,19 @@
 Provides support parameterized tables for Bayesian networks, particularly the IRT-like DiBello tables. 
 Also, provides some tools for visualing the networks.
 
+To install the latest verison of this package on your machine, you can use:
+```
+install.packages("CPTtools",repos=c(ralmond="https://ralmond.r-universe.dev", cran="https://cloud.r-project.org/"))
+```
+
+
+## More Information
 
 Many of the algorithms in the package are documented in 
 
 Almond, Mislevy, Steinberg, Yan and Williamson (1995).  _Bayesian Networks in Educational Assessment._  Springer.
+
+Project information is available at https://pluto.coe.fsu.edu/RNetica/CPTtools.html
 
 ## Acknowledgements
 
