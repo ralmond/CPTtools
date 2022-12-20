@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(CPTtools)
 ```
 
-## Conditional Probabilities over Discrete variables.
+# Conditional Probabilities over Discrete variables.
 
 In a discrete Bayesian network, each node, $Y$,  has an assoicated
 conditional probability table (_CPT_).  Let $X_1, \ldots, X_K$ be the
@@ -94,6 +94,7 @@ skill2l <- c("High","Medium","Low","LowerYet")
 correctL <- c("Correct","Incorrect") 
 pcreditL <- c("Full","Partial","None")
 gradeL <- c("A","B","C","D","E") 
+
 ```
 
 Next, generate some bar charts illustrating the method.  We are using
@@ -106,6 +107,7 @@ cpfTheta <- calcDPCFrame(list(),skill1l,numeric(),0,rule="Compensatory",
                          link="normalLink",linkScale=.5)
      
 barchart.CPF(cpfTheta)
+
 ```
 
 ```{r Binary, fig.caption="Binary child variable"}
@@ -141,6 +143,7 @@ arr <- array(1:24,c(2,3,4),
                            C=c("c1","c2","c3","c4")))
 arr <- as.CPA(arr)
 arr
+
 ```
 
 Note that `as.CPF()` and `as.CPA()` can be used to freely convert
@@ -151,26 +154,166 @@ cat("The dimensions of this CPA are ",
     paste(dim(as.CPA(arf)),collapse=" x "),
     ".\n")
 print(as.CPF(arr))
-```
 
+```
 
 ## Accessing data and metadata
 
-getTableStates
-getTableParents
-numericPart
+A properly labeled `CPF` contains metadata about the names of the
+parents and child variables.  The functions `getTableParents()` and
+`getTableStates()` get some of that metadata.  The function
+`numericPart()` strips out the metadata and just leaves the remaining
+numeric values; `factorPart()` strips out the numeric values and
+leaves the parent state configurations.
+
+```{r getStates}
+getTableStates(arf)
+getTableParents(arf)
+numericPart(arf)
+factorPart(arf)
+
+```
+
+# Hyperdirichlet distribution
+
+`CPF`s and `CPA`s can be used to store three kinds of mathematical
+objects:
+
+* _Conditional Probability Tables_.  In this case the rows of the
+  table (last dimension of the array) should sum to one, and all
+  values should be non-negative.  (Each row is therefore a value over
+  the unit simplex.)
+  
+* _Count Data_ (aka _Contigency Table_).  Each cell represents a
+  configuration of parent and child values and the (non-negative)
+  entries in the cells represent counts of the number of times this
+  combination was observed.  
+  
+* _Hyperdirechlet Parameters_.  Each row of the table is the
+  parameters of a Dirchlet distribution.  Although strictly speaking,
+  all parameters of the Dirichlet distribution should be positive,
+  zeros are allowed -- they just indicate that the corresponding
+  probability is 0.
+
+A conditional probability table corresponds to a conditional
+multinomial distribution, or contigency table.  Each row of the CPT
+gives the probability for the categories in the corresponding row of
+the contigency table.  The sum of each row will depend on how often
+that configuration of parent states occurs in the data.
+
+The Dirichlet distribution is the natural conjugate of the multinomial
+distribution. The hyperdirichlet distrubtion is a series of
+independent Dirichlet distributions, one for each row of the
+contigency table.  The name comes from Speigelhalter and Lauritzen
+(2000), where they use it to refer to an entire Bayesian network in
+which every CPT is parameterized in this way.  In `CPTtools`, the term
+is used for any CPT parameterized in this way, and the package
+deliberately allows some CPTs to have the hyperdirichlet
+distributions, and others to use parametric models (see
+DPCmodels.Rmd).
+
+Because of the conjugacy, there are two important relationships with
+hyperdirichlet models.  First, the expected conditional probability
+table can be found from the hyperdirichlet parameters by dividing each
+row by its sum (normalizing the table).  Second, if the prior
+distribution parameters are given in a `CPF` and the data (contigency
+table) is given in a `CPF` as well, then the posterior parameters will
+be the `CPF` produced by adding the numeric parts of the `CPF`s.
+
 
 ## Scaling and Normalization
 
-normalize
-rescaleTable
-normalizeTable
-scaleTable
+
+If the rows of a `CPF` represent a probability simplex, they
+should all be non-negative and sum to 1.  Often it is convenient to
+force a set of numbers into a probability simplex by simply dividing
+by the sum.  The `normalize()` generic function attempts to do this.
+It operates on `CPF`s and `CPA`s in a way consistent with their
+conditional probability distribution.  It will also operate on a
+generic array or matrix (normalizing the last dimension) or
+`data.frame` (normalizing rows but ignoring non-numeric columns).
+
+```{r normalization}
+normalize(arf)
+```
+Dividing each row by its sum is one way we can rescale a table.
+However, there are other reasons we might want to multiply each row by
+a constant as well.  One way to store contingency table data is to
+store a probablity vector in each row in the `CPF` and a separate
+vector of weights to represent the sample size of each row.  The
+function `rescaleTable()` rescales the table by the specified factor.
+`normalizeTable()` rescales the table by the row sums, and hence is
+equivalent to `normalize.CPF()`.
 
 
-dataTable
+```{r rescaling}
+arf1 <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
+                  B=factor(rep(c("b1","b2","b3"),2)),
+                  C.c1=rep(1,6), C.c2=rep(1,6), C.c3=rep(1,6),
+                  C.c4=rep(1,6))
+arf1
+
+rescaleTable(arf1,1:6)
+
+normalizeTable(arf1)
+
+```
+
+## Generating Contingency Tables
+
+As mentioned previously, a contingency table is the natural conjugate
+of the hyperdirichlet distribution.  The function `dataTable()` can be
+used to construct contigency tables from data.
+
+```{r dataTable}
+## State names
+skill1l <- c("High","Medium","Low") 
+skill3l <- c("High","Better","Medium","Worse","Low") 
+correctL <- c("Correct","Incorrect") 
+
+## Read data from file
+x <- read.csv(system.file("testFiles", "randomPinned100.csv",
+                          package="CPTtools"),
+            header=FALSE, as.is=TRUE,
+            col.names = c("Skill1", "Skill2", "Skill3",
+                          "Comp.Correct", "Comp.Grade",
+                          "Conj.Correct", "Conj.Grade",
+                          "Cor.Correct", "Cor.Grade",
+                          "Dis.Correct", "Dis.Grade",
+                          "Inhib.Correct", "Inhib.Grade"
+                          ))
+## Force variables to be ordered categories
+x[,"Skill1"] <- ordered(x[,"Skill1"],skill1l)
+x[,"Skill3"] <- ordered(x[,"Skill3"],skill3l)
+x[,"Comp.Correct"] <- ordered(x[,"Comp.Correct"],correctL)
 
 
-## Ordinal Variables
+tab <- dataTable(x, c("Skill1","Skill3"),"Comp.Correct",correctL)
 
-isMonotonic, isIncreasing, isNondecreasing, is Decreasing, isNonincreasing
+## Tab is just the numeric part, so use expand.grid to generate
+## labels.
+data.frame(expand.grid(list(Skill1=skill1l,Skill3=skill3l)),tab)
+
+```
+
+## Acknowledgements
+
+Work on RNetica, CPTtools and Peanut has been sponsored in part by the
+following grants:
+
+* Bill & Melinda Gates Foundation grant "Games as Learning/Assessment:
+Stealth Assessment" (#0PP1035331, Val Shute, PI)
+
+* National Science Foundation grant "DIP:
+Game-based Assessment and Support of STEM-related Competencies"
+(#1628937, Val Shute, PI).
+
+* National Science Foundation grant "Mathematical Learning via
+Architectual Design and Modeling Using E-Rebuild." (#1720533,
+Fengfeng Ke, PI)
+
+* Intitute of Educational Statistics grant "Exploring Adaptive
+  Cognitive and Affective Learning Support for Next-Generation STEM
+  Learning Games", (R305A170376,Russell Almond, PI)
+  
+  
