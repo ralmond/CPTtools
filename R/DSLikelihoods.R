@@ -210,6 +210,21 @@ isOffsetRule <- function (rl) {
   return(FALSE)
 }
 
+defaultAlphas <- function (rule,pnames) {
+  if (isOffsetRule(rule)) return(1)
+  alphas <- rep(1,length(pnames))
+  names(alphas) <- pnames
+  alphas
+}
+
+defaultBetas <- function (rule,pnames) {
+  if (!isOffsetRule(rule)) return(0)
+  betas <- rep(0,length(pnames))
+  names(betas) <- pnames
+  betas
+}
+
+
 
 ### This function builds up a contingency table for the various combinations
 ### of parent and child state.
