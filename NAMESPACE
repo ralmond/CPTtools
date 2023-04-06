@@ -61,4 +61,4 @@ S3method(normalize, CPF)
 S3method(normalize, default)
 S3method(normalize, matrix)
 
-export(calcLearnForget)
+#export(calcLearnForget)

@@ -2,7 +2,7 @@
 title: "Graphing Discrete Bayesian Networks"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Discrete Partial Credit Models}
+  %\VignetteIndexEntry{Graphing Discrete Bayesian Networks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,13 +17,22 @@ knitr::opts_chunk$set(
 library(CPTtools)
 ```
 
+## Graphical utilities
+
+
+
+
+## Utility functions
 
 parseProbVec, readHistory
+
+colorspread
+
+## Graphing Conditional Probability Tables
 
 barchart.CPF
 
 
-colorspread
 
 
 ## Results Graphs
