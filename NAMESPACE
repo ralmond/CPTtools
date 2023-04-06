@@ -15,7 +15,7 @@ export(calcDDTable, calcDDFrame,
        Compensatory, Conjunctive, Disjunctive,
        OffsetConjunctive, OffsetDisjunctive,
        getOffsetRules, setOffsetRules, isOffsetRule,
-       defaultAlpha, defaultBeta,
+#       defaultAlpha, defaultBeta,
        dataTable, calcDSllike, calcDNllike,
        mapDPC,
        calcNoisyAndTable, calcNoisyAndFrame,
@@ -61,3 +61,4 @@ S3method(normalize, CPF)
 S3method(normalize, default)
 S3method(normalize, matrix)
 
+export(calcLearnForget)
