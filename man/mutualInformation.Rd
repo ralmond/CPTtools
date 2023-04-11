@@ -27,7 +27,7 @@ mutualInformation(table)
   
 }
 \references{
-  \code{http://planetmath.org/encyclopedia/MutualInformation.html}
+  \code{https://en.wikipedia.org/wiki/Mutual_information}
   
   Shannon (1948) ``A Mathematical Theory of Communication.''
 }

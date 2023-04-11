@@ -234,9 +234,28 @@ Complete index of all functions.
 
 Maintainer: \packageMaintainer{CPTtools}
 }
+\section{Acknowledgements}{
+
+  We are grateful to support from the following projects for supporting
+  the work in the development and maintenance of this package.
+  \itemize{
+    \item{Bill \& Melinda Gates Foundation grant
+"Games as Learning/Assessment:  Stealth Assessment" (\#0PP1035331,
+Val Shute, PI)}
+    \item{National Science Foundation grant "DIP:
+Game-based Assessment and Support of STEM-related Competencies"
+(\#1628937, Val Shute, PI).}
+    \item{National Scient Foundation grant "Mathematical Learning via
+Architectual Design and Modeling Using E-Rebuild." (\#1720533,
+Fengfeng Ke, PI).}
+  }
+
+}
+
+
 \references{
 
-    Almond, R.G. (2015).  An IRT-based Parameterization for Conditional
+  Almond, R.G. (2015).  An IRT-based Parameterization for Conditional
   Probability Tables. Paper submitted to the 2015 Bayesian Application
   Workshop at the Uncertainty in Artificial Intelligence conference.
 
@@ -357,9 +376,8 @@ compareBars(margins.prior,margins.post,3,c("Prior","Post"),
             col2=hsv(h=.6,s=.2*1:5-.1,alpha=1))
 
 ## Weight of evidence balance sheets
-sampleSequence <- read.csv(paste(library(help="CPTtools")$path,
-                                "testFiles","SampleStudent.csv",
-                                sep=.Platform$file.sep),
+sampleSequence <- read.csv(system.file("testFiles","SampleStudent.csv",
+                                       package="CPTtools"),
                            header=TRUE,row.names=1)
 
 woeBal(sampleSequence[,c("H","M","L")],c("H"),c("M","L"),lcex=1.25)

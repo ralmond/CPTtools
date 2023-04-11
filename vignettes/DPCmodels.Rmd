@@ -430,7 +430,7 @@ differencing adjacent curves.
 
 
 
-## Generalize Parial Credit
+## Generalized Parial Credit
 
 ### Multiple Combination Rules
 

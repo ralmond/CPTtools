@@ -7,7 +7,7 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
                                 function (sl) effectiveThetas(length(sl))),
                     ...) {
   k <- length(obsLevels)
-  pvec <- numeric(0L)
+  pvec <- numeric(0)
   iparam <- 0L
   ialpha <- vector("list",k-1L)
   if (!is.list(lnAlphas)) {

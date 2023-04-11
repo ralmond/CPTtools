@@ -68,9 +68,8 @@ stripCol = c("white", "lightgray"), lcex = 0.65)
   \code{\link[grDevices]{colors}} 
 }
 \examples{
-sampleSequence <- read.csv(paste(library(help="CPTtools")$path,
-                                "testFiles","SampleStudent.csv",
-                                sep=.Platform$file.sep),
+sampleSequence <- read.csv(system.file("testFiles","SampleStudent.csv",
+                                       package="CPTtools"),
                            header=TRUE,row.names=1)
 SolveGeometricProblems <- sampleSequence$H-sampleSequence$L
 names(SolveGeometricProblems) <- rownames(sampleSequence)

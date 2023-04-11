@@ -3,7 +3,7 @@ importFrom("grDevices", "col2rgb", "grey.colors", "hsv", "rgb2hsv")
 importFrom("graphics", "abline", "axis", "barplot", "box", "legend",
            "lines", "mtext", "par", "plot.new", "plot.window", "rect",
            "segments", "text", "title", "xinch", "yinch")
-importFrom("stats", "optim", "pchisq", "pnorm", "qbeta", "qnorm")
+importFrom("stats", "optim", "pchisq", "pnorm", "qbeta", "qnorm", "as.formula")
 importFrom("utils", "assignInMyNamespace", "read.csv")
 #importFrom("lattice", "barchart")
 importFrom("methods","is")
@@ -15,6 +15,7 @@ export(calcDDTable, calcDDFrame,
        Compensatory, Conjunctive, Disjunctive,
        OffsetConjunctive, OffsetDisjunctive,
        getOffsetRules, setOffsetRules, isOffsetRule,
+#       defaultAlpha, defaultBeta,
        dataTable, calcDSllike, calcDNllike,
        mapDPC,
        calcNoisyAndTable, calcNoisyAndFrame,
@@ -42,12 +43,12 @@ S3method(normalize,default)
 ## From WOE package
 export(betaci, proflevelci, barchart.CPF,
        stackedBarplot, compareBars, stackedBars, compareBars2,
-       colorspread, OCP, OCP2,
+       colorspread, OCP, OCP2, OCP.CPF, OCP2.CPF, cptChi2,
        buildFactorTab, build2FactorTab, buildMarginTab,
        marginTab,parseProbVec, readHistory,
        mutualInformation, ciTest, localDepTest,
        woeBal, woeHist, EAPBal,
-       fcKappa, gkLambda)
+       fcKappa, gkLambda, gkGamma)
 
 export(isMonotonic,
        isIncreasing, isDecreasing,
@@ -60,3 +61,4 @@ S3method(normalize, CPF)
 S3method(normalize, default)
 S3method(normalize, matrix)
 
+#export(calcLearnForget)

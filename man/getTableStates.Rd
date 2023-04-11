@@ -8,6 +8,7 @@
 }
 \usage{
 getTableStates(table)
+getTableParents(table)
 }
 \arguments{
   \item{table}{A conditional probability table expressed as a data frame.}
@@ -33,7 +34,7 @@ getTableStates(table)
   \emph{highest} to the \emph{lowest} possible values, for example
   \sQuote{High}, \sQuote{Med}, \sQuote{Low}.
 }
-\seealso{\code{\link{rescaleTable}} }
+\seealso{\code{\link{rescaleTable}}, \code{\link{numericPart}}}
 \examples{
 #conditional table
 # Note in R 4.0, parents must be explicitly made into factors

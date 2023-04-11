@@ -1,0 +1,158 @@
+citHeader("The CPTtools package collects tools the originally appeared in a number of different publications, listed below:")
+
+citEntry(entry="Manual",
+  title = 	 "CPTtools:  Tools for Creating Conditional Probability Tables",
+  author = personList(as.person("Russell G. Almond")),
+  year =     "?",
+  journal =  "?",
+  volume = "?",
+  number = "?",
+  pages = "?",
+  sponsors = c(Gates='Bill & Melinda Gates Foundation grant
+"Games as Learning/Assessment:  Stealth Assessment" (#0PP1035331,
+Val Shute, PI)', NSFDIP='National Science foundation grant "DIP:
+Game-based Assessment and Support of STEM-related Competencies"
+(#1628937, Val Shute, PI)', NSFDRK12='The NSF project "Mathematical Learning via
+Architectual Design and Modeling Using E-Rebuild." (#1720533,
+Fengfeng Ke, PI)'),
+  textVersion = "Russell G. Almond (20XX), CPTtools:  Tools for Creating Conditional Probability Tables, https://pluto.coe.fsu.edu/CPTtools" )  
+
+citEntry("Book",
+  Title                    = "{Bayesian} Networks in Educational Assessment",
+  Author                   = personList(as.person("Russell G. Almond"),
+                                        as.person("Robert J. Mislevy"),
+                                        as.person("Linda S. Steinberg"),
+                                        as.person("Duanli Yan"),
+                                        as.person("David M. Williamson")),
+  Publisher                = "Springer",
+  Year                     = "2015",
+  ISBN                     = "978-1-4939-2124-9",
+  textVersion = "Almond, Mislevy, Steinberg, Yan & Williamson (2015). _Bayeisan Networks in Educational Assessment._  Springer."
+)
+
+citEntry("InProceedings",
+  Title                    = "An IRT-based Parameterization for Conditional Probability Tables",
+  Author                   = personList(as.person("Russell G. Almond")),
+  Booktitle                = "Bayesian Modelling Application Workshop at the Uncertainty in Artificial Intelligence ({UAI}) Conference",
+  Year                     = "2015",
+  Address                  = "Amsterdam, The Netherlands",
+  Editor                   = personList(as.person("J. M. Agosta"), 
+                                        as.person("R. N. Carvalho")),
+  Month                    = "July",
+  Note                     = "Additional material available at http://pluto.coe.fsu.edu/RNetica/",
+  textVersion="Almond (2015).  An IRT-based Parameterization for Conditional Probability Tables.  Paper presented in the Bayesian Modelling Application Workshop at the Uncertainty in Artificial Intelligence (UAI) Conference, Amsterdam, The Netherlands."
+)
+
+citEntry("Article",
+  Title                    = "`{I} can name that {Bayesian} Network in Two Matrixes'",
+  Author                   = personList(as.person("Russell G. Almond")),
+  Journal                  = "International Journal of Approximate Reasoning",
+  Year                     = "2010",
+  Pages                    = "167--178",
+  Volume                   = "51",
+  Doi                      = "10.1016/j.ijar.2009.04.005",
+  Url                      = "http://dx.doi.org/10.1016/j.ijar.2009.04.005",
+  textVersion = "Almond (2010).  'I can name that Bayesian Network in Two Matrixes.  _International Journal of Approximate Reasoning_, 51, 167--178."
+)
+
+citEntry("InProceedings",
+  Title                    = "Models for Conditional Probability Tables in Educational Assessment",
+  Author                   = personList(as.person("Russell G. Almond"),
+                              as.person("Louis DiBello"),  
+                              as.person("Frank Jenkins"), 
+                              as.person("Robert J. Mislevy"), 
+                              as.person("Denise Senturk"),
+                              as.person("Linda S. Steinberg"), 
+                              as.person("Duanli Yan")),
+  Booktitle                = "Artificial {I}ntelligence and {S}tatistics 2001",
+  Year                     = "2001",
+  Editor                   = personList(as.person("T. Jaakkola"), 
+                                as.person("T. Richardson")),
+  Pages                    = "137-143",
+  Publisher                = "Morgan Kaufmann",
+  textVersion = "Almond, DiBellow, Jenkins, Mislevy, Senturk, Steinberg & Yan (2001).  Models for Conditional Probability Tables in Educational Assessment.  In Jaakkola and Richardson (eds).  _Artificial Intelligence and Statistics 2001_, 237--143.  Morgan Kaufmann."
+
+)
+
+citEntry("Article",
+  Title                    = "{Bayesian} Networks: A Teacher's View",
+  Author                   = personList(as.person("Russell G. Almond"),
+                                        as.person("Valerie J. Shute"), 
+                                        as.person("Jody S. Underwood"),
+                                        as.person("Juan-Diego Zapata-Rivera")),
+  Journal                  = "International Journal of Approximate Reasoning",
+  Year                     = "2009",
+  Pages                    = "450--460",
+  Volume                   = "50",
+  Doi                      = "10.1016/j.ijar.2008.04.011",
+  textVersion = "Almond, Shute, Underwood and Zapata-Rivera (2009).  Bayesian Networks:  A Teacher's Veiw.  _International Journal of Approximate Reasoning,_ 50, 450--460."
+)
+
+citEntry("Article",
+  Title                    = "Graphical explanation in belief networks",
+  Author                   = personList(as.person("David Madigan"),
+                                        as.person("K. Mosurski"),
+                                        as.person("Russell G. Almond")),
+  Journal                  = "Journal of Computational Graphics and Statistics",
+  Year                     = "1997",
+  Number                   = "2",
+  Pages                    = "160-181",
+  Volume                   = "6",
+  Url                      = "http://www.amstat.org/publications/jcgs/index.cfm?fuseaction=madiganjun",
+  textVersion = "Madigan, Mosurski & Almond (1997).  Graphical explanation in belief networks.  _Journal of Computational Graphics and Statistics,_ 6(2), 160-181."  
+)
+
+citEntry("Article",
+  Title                    = "You Can't Fatten A Hog by Weighing It - Or Can You? {E}valuating an Assessment for Learning System Called {ACED}",
+  Author                   = personList(as.person("Valerie J. Shute"), 
+                                        as.person("Eric G. Hansen"),
+                                        as.person("Russell G. Almond")),
+  Journal                  = "International Journal of Artificial Intelligence in Education",
+  Year                     = "2008",
+  Number                   = "4",
+  Pages                    = "289--316",
+  Volume                   = "18",
+  Url                      = "http://www.ijaied.org/iaied/ijaied/abstract/Vol_18/Shute08.html",
+  textVersion = "Shute, Hansen & Almond (2008).  You Can't Fatten A Hog by Weighing It - Or Can You? Evaluating an Assessment for Learning System Called ACED.  _International Journal of Artificial Intelligence in Education,_ 18(4), 289--316."
+)
+
+citEntry("Article",
+  Title                    = "Assessing Fit of Cognitively Diagnostic Models---A Case Study",
+  Author                   = personList(as.person("Sandip Sinharay"), 
+                                        as.person("Russell G. Almond")),
+  Journal                  = "Educational and Psychological Measurement",
+  Year                     = "2007",
+  Number                   = "2",
+  Pages                    = "239--257",
+  Volume                   = "67",
+  textVersion = "Sinharay & Almond (2007).  Assessing Fit of Cognitively Diagnostic Models---A Case Study.  _Educational and Psychological Measurement,_ 67(2), 239--257."
+)
+
+citEntry("InCollection",
+  Title                    = "Tips and Tricks for Building {Bayesian} Networks for Scoring Game-Based Assessments",
+  Author                   = personList(as.person("Russell G. Almond")),
+  Booktitle                = "Lecture Notes in Computer Science 9505, {AMBN} 2015",
+  Publisher                = "Springer",
+  Year                     = "2016",
+  Editor                   = personList(as.person("Jo Suzuki"), 
+                              as.person("Mameo Ueno")),
+  Pages                    = "250--263",
+  textVersion = "Almond (2016).  Tips and Tricks for Building {Bayesian} Networks for Scoring Game-Based Assessments.  In Suzuki & Ueno (eds), _Lecture Notes in Computer Science 9505, AMBN 2015,_ Springer.  250--263."
+)
+
+
+
+citFooter('Work on RNetica, CPTtools and Peanut has been sponsored in part by
+the _Physics Playground_ and _E-Rebuild_ projects, on which
+many of the tools were tested.  _Physics Playground_ development
+was supported by the Bill & Melinda Gates Foundation grant
+"Games as Learning/Assessment:  Stealth Assessment" (#0PP1035331,
+Val Shute, PI) and the National Science Foundation grant "DIP:
+Game-based Assessment and Support of STEM-related Competencies"
+(#1628937, Val Shute, PI). The project "Mathematical Learning via
+Architectual Design and Modeling Using E-Rebuild." (#1720533,
+Fengfeng Ke, PI) has provided additional support.')
+    
+
+
+  

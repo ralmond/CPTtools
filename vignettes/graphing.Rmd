@@ -1,0 +1,61 @@
+---
+title: "Graphing Discrete Bayesian Networks"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Graphing Discrete Bayesian Networks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+```{r setup}
+library(CPTtools)
+```
+
+## Graphical utilities
+
+
+
+
+## Utility functions
+
+parseProbVec, readHistory
+
+colorspread
+
+## Graphing Conditional Probability Tables
+
+barchart.CPF
+
+
+
+
+## Results Graphs
+
+compareBars
+stackedBarplot
+stackedBars
+proflevelci
+
+
+## WOE
+
+EAPBal
+woeBAL
+woeHist
+
+
+## Observable Characterisitic Plots
+
+OCP, OCP2, cptChi2
+
+
+## Tables
+
+buildFactorTab
+

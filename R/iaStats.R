@@ -31,3 +31,6 @@ function (obs1, obs2, prof)
     tab <- table(obs1, obs2, prof)
     ciTest(tab)
 }
+
+
+

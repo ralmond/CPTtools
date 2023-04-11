@@ -1,9 +1,39 @@
+---
+title: "Tracking Scores Over Time"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tracking Scores Over Time}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CPTtools)
 library(googlesheets4)
 library(tidyverse)
 library(cowplot)
+```
 
-formA.hist <- read_sheet("https://docs.google.com/spreadsheets/d/1svdCQI9Jb3MpIObGWExg942MUsBB4uRquhD1FNTkChM/edit#gid=688471781",1)
-View(formA.hist)
+I built this code a while ago and it is giving me warnings under
+`demos`, so I'm moving it to `vingettes`.
+
+
+```{r readData}
+gs4_deauth()
+formA.hist <- read_sheet("1svdCQI9Jb3MpIObGWExg942MUsBB4uRquhD1FNTkChM",
+                         sheet=1, col_names=TRUE)
+head(formA.hist)
+```
+## Data Cleaning
+
+```{r dataCleaning}
 
 ## Need to fix baseline timestamp
 
@@ -18,11 +48,18 @@ formA.hist[formA.hist$context=="*Baseline*","timestamp"] <- as.POSIXct(base.time
 
 filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=timestamp,y=Physics_EAP)) + geom_line() + geom_text(aes(label=context))
 
+```
+
+```{r EDA}
 fiveuid <- sample(unique(formA.hist$uid),5)
 filter(formA.hist, uid %in% fiveuid) %>% ggplot(aes(x=timestamp,y=Physics_EAP)) + geom_line() +
   facet_grid(rows=vars(uid))
 
+```
 
+## First differences
+
+```{r difference}
 ## ndiff differences the series, leaving the first (baseline) value as NA.
 ## Thus is is a candidate aux function for mutate.
 ndiff <- function (x) {
@@ -33,20 +70,34 @@ ndiff <- function (x) {
 Phys1 <- filter(formA.hist,uid=="011c1") %>% pull(Physics_EAP)
 names(Phys1) <- filter(formA.hist,uid=="011c1") %>% pull(context)
 
+```
+
+
 ## Plots versus timestamps.  Hard to see what is going on.
+
+```{r timeplots}
 filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=timestamp,y=ndiff(Physics_EAP))) + geom_line()
 filter(formA.hist, uid %in% fiveuid) %>% ggplot(aes(x=timestamp,y=Physics_EAP)) + geom_line() +
   facet_grid(rows=vars(uid))
 filter(formA.hist, uid %in% fiveuid) %>% ggplot(aes(x=timestamp,y=ndiff(Physics_EAP))) + geom_line() +
   facet_grid(rows=vars(uid))
 
-## Working with discrete time.
-## 1) Need to use geom_col() not geom_bar()
-## 2) fct_reorder(context,timestamp) makes sure levels are in time order, not alphabetical!!
-## 3) scale_fill_gradient2(low="red",mid="yellow",high="green") gives traffic light coloring.
-## 4) theme(axis.text.y=element_blank()) suppresses the labels in the second plot.
-## 5) cowplot::plot_grid() plots side by side.
+```
 
+## Working with discrete time.
+
+1) Need to use geom_col() not geom_bar()
+
+2) `fct_reorder(context,timestamp)` makes sure levels are in time
+order, not alphabetical!!
+3) `scale_fill_gradient2(low="red",mid="yellow",high="green")` gives
+traffic light coloring. 
+
+4) `theme(axis.text.y=element_blank())` suppresses the labels in the
+second plot. 
+5) `cowplot::plot_grid()` plots side by side.
+
+```{r discreteTimePlots}
 c011c1.eap <- filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=fct_reorder(context,timestamp),y=Physics_EAP)) +
     geom_col(aes(fill=..y..))+scale_fill_gradient2(low="red",mid="yellow",high="green",midpoint=0)+
     coord_flip(ylim=c(-1,1))+theme_light()+labs(x="",y="EAP[Physics]")
@@ -56,14 +107,25 @@ c011c1.diff <- filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=fct_reorder(con
 
 plot_grid(c011c1.eap,c011c1.diff)
 
+```
+
 ## Remaining Issues:
-# 1) Probably want 3 plots:  level names and trophies, EAP, Delta EAP
-#### Need to merge trophy data in with levels.
-# 2) There could be more than one level with the same context.  Need to fix.
-####  Maybe plotting by order number will fix this.
-# 3) Need to figure out how to add "outer" labels to multiplot Grid.
 
+1) Probably want 3 plots:  level names and trophies, EAP, Delta EAP
 
+* Need to merge trophy data in with levels.
+
+2) There could be more than one level with the same context.  Need to fix.
+
+*  Maybe plotting by order number will fix this.
+
+3) Need to figure out how to add "outer" labels to multiplot Grid.
+
+```{r woeBAL}
 EAPBal(filter(formA.hist,uid=="011c1") %>% pull("Physics_EAP"),
        filter(formA.hist,uid=="011c1") %>% pull("context"),
        varname="Physics")
+
+```
+
+

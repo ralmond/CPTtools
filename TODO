@@ -16,6 +16,9 @@ calcNoisyMinTable <-
   probs
 }
 
+TODO add softmax link
+
+
 TODO docs for ciTest, localDepTest, 
   ‘ciTest’ ‘‘localDepTest’ 
 
@@ -27,3 +30,7 @@ TODO -- better error messages when parent names doen't match expected
 values (Pnet2Qmat)
 
 * getNonOffsetRule
+
+TODO -- vignettes
+
+TODO -- look at the defaultAlphas and defaultBetas, should produce list?
