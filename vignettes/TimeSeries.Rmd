@@ -26,6 +26,7 @@ I built this code a while ago and it is giving me warnings under
 
 
 ```{r readData}
+gs4_deauth()
 formA.hist <- read_sheet("1svdCQI9Jb3MpIObGWExg942MUsBB4uRquhD1FNTkChM",
                          sheet=1, col_names=TRUE)
 head(formA.hist)

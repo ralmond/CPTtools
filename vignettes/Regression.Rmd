@@ -2,7 +2,7 @@
 title: "Building Bayesian networks using Regression"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Discrete Partial Credit Models}
+  %\VignetteIndexEntry{Regression Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
