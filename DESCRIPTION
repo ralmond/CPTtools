@@ -26,8 +26,9 @@ Suggests:
     lattice,
     knitr,
     rmarkdown,
-    tidyr,
-    googlesheets4
+    tidyverse,
+    googlesheets4,
+    cowplot
 VignetteBuilder: knitr
 Support: c(
    'Bill & Melinda Gates Foundation grant
