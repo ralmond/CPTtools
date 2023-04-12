@@ -26,7 +26,8 @@ Suggests:
     lattice,
     knitr,
     rmarkdown,
-    tidyr
+    tidyr,
+    googlesheets4
 VignetteBuilder: knitr
 Support: c(
    'Bill & Melinda Gates Foundation grant
