@@ -1,0 +1,11 @@
+SID,P.commonRatio..High,P.commonRatio..Medium,P.commonRatio..Low,EAP(commonRatio),MAP(commonRatio),tCommonRatio1a.1,tCommonRatio1b.1,tCommonRatio3a.1,tCommonRatio3b.1,tCommonRatio2a.1,tCommonRatio2b.1,P.examplesGeometric..High,P.examplesGeometric..Medium,P.examplesGeometric..Low,EAP(examplesGeometric),MAP(examplesGeometric),tExamplesGeometric1a.1,tExamplesGeometric1b.1,tExamplesGeometric3a.1,tExamplesGeometric3b.1,tExamplesGeometric2a.1,tExamplesGeometric2b.1
+S055,0.072,0.6,0.328,1.256,Medium,No,Yes,No,No,No,No,0,0.01,0.99,1.99,Low,No,No,No,No,No,No
+S058,0.847,0.149,0.004,0.157,High,Yes,Yes,No,No,Yes,Yes,0,0.039,0.961,1.96,Low,No,No,No,No,No,No
+S053,0.019,0.402,0.579,1.561,Low,No,No,No,No,No,No,0,0.01,0.99,1.99,Low,No,No,No,No,No,No
+S061,0.055,0.409,0.536,1.482,Low,No,No,No,No,No,No,0,0.015,0.985,1.985,Low,No,No,No,No,No,No
+S063,0.852,0.14,0.008,0.156,High,Yes,Yes,No,No,No,Yes,0.001,0.056,0.943,1.942,Low,No,No,No,No,No,No
+S066,0.281,0.597,0.121,0.84,Medium,Yes,No,No,No,No,Yes,0,0.016,0.984,1.984,Low,No,No,No,No,No,No
+S062,0.019,0.402,0.579,1.56,Low,No,No,No,No,No,No,0,0.01,0.99,1.99,Low,No,No,No,No,No,No
+S054,0.893,0.096,0.011,0.118,High,No,No,No,No,No,Yes,0.885,0.111,0.004,0.119,High,Yes,Yes,Yes,Yes,Yes,Yes
+S057,0.677,0.263,0.06,0.382,High,No,Yes,No,No,No,No,0.015,0.193,0.792,1.778,Low,No,Yes,No,No,No,No
+S060,0.962,0.037,0.001,0.039,High,Yes,Yes,No,No,Yes,Yes,0.001,0.065,0.934,1.933,Low,No,No,No,No,No,No

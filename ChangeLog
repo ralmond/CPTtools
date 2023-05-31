@@ -1,3 +1,7 @@
+2023-05-31  Russell Almond  <ralmond@cherry>
+
+	* R/betaci.R ("betaci"): switched from using colSums to rowSums as
+	that seems to fit better with a CPT.
 
 2021-07-12  Russell Almond  <ralmond@cherry>
 
