@@ -2,11 +2,11 @@ test_that("mutualInformation", {
   
 })
 
-testthat("ciTest", {
+test_that("ciTest", {
   
 })
 
-testthat("localDepTest", {
+test_that("localDepTest", {
   
 })
 

@@ -2,23 +2,23 @@ test_that("barchart.CPF", {
   
 })
 
-testthat("stackedBarplot", {
+test_that("stackedBarplot", {
   
 })
 
-testthat("compareBars", {
+test_that("compareBars", {
   
 })
 
-testthat("stackedBars", {
+test_that("stackedBars", {
   
 })
 
-testthat("compareBars2", {
+test_that("compareBars2", {
   
 })
 
-testthat("colorspread", {
+test_that("colorspread", {
   
 })
 

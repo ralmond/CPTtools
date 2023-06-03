@@ -1,31 +1,31 @@
-testthat("rescaleTable", {
+test_that("rescaleTable", {
   
 })
 
-testthat("normalizeTable", {
+test_that("normalizeTable", {
   
 })
 
-testthat("scaleMatrix", {
+test_that("scaleMatrix", {
   
 })
 
-testthat("numericPart", {
+test_that("numericPart", {
   
 })
 
-testthat("factorPart", {
+test_that("factorPart", {
   
 })
 
-testthat("getTableParents", {
+test_that("getTableParents", {
   
 })
 
-testthat("getTableStates", {
+test_that("getTableStates", {
   
 })
 
-testthat("scaleTable", {
+test_that("scaleTable", {
   
 })

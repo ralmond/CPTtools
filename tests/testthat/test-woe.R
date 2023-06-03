@@ -2,19 +2,19 @@ test_that("parseProbVec", {
   
 })
 
-testthat("readHistory", {
+test_that("readHistory", {
   
 })
 
-testthat("woeBal", {
+test_that("woeBal", {
   
 })
 
-testthat("woeHist", {
+test_that("woeHist", {
   
 })
 
-testthat("EAPBal", {
+test_that("EAPBal", {
   
 })
 

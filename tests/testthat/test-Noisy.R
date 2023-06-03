@@ -2,15 +2,15 @@ test_that("calcNoisyAndTable", {
   
 })
 
-testthat("calcNoisyAndFrame", {
+test_that("calcNoisyAndFrame", {
   
 })
 
-testthat("calcNoisyOrTable", {
+test_that("calcNoisyOrTable", {
   
 })
 
-testthat("calcNoisyOrFrame", {
+test_that("calcNoisyOrFrame", {
   
 })
 

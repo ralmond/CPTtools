@@ -2,23 +2,23 @@ test_that("scaleMatrix", {
   
 })
 
-testthat("structMatrix", {
+test_that("structMatrix", {
   
 })
 
-testthat("mcSearch", {
+test_that("mcSearch", {
   
 })
 
-testthat("buildParentList", {
+test_that("buildParentList", {
   
 })
 
-testthat("pvecToCutpoints", {
+test_that("pvecToCutpoints", {
   
 })
 
-testthat("pvecToMidpoints", {
+test_that("pvecToMidpoints", {
   
 })
 

@@ -18,8 +18,13 @@ function(data,stateNames,skillNames,reverse=TRUE,stem="margin",sep=".") {
 marginTab <-
 function(datarow,stateNames,skillNames,reverse=TRUE,stem="margin",sep=".") {
   cnames <- paste(stem,skillNames,sep=sep)
-  margincols <- sapply(cnames,function(n) grep(n,names(datarow),fixed=TRUE))
-  means <- datarow[as.vector(margincols)]
+  marginmatch <- sapply(cnames,function(n) any(grepl(n,names(datarow),fixed=TRUE)))
+  if (any(!marginmatch)) {
+    warning(sprintf("Did not find any entries starting with %s",
+                 paste(cnames[!marginmatch], collapse=", ")))
+  }
+  csnames <- unlist(lapply(cnames,function (cn) paste(cn,stateNames,sep=sep)))
+  means <- as.numeric(datarow[csnames])
   meanmat <- matrix(means,nrow=length(stateNames))
   dimnames(meanmat) <- list(stateNames,skillNames)
   if (reverse)

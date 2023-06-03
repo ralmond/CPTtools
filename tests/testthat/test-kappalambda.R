@@ -1,10 +1,10 @@
 test_that("gkLambda", {
   
 })
-testthat("fcKappa", {
+test_that("fcKappa", {
   
 })
 
-testthat("gkGamma", {
+test_that("gkGamma", {
   
 })

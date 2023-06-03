@@ -1,60 +1,190 @@
 test_that("buildFactorTab", {
+  data(ACED)
+  mat <- buildFactorTab(ACED.scores, ACED.scores$Cond, c("H","M","L"), "sgp",
+                  reverse = TRUE,
+                   stem="p", sep="")
+  expect_true(is.matrix(mat))
+  expect_equal(dim(mat),c(3L,3L))
+  expect_equal(as.vector(colSums(mat)),rep(1,3),tolerance=.00005)
+})
+
+test_that("build2FactorTab", {
+  data(ACED)
+  arr <- build2FactorTab(ACED.scores, ACED.scores$Seq, ACED.scores$FB,
+                  c("H","M","L"), "sgp",
+                  reverse = TRUE, stem="p",sep="")
+  expect_true(is.array(arr))
+  expect_equal(dim(arr),c(2L,2L,3L))
+  sums <- as.vector(apply(arr,1:2,sum))
+  expect_equal(sums, c(1,1,NaN,1), tolerance=.00005)
+})
+
+test_that("buildMarginTab", {
+  data(ACED)
+  skills <- ACED.skillNames[1:4] 
+  levels <- c("H","M","L")
+  mt <- buildMarginTab(ACED.scores, levels, skills,
+                 reverse = TRUE,
+                 stem="p",sep="")
+  expect_true(is.matrix(mt))
+  expect_equal(dim(mt),c(3L,4L))
+  expect_equal(rownames(mt),rev(levels))
+  expect_equal(colnames(mt),skills)
+  expect_equal(as.vector(colSums(mt)), rep(1,4), tolerance=.05)
+  
+  mt <- buildMarginTab(ACED.scores, levels, skills,
+                       reverse = FALSE,
+                       stem="p",sep="")
+  expect_equal(rownames(mt),levels)
+})
+
+test_that("marginTab", {
+  data(ACED)
+  skills <- ACED.skillNames[1:4] 
+  levels <- c("H","M","L")
+  mt <-  marginTab(ACED.scores[1,], levels, skills, reverse = TRUE,
+            stem="p",sep="")
+  expect_true(is.matrix(mt))
+  expect_equal(dim(mt),c(3L,4L))
+  expect_equal(rownames(mt),rev(levels))
+  expect_equal(colnames(mt),skills)
+  expect_equal(as.vector(colSums(mt)), rep(1,4), tolerance=.05)
+  
+  mt <-  marginTab(ACED.scores[1,], levels, skills, reverse = FALSE,
+                   stem="p",sep="")
+  expect_equal(rownames(mt),levels)
+})
+
+test_that("as.CPA", {
+  arr1 <- array(1:24,c(4,3,2),
+                      dimnames=list(A=c("a1","a2","a3","a4"),B=c("b1","b2","b3"),
+                                    C=c("c1","c2")))
+  arr1a <- as.CPA(arr1)
+  expect_s3_class(arr1a,"CPA")
+  expect_true(is.CPA(arr1a))
+  expect_equal(dim(arr1a),c(4L,3L,2L))
+  
+  arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
+                  B=factor(rep(c("b1","b2","b3"),2)),
+                  C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
+  arfa <- as.CPA(arf)
+  expect_true(is.CPA(arfa))
+  expect_equal(dim(arfa),c(A=2L,B=3L,C=4L))
+  expect_equal(dimnames(arfa),list(A=c("a1","a2"),B=c("b1","b2","b3"),
+                                  C=c("c1","c2","c3","c4")))
+  
+  ## Double warning expected.  This is a bit of kludge but it works.
+  expect_warning(expect_warning(as.CPA(array(1:24,2:4)),
+                "Array being coerced to CPA does not have dimnames."))
+
+})
+
+test_that("is.CPA", {
+  arr1 <- array(1:24,c(4,3,2),
+                dimnames=list(A=c("a1","a2","a3","a4"),B=c("b1","b2","b3"),
+                              C=c("c1","c2")))
+  arr1a <- as.CPA(arr1)
+  expect_true(is.CPA(arr1a))
+  
+  arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
+                   B=factor(rep(c("b1","b2","b3"),2)),
+                   C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
+  arf <- as.CPF(arf)
+  expect_false(is.CPA(arf))
+              
+})
+
+test_that("as.CPF", {
+  arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
+                    B=factor(rep(c("b1","b2","b3"),2)),
+                    C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
+  arf <- as.CPF(arf)
+  expect_s3_class(arf,"CPF")
+  expect_equal(dim(arf),c(6L,6L))
+  facCols <- as.vector(sapply(arf,is.factor))
+  expect_equal(facCols, c(rep(TRUE,2),rep(FALSE,4)))
+  
+  arr <- array(1:24,c(2,3,4),
+            dimnames=list(A=c("a1","a2"),B=c("b1","b2","b3"),
+                          C=c("c1","c2","c3","c4")))
+  arrf <- as.CPF(arr)
+  expect_true(is.CPF(arrf))
+  expect_equal(dim(arrf),c(6L,6L))
+  expect_equal(levels(arrf$A),c("a1","a2"))
+  expect_equal(levels(arrf$B),c("b1","b2","b3"))
+  expect_equal(names(arrf),names(arf))
+
+})
+
+test_that("is.CPF", {
+  arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
+                    B=factor(rep(c("b1","b2","b3"),2)),
+                    C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
+  arf <- as.CPF(arf)
+  expect_true(is.CPF(arf))
+  arr1 <- array(1:24,c(4,3,2),
+                dimnames=list(A=c("a1","a2","a3","a4"),B=c("b1","b2","b3"),
+                              C=c("c1","c2")))
+  arr1a <- as.CPA(arr1)
+  expect_false(is.CPF(arr1a))
+})
+
+
+test_that("normalize.matrix", {
+  mat <- normalize(matrix(1:6,2,3))
+  expect_equal(dim(mat),c(2L,3L))
+  expect_equal(rowSums(mat),rep(1.0,nrow(mat)),tolerance=.0001)
+})
+
+test_that("normalize.array", {
+  arr <- array(1:24,c(4,3,2),dimnames=list(A=c("a1","a2","a3","a4"),
+                                           B=c("b1","b2","b3"),
+                                           C=c("c1","c2")))
+  narr <- normalize(arr)
+  expect_equal(dim(narr),dim(arr))
+  rowsums <- as.vector(apply(narr,1:2,sum))
+  expect_equal(rowsums,rep(1.0,length(rowsums)),tolerance=.0001)
+})
+
+test_that("normalize.data.frame", {
+  df2 <- data.frame(parentval=c("a","b"),
+                    prob.true=c(1,1),prob.false=c(1,1))
+  ndf2 <- normalize(df2)
+  expect_true(is.CPF(ndf2))
+  facCols <- as.vector(sapply(ndf2,is.character))
+  expect_equal(facCols,c(TRUE,FALSE,FALSE))
+  expect_equal(rowSums(ndf2[,2:3]),rep(1.0,2),tolerance=.0001)
   
 })
 
-testthat("build2FactorTab", {
-  
+test_that("normalize.CPA", {
+  arr <- array(1:24,c(4,3,2),
+               list(a=c("A1","A2","A3","A4"),
+                    b=c("B1","B2","B3"),
+                    c=c("C1","C2")))
+  arr <- as.CPA(arr)
+  narr <- normalize(arr)
+  expect_true(is.CPA(narr))
+  rowsums <- as.vector(apply(narr,1:2,sum))
+  expect_equal(rowsums,rep(1.0,length(rowsums)),tolerance=.0001)
 })
 
-testthat("buildMarginTab", {
-  
+test_that("normalize.default", {
+  n14 <- normalize(1:4)
+  expect_equal(sum(n14),1.0,tolerance=.0001)
 })
 
-testthat("marginTab", {
-  
-})
-
-testthat("as.CPA", {
-  
-})
-
-testthat("is.CPA", {
-  
-})
-
-testthat("as.CPF", {
-  
-})
-
-testthat("is.CPF", {
-  
-})
-
-testthat("normalize", {
-  
-})
-
-testthat("normalize.matrix", {
-  
-})
-
-testthat("normalize.array", {
-  
-})
-
-testthat("normalize.data.frame", {
-  
-})
-
-testthat("normalize.CPA", {
-  
-})
-
-testthat("normalize.default", {
-  
-})
-
-testthat("normalize.CPF", {
+test_that("normalize.CPF", {
+  arr <- array(1:24,c(4,3,2),
+               list(a=c("A1","A2","A3","A4"),
+                    b=c("B1","B2","B3"),
+                    c=c("C1","C2")))
+  arf <- as.CPF(arr)
+  narf <- normalize(arf)  
+  expect_true(is.CPF(narf))
+  facCols <- as.vector(sapply(narf,is.factor))
+  expect_equal(facCols,c(TRUE,TRUE,FALSE,FALSE))
+  expect_equal(rowSums(narf[,3:4]),rep(1.0,4*3),tolerance=.0001)
   
 })
 

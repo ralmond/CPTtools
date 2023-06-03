@@ -2,19 +2,19 @@ test_that("OCP", {
   
 })
 
-testthat("OCP2", {
+test_that("OCP2", {
   
 })
 
-testthat("OCP.CPF", {
+test_that("OCP.CPF", {
   
 })
 
-testthat("OCP2.CPF", {
+test_that("OCP2.CPF", {
   
 })
 
-testthat("cptChi2", {
+test_that("cptChi2", {
   
 })
 

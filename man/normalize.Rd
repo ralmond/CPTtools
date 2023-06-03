@@ -96,7 +96,7 @@ normalize(cpt)
 }
 \examples{
 n14 <- normalize(1:4)
-stopifnot (abs(sum(n14)-1.0) <.0001)
+
 
 normalize(matrix(1:6,2,3))
 normalize(array(1:24,c(4,3,2)))
@@ -106,17 +106,9 @@ arr <- array(1:24,c(4,3,2),
                   c=c("C1","C2")))
 arr <- as.CPA(arr)
 narr <- normalize(arr)
-stopifnot(
-  is(narr,"CPA"), is(narr,"array"),
-  all(abs(apply(narr,1:2,sum)-1) <.0001)
-)
 
 arf <- as.CPF(arr)
 narf <- normalize(arf)
-stopifnot(
-  is(narf,"CPF"), is(narf,"data.frame"),
-  all(abs(apply(narf[sapply(narf,is.numeric)],1,sum)-1) <.0001)
-)
 
 df2 <- data.frame(parentval=c("a","b"),
                   prob.true=c(1,1),prob.false=c(1,1))
