@@ -1,4 +1,4 @@
----
+u---
 title: "Graphing Discrete Bayesian Networks"
 output: rmarkdown::html_vignette
 vignette: >

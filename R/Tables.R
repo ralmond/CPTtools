@@ -186,6 +186,10 @@ normalize.data.frame <- function (cpt) {
   normalize(as.CPF(cpt))
 }
 
+normalize.table <- function (cpt) {
+  normalize(as.CPA(cpt))
+}
+
 normalize.default <- function (cpt) {
   if (!is.numeric(cpt)) {
     stop("Can only normalize CPAs, CPFs and numeric objects.")
@@ -213,5 +217,11 @@ normalize.CPF <- function (cpt) {
   cpt
 }
 
-
+### This function builds up a contingency table for the various combinations
+### of parent and child state.
+dataTable <- function (data, parents, child, childStates) {
+  ncol <- length(childStates)
+  t <- table(data[,c(parents,child)])
+  matrix(t,ncol=ncol,dimnames=list(NULL,childStates))
+}
 

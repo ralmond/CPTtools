@@ -5,6 +5,7 @@
 \alias{normalize.array}
 \alias{normalize.data.frame}
 \alias{normalize.matrix}
+\alias{normalize.table}
 \alias{normalize.default}
 \title{
   Normalizes a conditional probability table.
@@ -25,6 +26,7 @@ normalize(cpt)
 \method{normalize}{CPA}(cpt)
 \method{normalize}{array}(cpt)
 \method{normalize}{matrix}(cpt)
+\method{normalize}{table}(cpt)
 \method{normalize}{default}(cpt)
 }
 \arguments{
@@ -105,19 +107,19 @@ arr <- array(1:24,c(4,3,2),
                   b=c("B1","B2","B3"),
                   c=c("C1","C2")))
 arr <- as.CPA(arr)
-narr <- normalize(arr)
+normalize(arr)
 
 arf <- as.CPF(arr)
-narf <- normalize(arf)
+normalize(arf)
 
 df2 <- data.frame(parentval=c("a","b"),
                   prob.true=c(1,1),prob.false=c(1,1))
-ndf2 <- normalize(df2)
-stopifnot(
-  is(ndf2,"CPF"), is(ndf2,"data.frame"),
-  all(abs(apply(ndf2[2:3],1,sum)-1) <.0001)
-)
+normalize(df2)
 
+
+## Admit is the response variable, so force it to be the last dimension.
+UCBA1 <- aperm(UCBAdmissions,3:1)
+normalize(UCBA1)
 }
 \keyword{ array }
 \keyword{ manip }

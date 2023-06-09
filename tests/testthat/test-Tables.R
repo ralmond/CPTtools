@@ -146,6 +146,15 @@ test_that("normalize.array", {
   expect_equal(rowsums,rep(1.0,length(rowsums)),tolerance=.0001)
 })
 
+test_that("normalize.table", {
+  data("UCBAdmissions")
+  tab <- aperm(UCBAdmissions,3:1)
+  ntab <- normalize(tab)  
+  expect_equal(dim(ntab),dim(tab))
+  rowsums <- as.vector(apply(ntab,1:2,sum))
+  expect_equal(rowsums,rep(1.0,length(rowsums)),tolerance=.0001)
+})
+
 test_that("normalize.data.frame", {
   df2 <- data.frame(parentval=c("a","b"),
                     prob.true=c(1,1),prob.false=c(1,1))
@@ -188,3 +197,6 @@ test_that("normalize.CPF", {
   
 })
 
+test_that("dataTable",{
+  
+})

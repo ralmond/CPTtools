@@ -131,10 +131,4 @@ defaultBetas <- function (rule,pnames) {
 
 
 
-### This function builds up a contingency table for the various combinations
-### of parent and child state.
-dataTable <- function (data, parents, child, childStates) {
-  ncol <- length(childStates)
-  t <- table(data[,c(parents,child)])
-  matrix(t,ncol=ncol,dimnames=list(NULL,childStates))
-}
+
