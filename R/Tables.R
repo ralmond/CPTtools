@@ -18,8 +18,13 @@ function(data,stateNames,skillNames,reverse=TRUE,stem="margin",sep=".") {
 marginTab <-
 function(datarow,stateNames,skillNames,reverse=TRUE,stem="margin",sep=".") {
   cnames <- paste(stem,skillNames,sep=sep)
-  margincols <- sapply(cnames,function(n) grep(n,names(datarow),fixed=TRUE))
-  means <- datarow[as.vector(margincols)]
+  marginmatch <- sapply(cnames,function(n) any(grepl(n,names(datarow),fixed=TRUE)))
+  if (any(!marginmatch)) {
+    warning(sprintf("Did not find any entries starting with %s",
+                 paste(cnames[!marginmatch], collapse=", ")))
+  }
+  csnames <- unlist(lapply(cnames,function (cn) paste(cn,stateNames,sep=sep)))
+  means <- as.numeric(datarow[csnames])
   meanmat <- matrix(means,nrow=length(stateNames))
   dimnames(meanmat) <- list(stateNames,skillNames)
   if (reverse)
@@ -181,6 +186,10 @@ normalize.data.frame <- function (cpt) {
   normalize(as.CPF(cpt))
 }
 
+normalize.table <- function (cpt) {
+  normalize(as.CPA(cpt))
+}
+
 normalize.default <- function (cpt) {
   if (!is.numeric(cpt)) {
     stop("Can only normalize CPAs, CPFs and numeric objects.")
@@ -208,5 +217,11 @@ normalize.CPF <- function (cpt) {
   cpt
 }
 
-
+### This function builds up a contingency table for the various combinations
+### of parent and child state.
+dataTable <- function (data, parents, child, childStates) {
+  ncol <- length(childStates)
+  t <- table(data[,c(parents,child)])
+  matrix(t,ncol=ncol,dimnames=list(NULL,childStates))
+}
 

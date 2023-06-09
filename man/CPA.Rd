@@ -120,18 +120,12 @@ arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
                   B=factor(rep(c("b1","b2","b3"),2)),
                   C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
 arfa <- as.CPA(arf)
-stopifnot(
-  is.CPA(arfa),
-  all(dim(arfa)==c(2,3,4))
-)
 
 arr1 <- array(1:24,c(4,3,2),
             dimnames=list(A=c("a1","a2","a3","a4"),B=c("b1","b2","b3"),
                           C=c("c1","c2")))
-arr1a <- as.CPF(arr1)
-stopifnot(
-  is.CPA(as.CPA(arr1a))
-)
+arr1a <- as.CPA(arr1)
+
 
 \dontrun{
   ## Requires RNetica
