@@ -7,6 +7,7 @@ importFrom("stats", "optim", "pchisq", "pnorm", "qbeta", "qnorm", "as.formula")
 importFrom("utils", "assignInMyNamespace", "read.csv")
 #importFrom("lattice", "barchart")
 importFrom("methods","is")
+importFrom("einsum","einsum")
 
 export(calcDDTable, calcDDFrame,
        gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,
@@ -63,3 +64,6 @@ S3method(normalize, default)
 S3method(normalize, matrix)
 
 #export(calcLearnForget)
+
+export(pvecTable,catTable,expTable)
+export(simplex_vertex_projection,plotsimplex)
