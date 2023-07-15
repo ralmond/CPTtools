@@ -2,13 +2,13 @@
 
 pvecTable <- function(data,pvarName, 
                       regx = sub("<var>",pvarName,"P\\.<var>\\.\\.(\\w+)")) {
-  var <- select(data,matches(regx))
+  var <- dplyr::select(data,dplyr::matches(regx))
   names(var) <- sub(regx,"\\1",names(var))
   as.matrix(var)
 }
 catTable <- function(data,fvarName,
-                     cc=contrasts(as.factor(pull(data,fvarName)),contrast=FALSE)) {
-  res <- cc[pull(data,fvarName),]
+                     cc=contrasts(as.factor(dplyr::pull(data,fvarName)),contrasts=FALSE)) {
+  res <- cc[dplyr::pull(data,fvarName),]
   row.names(res) <- NULL
   res
 }
@@ -18,7 +18,7 @@ catTable <- function(data,fvarName,
 expTable <- function(data, pvecVars, facVars, pvecregex = "P\\.<var>\\.\\.<state>") {
   pvecsregex <- sub("<state>","(\\w+)", pvecregex,fixed=TRUE)
   allpvars <- sub("<var>",paste("(",paste(pvecVars,collapse="|"),")",sep=""),pvecsregex)
-  subdata <- select(data,matches(allpvars),all_of(facVars)) 
+  subdata <- dplyr::select(data,dplyr::matches(allpvars),dplyr::all_of(facVars)) 
   subdata <- na.omit(subdata)
   pvars <- lapply(pvecVars,
     function (v) pvecTable(subdata,v,sub("<var>",v,pvecsregex)))

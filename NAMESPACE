@@ -8,7 +8,10 @@ importFrom("utils", "assignInMyNamespace", "read.csv")
 #importFrom("lattice", "barchart")
 importFrom("methods","is")
 importFrom("einsum","einsum")
-
+importFrom("graphics", "points", "symbols")
+importFrom("stats", "contrasts", "na.omit")
+importFrom("utils", "combn")
+     
 export(calcDDTable, calcDDFrame,
        gradedResponse, calcDPCTable, partialCredit, calcDPCFrame,
        effectiveThetas, calcDSTable, calcDSFrame, eThetaFrame,

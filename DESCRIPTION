@@ -22,7 +22,7 @@ URL: http://pluto.coe.fsu.edu/RNetica
 Depends: 
     methods,
     R (>= 2.10)
-Imports: grDevices, graphics, stats, utils, einsum
+Imports: grDevices, graphics, stats, utils, einsum, tidyr, dplyr
 Suggests: 
     ggplot2,
     lattice,

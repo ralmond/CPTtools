@@ -16,13 +16,21 @@ calcNoisyMinTable <-
   probs
 }
 
+  Missing link or links in documentation object 'LanguageData.Rd':
+     ‘[Peanut]{NetworkTester}’
+   
+     Undocumented code objects:
+     ‘catTable’ ‘expTable’ ‘plotsimplex’ ‘pvecTable’
+     ‘simplex_vertex_projection’
+
 TODO add softmax link
 
 
 TODO docs for ciTest, localDepTest, 
   ‘ciTest’ ‘‘localDepTest’ 
 
-TODO -- Normal link function
+TODO -- check state orders in barplot.CPF
+
 
 TODO -- reverse state order
 

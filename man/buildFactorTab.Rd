@@ -15,14 +15,14 @@
   variable.  The function \code{build2FactorTab} builds a three-way table.
 }
 \usage{
-buildFactorTab(data, fact, stateNames, skillNames, reverse = TRUE,
-               stem="margin", sep=".")
-build2FactorTab(data, fact1, fact2, stateNames, skillNames,
-                reverse = TRUE, stem="margin",sep=".")
+buildFactorTab(data, fact, stateNames, skillName, reverse = TRUE,
+               stem="P", sep=".")
+build2FactorTab(data, fact1, fact2, stateNames, skillName,
+                reverse = TRUE, stem="P",sep=".")
 buildMarginTab(data, stateNames, skillNames, reverse = TRUE,
-               stem="margin",sep=".")
+               stem="P",sep=".")
 marginTab(datarow, stateNames, skillNames, reverse = TRUE,
-          stem="margin",sep=".")
+          stem="P",sep=".")
 }
 \arguments{
   \item{data}{A data sets of StatShop statistics for many individuals.}
@@ -32,7 +32,7 @@ marginTab(datarow, stateNames, skillNames, reverse = TRUE,
   \item{fact1}{A factor variable according to which to split the data.}
   \item{fact2}{A factor variable according to which to split the data.}
   \item{stateNames}{Names of the variable states.}
-  \item{skillNames}{Names of the proficiency variable(s) to be used.}
+  \item{skillName,skillNames}{Name(s) of the proficiency variable(s) to be used.}
   \item{reverse}{Reverse the order of the states for display (i.e.,
     convert from StatShop order of highest first to more natural order
     of lowest first.}
@@ -80,20 +80,20 @@ marginTab(datarow, stateNames, skillNames, reverse = TRUE,
 
 data(ACED)
 
-marginTab(ACED.scores[1,], c("H","M","L"), ACED.skillNames, reverse = TRUE,
-          stem="p",sep="")
+marginTab(ACED.scores[1,], c("H","M","L"), ACED.skillNames$short, reverse = TRUE,
+          stem="P",sep=".")
 
-buildMarginTab(ACED.scores, c("H","M","L"), ACED.skillNames[1:4],
+buildMarginTab(ACED.scores, c("H","M","L"), ACED.skillNames$short[1:4],
                reverse = TRUE,
-               stem="p",sep="")
+               stem="P",sep=".")
 
-buildFactorTab(ACED.scores, ACED.scores$Cond, c("H","M","L"), "sgp",
+buildFactorTab(ACED.scores, ACED.scores$Cond_code, c("H","M","L"), "sgp",
                reverse = TRUE,
-               stem="p", sep="")
+               stem="P", sep=".")
 
-build2FactorTab(ACED.scores, ACED.scores$Seq, ACED.scores$FB,
+build2FactorTab(ACED.scores, ACED.scores$Sequencing, ACED.scores$Feedback,
                 c("H","M","L"), "sgp",
-                reverse = TRUE, stem="p",sep="")
+                reverse = TRUE, stem="P",sep=".")
 
 
 }
