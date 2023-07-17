@@ -1,7 +1,7 @@
 Package: CPTtools
 Title: Tools for Creating Conditional Probability Tables
 Version: 0.8-2
-Date: 2023/04/15
+Date: 2023/07/05
 Author: Russell Almond
 Maintainer: Russell Almond <ralmond@fsu.edu>
 Authors@R: 
@@ -22,7 +22,7 @@ URL: http://pluto.coe.fsu.edu/RNetica
 Depends: 
     methods,
     R (>= 2.10)
-Imports: grDevices, graphics, stats, utils
+Imports: grDevices, graphics, stats, utils, einsum, tidyr, dplyr
 Suggests: 
     ggplot2,
     lattice,

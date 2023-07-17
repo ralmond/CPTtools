@@ -23,14 +23,14 @@ test_that("pvecToMidpoints", {
 })
 
 
-testthat("areaProbs", {
+test_that("areaProbs", {
   
 })
 
-testthat("buildRegressions", {
+test_that("buildRegressions", {
   
 })
 
-testthat("buildRegressionTables", {
+test_that("buildRegressionTables", {
   
 })

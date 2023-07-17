@@ -65,7 +65,7 @@ betaci(x)
 ## fixed totals
 x <- c(7,2,31)
 nn <- c(30,15,35)
-betaci(x,nn,c(Q1=.25,Q2=.5,Q3=.75)))
+betaci(x,nn,c(Q1=.25,Q2=.5,Q3=.75))
 
 ## Prior varies according to cell.
 pi0 <- c(.2,.2,.8)

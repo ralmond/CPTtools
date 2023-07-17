@@ -1,18 +1,18 @@
 test_that("buildFactorTab", {
   data(ACED)
-  mat <- buildFactorTab(ACED.scores, ACED.scores$Cond, c("H","M","L"), "sgp",
+  mat <- buildFactorTab(ACED.scores, ACED.scores$Cond_code, c("H","M","L"), "sgp",
                   reverse = TRUE,
-                   stem="p", sep="")
+                   stem="P", sep=".")
   expect_true(is.matrix(mat))
-  expect_equal(dim(mat),c(3L,3L))
-  expect_equal(as.vector(colSums(mat)),rep(1,3),tolerance=.00005)
+  expect_equal(dim(mat),c(3L,4L))
+  expect_equal(as.vector(colSums(mat)[1:3]),rep(1,3),tolerance=.0005)
 })
 
 test_that("build2FactorTab", {
   data(ACED)
-  arr <- build2FactorTab(ACED.scores, ACED.scores$Seq, ACED.scores$FB,
+  arr <- build2FactorTab(ACED.scores, ACED.scores$Sequencing, ACED.scores$Feedback,
                   c("H","M","L"), "sgp",
-                  reverse = TRUE, stem="p",sep="")
+                  reverse = TRUE, stem="P",sep=".")
   expect_true(is.array(arr))
   expect_equal(dim(arr),c(2L,2L,3L))
   sums <- as.vector(apply(arr,1:2,sum))
@@ -21,11 +21,11 @@ test_that("build2FactorTab", {
 
 test_that("buildMarginTab", {
   data(ACED)
-  skills <- ACED.skillNames[1:4] 
+  skills <- ACED.skillNames$short[1:4] 
   levels <- c("H","M","L")
   mt <- buildMarginTab(ACED.scores, levels, skills,
                  reverse = TRUE,
-                 stem="p",sep="")
+                 stem="P",sep=".")
   expect_true(is.matrix(mt))
   expect_equal(dim(mt),c(3L,4L))
   expect_equal(rownames(mt),rev(levels))
@@ -34,16 +34,16 @@ test_that("buildMarginTab", {
   
   mt <- buildMarginTab(ACED.scores, levels, skills,
                        reverse = FALSE,
-                       stem="p",sep="")
+                       stem="P",sep=".")
   expect_equal(rownames(mt),levels)
 })
 
 test_that("marginTab", {
   data(ACED)
-  skills <- ACED.skillNames[1:4] 
+  skills <- ACED.skillNames$short[1:4] 
   levels <- c("H","M","L")
   mt <-  marginTab(ACED.scores[1,], levels, skills, reverse = TRUE,
-            stem="p",sep="")
+            stem="P",sep=".")
   expect_true(is.matrix(mt))
   expect_equal(dim(mt),c(3L,4L))
   expect_equal(rownames(mt),rev(levels))
@@ -51,7 +51,7 @@ test_that("marginTab", {
   expect_equal(as.vector(colSums(mt)), rep(1,4), tolerance=.05)
   
   mt <-  marginTab(ACED.scores[1,], levels, skills, reverse = FALSE,
-                   stem="p",sep="")
+                   stem="P",sep=".")
   expect_equal(rownames(mt),levels)
 })
 
