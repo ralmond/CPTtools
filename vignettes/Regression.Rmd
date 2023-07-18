@@ -1,8 +1,8 @@
 ---
-title: "Building Bayesian networks using Regression"
+title: "Building Bayesian networks using regression"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Regression Models}
+  %\VignetteIndexEntry{Building Bayesian networks using regression}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

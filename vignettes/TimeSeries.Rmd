@@ -25,7 +25,7 @@ I built this code a while ago and it is giving me warnings under
 `demos`, so I'm moving it to `vingettes`.
 
 
-```{r readData}
+```{r readData, eval=FALSE}
 gs4_deauth()
 formA.hist <- read_sheet("1svdCQI9Jb3MpIObGWExg942MUsBB4uRquhD1FNTkChM",
                          sheet=1, col_names=TRUE)
@@ -33,7 +33,7 @@ head(formA.hist)
 ```
 ## Data Cleaning
 
-```{r dataCleaning}
+```{r dataCleaning, eval=FALSE}
 
 ## Need to fix baseline timestamp
 
@@ -50,7 +50,7 @@ filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=timestamp,y=Physics_EAP)) + ge
 
 ```
 
-```{r EDA}
+```{r EDA, eval=FALSE}
 fiveuid <- sample(unique(formA.hist$uid),5)
 filter(formA.hist, uid %in% fiveuid) %>% ggplot(aes(x=timestamp,y=Physics_EAP)) + geom_line() +
   facet_grid(rows=vars(uid))
@@ -59,7 +59,7 @@ filter(formA.hist, uid %in% fiveuid) %>% ggplot(aes(x=timestamp,y=Physics_EAP)) 
 
 ## First differences
 
-```{r difference}
+```{r difference, eval=FALSE}
 ## ndiff differences the series, leaving the first (baseline) value as NA.
 ## Thus is is a candidate aux function for mutate.
 ndiff <- function (x) {
@@ -75,7 +75,7 @@ names(Phys1) <- filter(formA.hist,uid=="011c1") %>% pull(context)
 
 ## Plots versus timestamps.  Hard to see what is going on.
 
-```{r timeplots}
+```{r timeplots, eval=FALSE}
 filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=timestamp,y=ndiff(Physics_EAP))) + geom_line()
 filter(formA.hist, uid %in% fiveuid) %>% ggplot(aes(x=timestamp,y=Physics_EAP)) + geom_line() +
   facet_grid(rows=vars(uid))
@@ -97,7 +97,7 @@ traffic light coloring.
 second plot. 
 5) `cowplot::plot_grid()` plots side by side.
 
-```{r discreteTimePlots}
+```{r discreteTimePlots, eval=FALSE}
 c011c1.eap <- filter(formA.hist, uid=="011c1") %>% ggplot(aes(x=fct_reorder(context,timestamp),y=Physics_EAP)) +
     geom_col(aes(fill=..y..))+scale_fill_gradient2(low="red",mid="yellow",high="green",midpoint=0)+
     coord_flip(ylim=c(-1,1))+theme_light()+labs(x="",y="EAP[Physics]")
@@ -121,7 +121,7 @@ plot_grid(c011c1.eap,c011c1.diff)
 
 3) Need to figure out how to add "outer" labels to multiplot Grid.
 
-```{r woeBAL}
+```{r woeBAL, eval=FALSE}
 EAPBal(filter(formA.hist,uid=="011c1") %>% pull("Physics_EAP"),
        filter(formA.hist,uid=="011c1") %>% pull("context"),
        varname="Physics")

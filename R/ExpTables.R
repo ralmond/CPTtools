@@ -1,14 +1,16 @@
 ### ExpTables --- Building expected contingency tables.
 
 pvecTable <- function(data,pvarName, 
-                      regx = sub("<var>",pvarName,"P\\.<var>\\.\\.(\\w+)")) {
+                      regx = sub("<var>",pvarName,"P\\.<var>\\.\\.<state>")) {
+  regx <- sub("<state>","(\\w+)", regx,fixed=TRUE)
   var <- dplyr::select(data,dplyr::matches(regx))
   names(var) <- sub(regx,"\\1",names(var))
   as.matrix(var)
 }
+
 catTable <- function(data,fvarName,
                      cc=contrasts(as.factor(dplyr::pull(data,fvarName)),contrasts=FALSE)) {
-  res <- cc[dplyr::pull(data,fvarName),]
+  res <- cc[as.factor(dplyr::pull(data,fvarName)),]
   row.names(res) <- NULL
   res
 }

@@ -2,7 +2,7 @@
 title: "Conditional Probability Frames and Arrays"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Conditional Probablity Frames}
+  %\VignetteIndexEntry{Conditional Probability Frames and Arrays}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
