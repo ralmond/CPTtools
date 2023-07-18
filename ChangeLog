@@ -1,3 +1,11 @@
+2023-06-08 Russell Almond <ralmond@cherry>
+  * R/Tables.R (normalize.table) -- Added this method as the base::table() function produces an array-like
+  object which is not an array.
+
+2023-05-31  Russell Almond  <ralmond@cherry>
+
+	* R/betaci.R ("betaci"): switched from using colSums to rowSums as
+	that seems to fit better with a CPT.
 
 2021-07-12  Russell Almond  <ralmond@cherry>
 

@@ -12,11 +12,11 @@ betaci(sumData, totals = NULL, limits = c(lower = 0.025, upper = 0.975),
        a = 0.5, b = 0.5)
 }
 \arguments{
-  \item{sumData}{Counts or averages of proportions.  Note these do not
+  \item{sumData}{A vector or matrix of counts or sums proportions.  Note these do not
     need to be integers, sums of classification probabilities work here.}
   \item{totals}{Total number of individuals as reference for
     \code{sumData}.  If missing or \code{NULL} then the value use is
-    \code{colSums(data)}.}
+    \code{rowSums(data)}.}
   \item{limits}{The upper and lower credibility limits.}
   \item{a}{Value for the \code{shape1} parameter of the beta prior.}
   \item{b}{Value for the \code{shape2} parameter of the beta prior.}
@@ -36,6 +36,15 @@ betaci(sumData, totals = NULL, limits = c(lower = 0.025, upper = 0.975),
   where \code{prob} varies over the values in \code{limits}.  Note that
   \code{a} and \code{b} can be scalars or an array conformable with
   \code{totals}.  
+  
+  If \code{totals} is not supplied, and \code{sumData} is a vector, then the 
+  sum is used as the total.  If the \code{totals} is not supplied and \code{sumData} is a
+  matrix, then the row sums are used.  For higher dimensional arrays, it is necessary to explicitly 
+  specify a total.
+}
+\note{ 
+  A previous verison used \code{colSums(data)} rather than \code{rowSums()}.  Using the row sums 
+  makes more sense as this corresponds to the \link{CPF} format.
 }
 \value{
   A list of the same length as \code{limits} with the same names.  Each
@@ -50,15 +59,16 @@ betaci(sumData, totals = NULL, limits = c(lower = 0.025, upper = 0.975),
 \examples{
 
 x <- matrix(c(7,4,2,31),2,2)
-## Use column sums as totals
+## Use row sums as totals
 betaci(x)
 
 ## fixed totals
-nn <- matrix(c(30,15,20,35),2,2)
-betaci(x,nn)
+x <- c(7,2,31)
+nn <- c(30,15,35)
+betaci(x,nn,c(Q1=.25,Q2=.5,Q3=.75))
 
 ## Prior varies according to cell.
-pi0 <- c(.2,.2,.2,.8)
+pi0 <- c(.2,.2,.8)
 betaci(x,nn,a=pi0,b=1-pi0)
 
 }

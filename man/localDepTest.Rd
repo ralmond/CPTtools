@@ -64,9 +64,10 @@ data(UCBAdmissions)
 ciTest(UCBAdmissions)
 
 data(ACED)
-table(ACED.items$tCommonRatio1a.1,ACED.items$tCommonRatio2a.1,
+ACED.items$Correct <- rowSums(ACED.items[,-(1:3)],na.rm=TRUE)
+table(ACED.items$tCommonRatio1a,ACED.items$tCommonRatio2a,
       cut(ACED.items$Correct,3))
-localDepTest(ACED.items$tCommonRatio1a.1,ACED.items$tCommonRatio2a.1,
+localDepTest(ACED.items$tCommonRatio1a,ACED.items$tCommonRatio2a,
       cut(ACED.items$Correct,3))
 
 

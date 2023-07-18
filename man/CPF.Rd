@@ -112,7 +112,7 @@ arf <- data.frame(A=factor(rep(c("a1","a2"),each=3)),
                   B=factor(rep(c("b1","b2","b3"),2)),
                   C.c1=1:6, C.c2=7:12, C.c3=13:18, C.c4=19:24)
 arf <- as.CPF(arf)
-stopifnot(is.CPF(arf))
+
 
 arr <- array(1:24,c(2,3,4),
             dimnames=list(A=c("a1","a2"),B=c("b1","b2","b3"),

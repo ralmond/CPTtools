@@ -1,5 +1,7 @@
+## Assumes working directory is the CPTtools development version.
+
 ACED.scores <-
-  read.csv("CPTtools/inst/testFiles/acedScores.csv",header=TRUE,row.names=1)
+  read.csv("inst/testFiles/acedScores.csv",header=TRUE,row.names=1)
 
 ACED.scores$Cond <- factor(ACED.scores$Cond_code,labels=c("Adaptive/Accuracy",
                   "Adaptive/Extended","Linear/Extended"))

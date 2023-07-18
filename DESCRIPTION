@@ -1,7 +1,7 @@
 Package: CPTtools
 Title: Tools for Creating Conditional Probability Tables
-Version: 0.8-1
-Date: 2023/04/12
+Version: 0.8-2
+Date: 2023/07/05
 Author: Russell Almond
 Maintainer: Russell Almond <ralmond@fsu.edu>
 Authors@R: 
@@ -19,8 +19,10 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 URL: http://pluto.coe.fsu.edu/RNetica
-Depends: methods
-Imports: grDevices, graphics, stats, utils
+Depends: 
+    methods,
+    R (>= 2.10)
+Imports: grDevices, graphics, stats, utils, einsum, tidyr, dplyr
 Suggests: 
     ggplot2,
     lattice,
@@ -28,18 +30,21 @@ Suggests:
     rmarkdown,
     tidyverse,
     googlesheets4,
-    cowplot
+    cowplot,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Support: c(
    'Bill & Melinda Gates Foundation grant
-   "Games as Learning/Assessment:  Stealth Assessment" (#0PP1035331,
+   "Games as Learning/Assessment:  Stealth Assessment" (no. 0PP1035331,
    Val Shute, PI)',
    'National Science Foundation grant "DIP:
    Game-based Assessment and Support of STEM-related Competencies"
-   (#1628937, Val Shute, PI)',
+   (no. 1628937, Val Shute, PI)',
    'National Scient Foundation grant "Mathematical Learning via
-   Architectual Design and Modeling Using E-Rebuild." (\#1720533,
+   Architectual Design and Modeling Using E-Rebuild." (no. 1720533,
    Fengfeng Ke, PI)',
-   'Institute of Educational Statistics Grant: "Exploring adaptive cognitive and affective learning support for next-generation STEM learning games." (#R305A170376-20, Val Shute and Russell Almond, PIs')	
-
-   	    
+   'Institute of Educational Statistics Grant: 
+   "Exploring adaptive cognitive and affective learning support 
+   for next-generation STEM learning games." (no. R305A170376-20, 
+   Val Shute and Russell Almond, PIs)'	)
+Config/testthat/edition: 3
