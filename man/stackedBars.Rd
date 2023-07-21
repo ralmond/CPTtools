@@ -33,6 +33,11 @@ stackedBars(data, profindex, ...,
 
   The probability values are overlaid on the bars.
 }
+\value{
+  
+  Returns the midpoints of the bars invisibly.
+
+}
 \references{ This plot type was initially developed in Jody Underwood's
   Evolve project.
 

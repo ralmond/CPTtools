@@ -65,6 +65,9 @@ compareBars2(data1, data2, profindex,
   \item{scale}{Scales data as probabilities (\code{scale=1}) or
   percentages (\code{scale=100}).}
 }
+\value{
+  Invisibly returns the x-co-ordinates of the bars.
+}
 \section{Note}{
   The function \code{compareBars2} is a somewhat experimental extension
   to \code{compareBars} which adds error bars to the posterior.  The

@@ -152,6 +152,7 @@ function (data, profindex, ..., ylim = c(min(offsets)-.25,max(1+offsets)),
   srt <- par("srt")
   if (labrot) srt <- srt+90
   text(xmid[data!=0],ymid[data!=0],labels[data!=0],cex=cex.names,srt=srt)
+  invisible(xmid)
 }
 
 
