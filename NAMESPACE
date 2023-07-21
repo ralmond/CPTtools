@@ -52,6 +52,7 @@ export(betaci, proflevelci, barchart.CPF,
        buildFactorTab, build2FactorTab, buildMarginTab,
        marginTab,parseProbVec, readHistory,
        mutualInformation, ciTest, localDepTest,
+       ewoe.CPF,
        woeBal, woeHist, EAPBal,
        fcKappa, gkLambda, gkGamma)
 

@@ -2,33 +2,52 @@
 \alias{readHistory}
 \title{Reads a file of histories of marginal distributions.}
 \description{
-  In running a typical Bayes net engine, as each piece of evidence comes
-  in, updated marginal distributions for several variables are output.
-  This function reads a such a log, expressed as a comma separated value
-  file, and creates a data structure suitable for doing weight of
-  evidence analyses.
+
+  In running a typical Bayes net engine, as each piece of 
+  evidence comes in, updated marginal distributions for several
+  variables are output. This function reads a such a log, 
+  expressed as a data frame, and creates a data structure 
+  suitable  for doing weight of evidence analyses.  The 
+  probabilities are in the pvec (\code{\link{parseProbVec}}) 
+  format. 
 }
 \usage{
-readHistory(csvfile)
+readHistory(histdat, obscol = "Item", valcol = "Result",
+  probcol="Probability")
 }
 \arguments{
-  \item{csvfile}{A name of a CSV file containing StatShop marginal
-    distributions, one per row.  Expects a column named "Item" from
-    which the names are taken and "Result" which contains the values.}
+  \item{histdat}{A data frame which has columns corresponding to 
+    \code{obscol}, \code{valcol} and \code{probcol}}.
+  \item{obscol}{Name of the column with the name of the observable at each time point.}
+  \item{valcol}{Name of the column with the value of the observable at each time point.}
+  \item{probcol}{Name of the column with the probabity vectors.}
 }
 \details{
-  This works with an excerpted log from a StatShop/ACED interaction.  In
-  this case the \var{Item} column should contain the name of the item
-  presented at this iteration, possibly with an \code{.xml} suffix.  The
-  \var{Results} column should contain a probability vector of the form:
-  \code{[High:0.527,Medium:0.447,Low:0.025]}.  This function parses the
-  CSV file and creates a matrix with rows corresponding to the rows in
-  the CSV file and values from the probability vectors.
+  
+  The assumption is that the \code{histdat} data frame contains
+  a history of measurements on a latent variable.  The 
+  \var{probcol} column should contain a probability vector of 
+  the  form:  \code{[High:0.527,Medium:0.447,Low:0.025]}.  This 
+  function parses this column (see \code{\link{parseProbVec}}) and 
+  builds a matrix with columns corresponding to the states of the 
+  latent variable.
+  
+  The rows are given names of the form, \code{<obscol>=<valcol>}, 
+  where \code{<obscol>} and \code{<valcol>} are the values in 
+  the respective columns.
 }
 \value{
-  A matrix whose column names are taken from the probability vectors and
-  row names are taken from the \var{Item} field with the \code{.xml}
-  suffix removed.
+  A matrix whose column names are taken from the probability
+  vectors and row names are taken from the \code{obscol} and 
+  \code{valcol} fields.
+}
+\note{
+
+  The previous version (a) directly read the CSV file, and (b) 
+  had the names of the columns hard coded.  This version will
+  break any code that relied on the old version.  However, it is
+  hopefully more generally useful.
+
 }
 \references{
   \url{http://research.ets.org/~ralmond/StatShop/dataFormats.html}
@@ -36,8 +55,14 @@ readHistory(csvfile)
 \author{Russell Almond}
 \seealso{\code{\link{parseProbVec}}, \code{\link{woeHist}}}
 \examples{
-\dontrun{
-  allcorrect <- parseProbVec("CorrectSequence.csv")
+  testFiles <- system.file("testFiles",package="CPTtools")
+  allcorrect <- readHistory(read.csv(file.path(testFiles,
+     "CorrectSequence.csv"),as.is=TRUE),
+     probcol="Margin.sequences.")
+  woeHist(allcorrect,"High",c("Medium","Low"))
+  allincorrect <- readHistory(read.csv(file.path(testFiles, 
+    "InCorrectSequence.csv"),as.is=TRUE),
+     probcol="Margin.sequences.")
 }
-}
-\keyword{interface}
+\keyword{manip}
+\concept{weight of evidence}

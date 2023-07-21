@@ -10,7 +10,8 @@
 \usage{
 expTable(data, pvecVars, facVars, 
          pvecregex = "P\\\\.<var>\\\\.\\\\.<state>")
-pvecTable(data, pvarName, regx = "P\\\\.<var>\\\\.\\\\.<state>")
+pvecTable(data, pvarName, 
+         regx = sub("<var>",pvarName,"P\\\\.<var>\\\\.\\\\.<state>"))
 catTable(data, fvarName, 
          cc = contrasts(as.factor(dplyr::pull(data, fvarName)),
               contrasts = FALSE))
@@ -19,7 +20,7 @@ catTable(data, fvarName,
   \item{data}{This is a data frame where columns corresponding to probability vectors have a regular naming pattern.}
   \item{pvecVars, pvarName}{The names (or name for \code{pvecName})  of the estimated variable(s).}
   \item{facVars,fvarName}{The names (or name for \code{catTable}) of the factor variable(s).}
-  \item{pvecregex, regex}{A regular expression template for finding the column names.  The string \dQuote{<var>} is replaced with the variable name (\code{pvecName}) and the string \dQuote{<state>} is replaced with a regular expression that extract the state name.  }
+  \item{pvecregex, regx}{A regular expression template for finding the column names.  The string \dQuote{<var>} is replaced with the variable name (\code{pvecName}) and the string \dQuote{<state>} is replaced with a regular expression that extract the state name.  }
   \item{cc}{This is a contrasts matrix (see \code{\link[stats]{contrasts}} which shows how to convert the factor variable to columns.}
 }
 \details{
@@ -80,8 +81,8 @@ catTable(data, fvarName,
 }
 \author{Russell Almond}
 \seealso{
-  \code{\link{mutalInformation}}, \code{\link{gkGamma}},
-  \code{\link[base]{table}}, \code{\link[stats]{contrats}},
+  \code{\link{mutualInformation}}, \code{\link{gkGamma}},
+  \code{\link[base]{table}}, \code{\link[stats]{contrasts}},
   \code{\link[einsum]{einsum}}
 }
 \examples{

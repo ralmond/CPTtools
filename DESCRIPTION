@@ -31,6 +31,7 @@ Suggests:
     tidyverse,
     googlesheets4,
     cowplot,
+    vdiffr,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Support: c(

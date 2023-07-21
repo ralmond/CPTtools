@@ -1,5 +1,18 @@
 test_that("mutualInformation", {
+  expect_equal(mutualInformation(matrix(1,2,2)),0.0,tolerance=.0001)
+  expect_equal(mutualInformation(diag(2)),log(2),tolerance=.0001)
+  expect_equal(mutualInformation(diag(3)),log(3),tolerance=.0001)
+})
+
+test_that("ewoe.CPF", {
+  t1 <- diag(2)*.9+.1
+  expect_equal(ewoe.CPF(t1,1),100*.9/1.1,tolerance=.001)
   
+  ACED <- dplyr::inner_join(ACED.scores,ACED.items,by="SubjID")
+  expcr <- expTable(ACED,"cr","tCommonRatio1a")
+  e1 <- ewoe.CPF(expcr,"H")
+  e2 <- ewoe.CPF(expcr,c("H","M"))
+  expect_gt(e2,e1)
 })
 
 test_that("ciTest", {
