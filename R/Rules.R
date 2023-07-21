@@ -116,6 +116,7 @@ isOffsetRule <- function (rl) {
 }
 
 defaultAlphas <- function (rule,pnames) {
+  if (is.function(rule)) rule <- deparse(substitute(rule))
   if (isOffsetRule(rule)) return(1)
   alphas <- rep(1,length(pnames))
   names(alphas) <- pnames
@@ -123,6 +124,7 @@ defaultAlphas <- function (rule,pnames) {
 }
 
 defaultBetas <- function (rule,pnames) {
+  if (is.function(rule)) rule <- deparse(substitute(rule))
   if (!isOffsetRule(rule)) return(0)
   betas <- rep(0,length(pnames))
   names(betas) <- pnames

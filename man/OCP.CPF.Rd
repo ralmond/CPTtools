@@ -155,13 +155,13 @@ OCP2.CPF(obs1, obs2, exp, ..., baseCol = "chocolate",
   cpfTheta <- calcDPCFrame(list(),skill1l,numeric(),0,rule="Compensatory",
                            link="normalLink",linkScale=.5)
 
-  ## Compatable data  
+  ## Compatible data  
   datTheta <- cpfTheta ## Copy to get the shape
   datTheta[1,] <- rmultinom(1,25,cpfTheta[1,])
 
   OCP.CPF(datTheta,cpfTheta)
 
-  ## Incompatable data
+  ## Incompatible data
   datThetaX <- cpfTheta ## Copy to get the shape
   datThetaX[1,] <- rmultinom(1,100,c(.05,.45,.5))
 
@@ -186,9 +186,9 @@ OCP2.CPF(obs1, obs2, exp, ..., baseCol = "chocolate",
       ## Each row has a random sample size.
       datConj[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1),cptConj[i,3:4])
 
-  ## Compatable
+  ## Compatible
   OCP.CPF(datConj,cptConj)
-  ## Incompatable
+  ## Incompatible
   OCP.CPF(datComp,cptConj)
   OCP2.CPF(datConj,datComp,cptConj)
 
@@ -212,9 +212,9 @@ OCP2.CPF(obs1, obs2, exp, ..., baseCol = "chocolate",
       ## Each row has a random sample size.
       datPC2[i,3:5] <- rmultinom(1,rnbinom(1,mu=25,size=1),cptPC2[i,3:5])
 
-  ## Compatable
+  ## Compatible
   OCP.CPF(datPC1,cptPC1)
-  ## Inompatable
+  ## Incompatible
   OCP.CPF(datPC2,cptPC1)
   OCP2.CPF(datPC1,datPC2,cptPC1)
 
