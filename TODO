@@ -19,9 +19,6 @@ calcNoisyMinTable <-
   Missing link or links in documentation object 'LanguageData.Rd':
      ‘[Peanut]{NetworkTester}’
    
-     Undocumented code objects:
-     ‘catTable’ ‘expTable’ ‘plotsimplex’ ‘pvecTable’
-     ‘simplex_vertex_projection’
 
 TODO add softmax link
 
@@ -41,4 +38,3 @@ values (Pnet2Qmat)
 
 TODO -- vignettes
 
-TODO -- look at the defaultAlphas and defaultBetas, should produce list?

@@ -150,7 +150,7 @@ OCP.CPF <- function(obs, exp, ..., baseCol="chocolate",
   } else {
     form <- as.formula(paste("~p |",paste(Parents,collapse="+")))
   }
-  exp_long <- tidyr::pivot_longer(exp,States,names_to="State",values_to="p")
+  exp_long <- tidyr::pivot_longer(exp,tidyr::all_of(States),names_to="State",values_to="p")
   exp_long$State <- ordered(exp_long$State,levels=States)
 
   ## Set up Y placement based on number of categories
@@ -238,14 +238,12 @@ OCP2.CPF <- function(obs1, obs2, exp, ..., baseCol="chocolate",
   } else {
     form <- as.formula(paste("~p |",paste(Parents,collapse="+")))
   }
-  exp_long <- tidyr::pivot_longer(exp,States,names_to="State",values_to="p")
+  exp_long <- tidyr::pivot_longer(exp,tidyr::all_of(States),names_to="State",values_to="p")
   exp_long$State <- ordered(exp_long$State,levels=States)
 
   ## Set up Y placement based on number of categories
   YY1 <- 1 + ((nstates-1):0)/(2*nstates)
   YY2 <- .5 + ((nstates-1):0)/(2*nstates)
-  cat(YY1,"\n")
-  cat(YY2,"\n")
 
   lattice::barchart(form,data=exp_long,
                     groups=exp_long$State,auto.key=key,stack=TRUE,

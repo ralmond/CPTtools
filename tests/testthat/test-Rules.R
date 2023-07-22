@@ -74,6 +74,26 @@ test_that("default alphas", {
                c(S1=1,S2=1))
   expect_equal(defaultAlphas(OffsetConjunctive,c("S1","S2")),
                1)
+  expect_equal(
+    defaultAlphas("Compensatory",c("S1","S2"),c("Yes","Maybe","No")),
+    list(Yes=c(S1=1,S2=1),Maybe=c(S1=1,S2=1)))
+  
+  expect_equal(
+    defaultAlphas("Compensatory",c("S1","S2"),c("Yes","Maybe","No"),
+                  "gradedResponse"),
+    c(S1=1,S2=1))
+  
+  expect_equal(
+    defaultAlphas("Compensatory",c("S1","S2"),c("Yes","Maybe","No"),
+                  "normalLink"),
+    c(S1=1,S2=1))
+
+  expect_equal(
+    defaultAlphas("OffsetConjunctive",c("S1","S2"),
+                c("Yes","Maybe","No"),"gradedResponse"),
+    1)
+  
+  
 })
 
 test_that("default betas", {
@@ -81,6 +101,24 @@ test_that("default betas", {
                0)
   expect_equal(defaultBetas(OffsetConjunctive,c("S1","S2")),
                c(S1=0,S2=0))
+  expect_equal(
+    defaultBetas("Compensatory",c("S1","S2"),c("Yes","Maybe","No")),
+    list(Yes=0, Maybe=0))
+
+  expect_equal(  
+    defaultBetas("Compensatory",c("S1","S2"),c("Yes","Maybe","No"),
+                 "gradedResponse"),
+    list(Yes=0, Maybe=0))
+  
+  expect_equal(
+    defaultBetas("Compensatory",c("S1","S2"),c("Yes","Maybe","No"),
+               "normalLink"),
+    0)
+  
+  expect_equal(
+    defaultBetas("OffsetConjunctive",c("S1","S2"),
+               c("Yes","Maybe","No"),"gradedResponse"),
+    list(Yes=c(S1=0,S2=0),Maybe=c(S1=0,S2=0)))
   
 })
 

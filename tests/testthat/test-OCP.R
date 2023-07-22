@@ -49,6 +49,8 @@ test_that("OCP2", {
 })
 
 test_that("OCP.CPF", {
+  
+  set.seed(1223344567) # So plots are consistent.
   skill1l <- c("High","Medium","Low") 
   skill2l <- c("High","Medium","Low","LowerYet") 
   correctL <- c("Correct","Incorrect") 

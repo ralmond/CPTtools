@@ -52,10 +52,10 @@
 <rect x='64.00' y='75.43' width='96.32' height='404.27' style='stroke-width: 0.75; fill: #D2691E;' />
 <rect x='160.32' y='75.43' width='302.59' height='404.27' style='stroke-width: 0.75; fill: #D28C5A;' />
 <rect x='462.92' y='75.43' width='96.32' height='404.27' style='stroke-width: 0.75; fill: #D2AF96;' />
-<text x='79.67' y='213.68' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='327.83' y='348.39' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>
-<line x1='67.52' y1='210.19' x2='100.32' y2='210.19' style='stroke-width: 0.75;' />
-<line x1='279.68' y1='344.95' x2='375.37' y2='344.95' style='stroke-width: 0.75;' />
+<text x='84.57' y='213.68' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>2</text>
+<text x='308.22' y='348.39' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='5.56px' lengthAdjust='spacingAndGlyphs'>1</text>
+<line x1='69.96' y1='210.19' x2='107.57' y2='210.19' style='stroke-width: 0.75;' />
+<line x1='260.33' y1='344.95' x2='356.23' y2='344.95' style='stroke-width: 0.75;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <rect x='29.34' y='35.01' width='564.56' height='485.12' style='stroke-width: 0.75;' />

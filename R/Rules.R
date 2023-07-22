@@ -115,19 +115,38 @@ isOffsetRule <- function (rl) {
   return(FALSE)
 }
 
-defaultAlphas <- function (rule,pnames) {
+defaultAlphas <- function (rule,pnames,states=c("Yes","No"),
+                           link="partialCredit") {
   if (is.function(rule)) rule <- deparse(substitute(rule))
-  if (isOffsetRule(rule)) return(1)
-  alphas <- rep(1,length(pnames))
-  names(alphas) <- pnames
+  if (is.function(link)) link <- deparse(substitute(link))
+  if (isOffsetRule(rule)) alphas <- 1
+  else {
+    alphas <- rep(1,length(pnames))
+    names(alphas) <- pnames
+  }
+  if (length(states)>2L && link=="partialCredit") {
+    states <- states[-length(states)]
+    alphas <- lapply(states, function(s) alphas)
+    names(alphas) <- states
+  }
   alphas
 }
 
-defaultBetas <- function (rule,pnames) {
+defaultBetas <- function (rule,pnames,states=c("Yes","No"),
+                          link=partialCredit) {
   if (is.function(rule)) rule <- deparse(substitute(rule))
-  if (!isOffsetRule(rule)) return(0)
-  betas <- rep(0,length(pnames))
-  names(betas) <- pnames
+  if (is.function(link)) link <- deparse(substitute(link))
+  if (!isOffsetRule(rule)) betas <- 0
+  else {
+    betas <- rep(0,length(pnames))
+    names(betas) <- pnames
+  }
+  if (length(states)>2L && link!="normalLink") {
+    states <- states[-length(states)]
+    betas <- lapply(states, function(s) betas)
+    names(betas) <- states
+  }
+  
   betas
 }
 
