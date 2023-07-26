@@ -25,18 +25,23 @@ test_that("Compensatory", {
                c(1,0,-1,0,-1,-2,-1,-2,-3))
   expect_equal(Compensatory(thetas,sqrt(c(8,2)),0),
                c(3,1,-1,2,0,-2,1,-1,-3))
-})
+  ## Zero parent case
+  expect_equal(Compensatory(matrix(NA,1,0),numeric(),-1),1)
+  })
 test_that("Conjunctive", {
   thetas <- data.frame(S1=rep(c(1,0,-1),3),S2=rep(c(1,0,-1),each=3))
   expect_equal(Conjunctive(thetas,c(1,1),0),
                c(1,0,-1,0,0,-1,-1,-1,-1))
+  expect_equal(Conjunctive(matrix(NA,1,0),numeric(),-2),2)
 })
 
 test_that("Disjunctive", {
   thetas <- data.frame(S1=rep(c(1,0,-1),3),S2=rep(c(1,0,-1),each=3))
   expect_equal(Disjunctive(thetas,c(1,1),0),
                c(1,1,1,1,0,0,1,0,-1))
+  expect_equal(Disjunctive(matrix(NA,1,0),numeric(),-3),3)
 })
+
 test_that("OffsetConjuctive", {
   thetas <- data.frame(S1=rep(c(1,0,-1),3),S2=rep(c(1,0,-1),each=3))
   expect_equal(OffsetConjunctive(thetas,1,c(0,0)),

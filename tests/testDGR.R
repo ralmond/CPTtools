@@ -4,30 +4,6 @@ skill1 <- c("High","Med","Low")
 skill2 <- c("High","Med","Low")
 troph <- c("Gold","Silver","None")
 
-calcDPCFrame(list(skill1),troph,list(log(.5),log(1)),list(1,-1),
-             link="gradedResponse")
-calcDPCFrame(list(skill1),troph,list(log(.5),log(.01)),list(1,-1),
-             link="gradedResponse")
-calcDPCFrame(list(skill1),troph,list(log(.5),log(.5)),list(1,1),
-             link="gradedResponse")
-
-calcDPCFrame(list(skill1,skill2),troph,log(c(.8,.8)),list(1,-1),
-             rules="Compensatory", link="gradedResponse")
-
-
-
-calcDPCFrame(list(skill1),troph,list(log(.5),log(1)),list(1,-1))
-calcDPCFrame(list(skill1),troph,list(log(.5),log(1)),list(-1,-1))
-calcDPCFrame(list(skill1),troph,list(log(.5),log(.01)),list(1,-1))
-calcDPCFrame(list(skill1),troph,list(log(.01),log(.5)),list(0,-1))
-calcDPCFrame(list(skill1),troph,list(log(.5),log(.5)),list(1,1))
-calcDPCFrame(list(skill1),troph,list(log(.5),log(.01)),list(1,0))
-
-
-cbind(expand.grid(1:3,1:3),
-      theta=OffsetConjunctive(expand.grid(1:3,1:3),-1,c(0,.5)))
-cbind(expand.grid(1:3,1:3),
-      theta=OffsetDisjunctive(expand.grid(1:3,1:3),-1,c(0,.5)))
 
 testFit <- function(pLevels,obsLevels,trueLnAlphas,trueBetas,
                     priorLnAlphas,priorBetas, weights=1000,
@@ -95,14 +71,6 @@ testFit <- function(pLevels,obsLevels,trueLnAlphas,trueBetas,
 tf1 <- testFit(list(skill1),troph,list(log(1),log(.25)),list(2,-.5),
                list(log(.5),log(.5)),list(1,-1),tol=.001)
 
-
-### Test to make sure zero-parent compenstaory model works.
-et1 <- Compensatory(matrix(NA,1,0),numeric(),-1)
-et2 <- Conjunctive(matrix(NA,1,0),numeric(),-2)
-et3 <- Disjunctive(matrix(NA,1,0),numeric(),-3)
-stopifnot(all.equal(et1,1),
-          all.equal(et2,2),
-          all.equal(et3,3))
 
 
 ### Test of offset conjuctive model
@@ -183,7 +151,4 @@ lnks0 <- 1
 mapth0 <- mapDPC(pt0,sl0,ol0,la0,bs0,rules0,lnk0,lnks0,control=list(maxit=5))
 stopifnot(mapth0$linkScale>0)
 
-stopifnot(all.equal(Compensatory(data.frame(), numeric(0), 0),0))
-stopifnot(all.equal(normalLink(matrix(0,1,2), 1, c("Low", "Med", "High")),
-                    matrix(1/3,1,3),check.attributes=FALSE))
 

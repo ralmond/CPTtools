@@ -49,27 +49,31 @@ test_that("OCP2", {
 })
 
 test_that("OCP.CPF", {
-  
-  set.seed(1223344567) # So plots are consistent.
-  skill1l <- c("High","Medium","Low") 
-  skill2l <- c("High","Medium","Low","LowerYet") 
-  correctL <- c("Correct","Incorrect") 
-  pcreditL <- c("Full","Partial","None")
-  gradeL <- c("A","B","C","D","E") 
+
+  ## Random numbers appear different on different platforms
+  ## So we will grab this from a file instead.
+  load(testthat::test_path("OCPdat.RData"))  
+  #set.seed(1223344567) # So plots are consistent.
+  # skill1l <- c("High","Medium","Low") 
+  # skill2l <- c("High","Medium","Low","LowerYet") 
+  # correctL <- c("Correct","Incorrect") 
+  # pcreditL <- c("Full","Partial","None")
+  # gradeL <- c("A","B","C","D","E") 
+
   
   cpfTheta <- calcDPCFrame(list(),skill1l,numeric(),0,rule="Compensatory",
                            link="normalLink",linkScale=.5)
   
   ## Compatible data  
-  datTheta <- cpfTheta ## Copy to get the shape
-  datTheta[1,] <- rmultinom(1,25,cpfTheta[1,])
+  # datTheta <- cpfTheta ## Copy to get the shape
+  # datTheta[1,] <- rmultinom(1,25,cpfTheta[1,])
   
   vdiffr::expect_doppelganger("ocp cpf no par compatible",
                               OCP.CPF(datTheta,cpfTheta))
   
   ## Incompatible data
-  datThetaX <- cpfTheta ## Copy to get the shape
-  datThetaX[1,] <- rmultinom(1,100,c(.05,.45,.5))
+  # datThetaX <- cpfTheta ## Copy to get the shape
+  # datThetaX[1,] <- rmultinom(1,100,c(.05,.45,.5))
   
  vdiffr::expect_doppelganger("ocp cpf no par incompatible",
                              OCP.CPF(datThetaX,cpfTheta))
@@ -84,15 +88,15 @@ test_that("OCP.CPF", {
                           lnAlphas=log(c(1.2,.8)), betas=0,
                           rule="Conjunctive")
   
-  datComp <- cptComp
-  for (i in 1:nrow(datComp))
-    ## Each row has a random sample size.
-    datComp[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1),cptComp[i,3:4])
-  
-  datConj <- cptConj
-  for (i in 1:nrow(datConj))
-    ## Each row has a random sample size.
-    datConj[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1),cptConj[i,3:4])
+  # datComp <- cptComp
+  # for (i in 1:nrow(datComp))
+  #   ## Each row has a random sample size.
+  #   datComp[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1),cptComp[i,3:4])
+  # 
+  # datConj <- cptConj
+  # for (i in 1:nrow(datConj))
+  #   ## Each row has a random sample size.
+  #   datConj[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1),cptConj[i,3:4])
   
   ## Compatible
   vdiffr::expect_doppelganger("ocp cpf binary compatible",
@@ -113,15 +117,15 @@ test_that("OCP.CPF", {
                          rule="OffsetDisjunctive")
   
   
-  datPC1 <- cptPC1
-  for (i in 1:nrow(datPC1))
-    ## Each row has a random sample size.
-    datPC1[i,3:5] <- rmultinom(1,rnbinom(1,mu=25,size=1),cptPC1[i,3:5])
-  
-  datPC2 <- cptPC2
-  for (i in 1:nrow(datPC2))
-    ## Each row has a random sample size.
-    datPC2[i,3:5] <- rmultinom(1,rnbinom(1,mu=25,size=1),cptPC2[i,3:5])
+  # datPC1 <- cptPC1
+  # for (i in 1:nrow(datPC1))
+  #   ## Each row has a random sample size.
+  #   datPC1[i,3:5] <- rmultinom(1,rnbinom(1,mu=25,size=1),cptPC1[i,3:5])
+  # 
+  # datPC2 <- cptPC2
+  # for (i in 1:nrow(datPC2))
+  #   ## Each row has a random sample size.
+  #   datPC2[i,3:5] <- rmultinom(1,rnbinom(1,mu=25,size=1),cptPC2[i,3:5])
   
   ## Compatible
   vdiffr::expect_doppelganger("ocp cpf trinary compatible",
@@ -135,6 +139,49 @@ test_that("OCP.CPF", {
 })
 
 test_that("cptChi2", {
+  ## Random numbers appear different on different platforms
+  ## So we will grab this from a file instead.
+  load(testthat::test_path("OCPdat.RData"))  
+  cpfTheta <- calcDPCFrame(list(),skill1l,numeric(),0,rule="Compensatory",
+                           link="normalLink",linkScale=.5)
+  ## Compatible data  
+  x2 <- cptChi2(datTheta,cpfTheta)
+  testthat::expect_lt(as.numeric(x2),qchisq(.95,attr(x2,"d.f.")))
+  
+  ## Incompatible data
+  x2x <- cptChi2(datThetaX,cpfTheta)
+  testthat::expect_gt(as.numeric(x2x),qchisq(.95,attr(x2x,"d.f.")))
+  
+  cptComp <- calcDPCFrame(list(S2=skill2l,S1=skill1l),correctL,
+                          lnAlphas=log(c(1.2,.8)), betas=0,
+                          rule="Compensatory")
+  
+  cptConj <- calcDPCFrame(list(S2=skill2l,S1=skill1l),correctL,
+                          lnAlphas=log(c(1.2,.8)), betas=0,
+                          rule="Conjunctive")
+  ## Compatible
+  x2 <- cptChi2(datConj,cptConj)
+  testthat::expect_lt(as.numeric(x2),qchisq(.95,attr(x2,"d.f.")))
+
+  ## Incompatible
+  x2x <- cptChi2(datComp,cptConj)
+  testthat::expect_gt(as.numeric(x2x),qchisq(.95,attr(x2x,"d.f.")))
+  
+  cptPC1 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,
+                         lnAlphas=log(1),
+                         betas=list(full=c(S1=0,S2=999),partial=c(S2=999,S2=0)),
+                         rule="OffsetDisjunctive")
+  cptPC2 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,
+                         lnAlphas=log(1),
+                         betas=list(full=c(S1=0,S2=999),partial=c(S2=1,S2=0)),
+                         rule="OffsetDisjunctive")
+  ## Compatible
+  x2 <- cptChi2(datPC1,cptPC1)
+  testthat::expect_lt(as.numeric(x2),qchisq(.95,attr(x2,"d.f.")))
+
+  ## Incompatible
+  x2x <- cptChi2(datPC2,cptPC1)
+  testthat::expect_gt(as.numeric(x2x),qchisq(.95,attr(x2x,"d.f.")))
   
 })
 
