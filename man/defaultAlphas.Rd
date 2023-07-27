@@ -13,7 +13,7 @@
 }
 \usage{
 defaultAlphas(rule, pnames, states=c("Yes","No"), 
-
+             link="partialCredit")
 defaultBetas(rule, pnames, states=c("Yes","No"), 
              link="partialCredit")
 }
@@ -72,7 +72,7 @@ defaultBetas(rule, pnames, states=c("Yes","No"),
 
 }
 \seealso{
-  \code{\link{calcDPCtable}}, \code{\link{getOffsetRules}},
+  \code{\link{calcDPCTable}}, \code{\link{getOffsetRules}},
   \code{\link{partialCredit}}, \code{\link{gradedResponse}},
   \code{\link{normalLink}}
 }

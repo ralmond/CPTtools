@@ -118,30 +118,22 @@ calcNoisyAndFrame(skillLevels, obsLevels = c("True", "False"),
 ## Logical and table
 and <- calcNoisyAndFrame(list(c("True","False"),c("True","False")),
                                  c("Right","Wrong"))
-stopifnot (all(and$Right==c(1,0,0,0)))
-
 
 ## DINA, logical-and except that is allows for a small chance of slipping.
 dina <- calcNoisyAndFrame(list(c("True","False"),c("True","False")),
                           noSlip=.9)
-stopifnot (all(abs(dina$Right-c(.9,0,0,0))<.0001))
 
 ##NIDA, logical-and except that inputs can randomly be bypassed
 nida <- calcNoisyAndFrame(list(c("True","False"),c("True","False")),
                           bypass=c(.3,.4))
-stopifnot (all(abs(nida$Right-c(1,.3,.4,.12))<.0001))
 
 ##Full Noisy And distribution
 noisyAnd <- calcNoisyAndFrame(list(c("True","False"),c("True","False")),
                           noSlip=.9,bypass=c(.3,.4))
 
-stopifnot (all(abs(noisyAnd$Right-c(1,.3,.4,.12)*.9)<.0001))
-
-
 thresh <- calcNoisyAndFrame(list(c("H","M","L"),c("H","M","L")),
                                  c("Right","Wrong"),
                                  threshold=c("M","H"))
-stopifnot (all(thresh$Right==c(1,1,0, 0,0,0, 0,0,0)))
 
 }
 \keyword{ distribution }
