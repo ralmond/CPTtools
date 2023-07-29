@@ -21,7 +21,7 @@ RoxygenNote: 7.1.1
 URL: http://pluto.coe.fsu.edu/RNetica
 Depends: 
     methods,
-    R (>= 2.10)
+    R (>= 3.5.0)
 Imports: grDevices, graphics, stats, utils, einsum, tidyr, dplyr
 Suggests: 
     ggplot2,
