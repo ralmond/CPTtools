@@ -74,14 +74,7 @@ calcDNllike(data, parents, skillLevels, child, obsLevels,
 
   x <- read.csv(system.file("testFiles", "randomPinned100.csv", 
                 package="CPTtools"),
-              header=FALSE, as.is=TRUE,
-              col.names = c("Skill1", "Skill2", "Skill3",
-                "Comp.Correct", "Comp.Grade",
-                "Conj.Correct", "Conj.Grade",
-                "Cor.Correct", "Cor.Grade",
-                "Dis.Correct", "Dis.Grade",
-                "Inhib.Correct", "Inhib.Grade"
-                ))
+              header=TRUE, as.is=TRUE)
   x[,"Skill1"] <- ordered(x[,"Skill1"],skill1l)
   x[,"Skill3"] <- ordered(x[,"Skill3"],skill3l)
   x[,"Comp.Correct"] <- ordered(x[,"Comp.Correct"],correctL)

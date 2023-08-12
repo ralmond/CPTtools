@@ -32,6 +32,7 @@ Suggests:
     googlesheets4,
     cowplot,
     vdiffr,
+    withr,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Support: c(

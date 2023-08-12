@@ -28,7 +28,7 @@ calcDSTable <- function (skillLevels, obsLevels, lnAlphas, beta, dinc=0,
     d <- 0
   }
   #print(d)
-  pt <- 1/(1+exp(outer(-1.7*etheta,d,"+")))
+  pt <- 1/(1+exp(-1.7*outer(etheta,d,"-")))
   pt <- cbind(0,pt,1)
   #print(pt)
   probs <- pt[,2:(k+1)]-pt[,1:k]
@@ -78,7 +78,7 @@ calcDNTable <- function (skillLevels, obsLevels, lnAlphas, beta, std,
   pt <- pnorm(outer(-etheta,cuts,"+")/exp(std))
   pt <- cbind(1,pt,0)
   #print(pt)
-  probs <- pt[,1:k]-pt[,2:(k+1)]
+  probs <- pt[,1:k,drop=FALSE]-pt[,2:(k+1),drop=FALSE]
   dimnames(probs) <- list(NULL,obsLevels)
   #print(data.frame(expand.grid(skillLevels),probs))
   probs
@@ -87,9 +87,13 @@ calcDNTable <- function (skillLevels, obsLevels, lnAlphas, beta, std,
 
 calcDNFrame <- function (skillLevels, obsLevels, lnAlphas, beta, std,
                          rule="Compensatory") {
-  result <- data.frame(expand.grid(skillLevels),
-                       calcDNTable(skillLevels,paste(obsLevels),
-                                   lnAlphas,beta,std,rule))
+  result<- calcDNTable(skillLevels,paste(obsLevels),
+                         lnAlphas,beta,std,rule)
+  if (length(skillLevels) > 0L) {
+    result <- data.frame(expand.grid(skillLevels),result)
+  } else {
+    result <- data.frame(result)
+  }
   if (is.numeric(obsLevels) ||
       names(result)[length(skillLevels)+1]!=paste(obsLevels[1])) {
     ## R is "helpfully" fixing our numeric labels.  Need to insist.
