@@ -62,6 +62,14 @@ calcDNllike(data, parents, skillLevels, child, obsLevels,
 \note{
   This function is primarily about testing the log likelihood
   calculations used internally in StatShop.
+  
+  This function is largely superceeded by the likelihood calculation internal
+  to \code{\link{mapDPC}}.  In particular, if \code{probs} is the result of the 
+  call to \code{\link{calcDPCTable}}, and \code{postTable} is the expected 
+  contingency table (e.g., the output of \code{\link{expTable}}).  Then the 
+  log likelihood is
+  \code{-2*sum(as.vector(postTable)*as.vector(log(probs)))}.
+  
 }
 \seealso{\code{\link{dataTable}}, \code{\link{calcDSTable}},
   \code{\link{Compensatory}},\code{\link{OffsetConjunctive}},

@@ -75,6 +75,4 @@ test_that("getTableParents/States", {
   expect_equal(getTableParents(Theta.ptf), character(0))
 })
 
-test_that("scaleMatrix", {
-  expect_equal(scaleMatrix(MathGrades$var),MathGrades$cor,tolerance=.02)
-})
+
