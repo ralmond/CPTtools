@@ -4,7 +4,7 @@
 \title{Produces a simplex plot of probability vectors.}
 \description{
 
-  A $K$ dimensional probability vector likes on a $(K-1)$-simplex.
+  A \eqn{K} dimensional probability vector likes on a \eqn{(K-1)}-simplex.
   This simplex can be projected onto 2-dimension, with vertices
   corresponding to the state of the variable
   (\code{simplex_vertex_projection} calculates these co-ordinates).

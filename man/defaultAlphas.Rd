@@ -46,7 +46,7 @@ defaultBetas(rule, pnames, states=c("Yes","No"),
   corresponding to the _transitions_ between the states (so the
   length of the list is one less than the length of \code{states}).
   
-  The rules are as follows:
+  The shape of the result is as follows:
   \describe{
     \item{partialCredit}{With this link function both alphas and 
       betas will be lists if the number of states is greater 

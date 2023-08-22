@@ -115,6 +115,7 @@ isOffsetRule <- function (rl) {
   return(FALSE)
 }
 
+## TODO:  Need to deal with case where rules is a list.
 defaultAlphas <- function (rule,pnames,states=c("Yes","No"),
                            link="partialCredit") {
   if (is.function(rule)) rule <- deparse(substitute(rule))

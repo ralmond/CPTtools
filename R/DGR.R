@@ -16,7 +16,7 @@
 ### rule --- Function for computing effective theta.  This should have the
 ### signature   function(thetas,alphas,beta)
 
-### The first one in the list representes the difference between the
+### The first one in the list represents the difference between the
 ### highest and next lowest obs state, and so forth.
 calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
                           rules="Compensatory", link="partialCredit",
@@ -39,8 +39,8 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
 
   p <- length(skillLevels)
   if (length(Q)==1) {
-    Q <- matrix(TRUE,k-1,min(p,1))
-  } else if (!is.matrix(Q) || nrow(Q) != k-1 || ncol(Q) != p) {
+    Q <- matrix(TRUE,k-1L,max(p,1L))
+  } else if (!is.matrix(Q) || nrow(Q) != k-1L || ncol(Q) != p) {
     stop("Q must be a",k-1,"by",p,"matrix.")
   }
 
@@ -51,9 +51,18 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
 
   et <- matrix(0,nrow(thetas),k-1) #Take care of no parent case
   for (kk in 1:(k-1)) {
-    et[,kk] <- do.call(rules[[kk]],
-                      list(thetas[,Q[kk,],drop=FALSE],
-                           exp(lnAlphas[[kk]]),betas[[kk]]))
+    a <- exp(lnAlphas[[kk]])
+    b <- betas[[kk]]
+    npar <- sum(Q[kk,])
+    rul <- rules[[kk]]
+    if (npar > 1L) {
+      if (isOffsetRule(rul)) {
+        if (length(b)==1L) b <- rep(b,npar)
+      } else {
+        if (length(a)==1L) a <- rep(a,npar)
+      }
+    }
+    et[,kk] <- do.call(rul,list(thetas[,Q[kk,],drop=FALSE],a,b))
   }
   do.call(link,list(et,linkScale,obsLevels))
 }
