@@ -59,7 +59,8 @@ calcDPCTable <- function (skillLevels, obsLevels, lnAlphas, betas,
       if (isOffsetRule(rul)) {
         if (length(b)==1L) b <- rep(b,npar)
       } else {
-        if (length(a)==1L) a <- rep(a,npar)
+        if (length(a)==1L) 
+          a <- rep(a,npar)
       }
     }
     et[,kk] <- do.call(rul,list(thetas[,Q[kk,],drop=FALSE],a,b))
