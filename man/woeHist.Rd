@@ -8,21 +8,24 @@
    
 }
 \usage{
-woeHist(hist, pos, neg)
+woeHist(hist, pos=1L, neg=NULL)
 }
 \arguments{
   \item{hist}{A matrix whose rows represent time points (after tests)
     and columns represent probabilities.}
-  \item{pos}{Names or numbers of states which should be regarded as
-    \dQuote{positive}}
-  \item{neg}{Names or numbers of states which should be regarded as
-    \dQuote{negative}}
+  \item{pos}{An expression for selecting rows of the \code{cpf} 
+    which corresponds to the hypothesis.}
+  \item{neg}{An expression for selecting the rows corresponding to
+    the complement of the hypothesis. (The default value is 
+    \code{-pos} if \code{pos} is numeric; \code{!pos} if \code{pos}
+    is logical, and \code{setdiff(rownames(cpf),pos} if \code{pos} 
+    is a character vector.}
 }
 \details{
   Good (1971) defines the \dfn{Weight Of Evidence (WOE)} as:
-  \deqn{ 100 \log_10 \frac{\Pr(E|H)}{\Pr(E|\overline H)} =
-    100 \left [\log_10 \frac{\Pr(H|E)}{\Pr(\overline H|E)}
-    - \log_10 \frac{\Pr(H)}{\Pr(\overline H)} \right ]}{%
+  \deqn{ 100 \log_{10} \frac{\Pr(E|H)}{\Pr(E|\overline H)} =
+    100 \left [\log_{10} \frac{\Pr(H|E)}{\Pr(\overline H|E)}
+    - \log_{10} \frac{\Pr(H)}{\Pr(\overline H)} \right ]}{%
     100 log10 Pr(E|H)/Pr(E| not H) =
     100 [ log10 Pr(H|E)/Pr(not H|E) - log10 Pr(H)/Pr(not H)}
   Where \eqn{\overline H}{not H} is used to indicate the negation of the
@@ -60,11 +63,12 @@ woeHist(hist, pos, neg)
 \seealso{\code{\link{readHistory}}, \code{\link{woeBal}},
   \code{\link[base]{diff}} }
 \examples{
-\dontrun{
-  allcorrect <- parseProbVec("CorrectSequence.csv")
-  woeHist(allcorrect,c("High"),c("Medium","Low"))
+  testFiles <- system.file("testFiles",package="CPTtools")
+  allcorrect <- readHistory(read.csv(file.path(testFiles,
+     "CorrectSequence.csv"),as.is=TRUE),
+     probcol="Margin.sequences.")
+  woeHist(allcorrect,"High",c("Medium","Low"))
   woeHist(allcorrect,1:2,3)
-}
 }
 \keyword{math}% at least one, from doc/KEYWORDS
 

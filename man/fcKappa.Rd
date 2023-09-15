@@ -1,6 +1,7 @@
 \name{fcKappa}
 \alias{fcKappa}
 \alias{gkLambda}
+\alias{accuracy}
 \title{Functions for measuring rater agreement.}
 \description{
 
@@ -15,6 +16,7 @@
 \usage{
 fcKappa(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
 gkLambda(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
+accuracy(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
 }
 \arguments{
   \item{tab}{A square matrix whose rows and columns represent rating
@@ -51,7 +53,7 @@ gkLambda(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
 
   In both cases, \eqn{\sum{p_{kk}}}, is a measure of agreement between
   the two raters.  If scaled as probabilities, the highest possible
-  agreement is \eqn{+1} and the lowest \eqn{0}.
+  agreement is \eqn{+1} and the lowest \eqn{0}.  This is the \code{accuracy} function.
 
   However, raw agreement has a problem as a measure of the quality of a
   rating, it depends on the distributions of the categories in the

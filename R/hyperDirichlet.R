@@ -70,11 +70,11 @@ getTableStates <- function (table) {
 "numericPart" <-
 function(table) {
   which <- sapply(table,is.numeric)
-  as.matrix(table[,which])
+  as.matrix(table[,which,drop=FALSE])
 }
 
 "factorPart" <-
 function(table) {
   which <- sapply(table,is.factor)
-  table[,which]
+  table[,which,drop=FALSE]
 }

@@ -107,31 +107,25 @@ calcNoisyOrFrame(skillLevels, obsLevels = c("True", "False"),
 ## Logical or table
 or <- calcNoisyOrFrame(list(c("True","False"),c("True","False")),
                                  c("Right","Wrong"))
-stopifnot (all(or$Right==c(1,1,1,0)))
 
 
 ## DINO, logical-or except that is allows for a small chance of slipping.
 dino <- calcNoisyOrFrame(list(c("True","False"),c("True","False")),
                           noGuess=.9)
-stopifnot (all(abs(dino$True-c(1.0,1.0,1.0,.1))<.0001))
 
 
 ##NIDO, logical-or except that inputs can randomly be bypassed
 nido <- calcNoisyOrFrame(list(c("True","False"),c("True","False")),
                           suppression=c(.3,.4))
-stopifnot (all(abs(nido$True-c(.88,.6,.7,0))<.0001))
 
 ##Full Noisy Or distribution
 noisyOr <- calcNoisyOrFrame(list(c("True","False"),c("True","False")),
                           noGuess=.9,suppression=c(.3,.4))
 
-stopifnot (all(abs(noisyOr$False-c(.12,.4,.3,1)*.9)<.0001))
-
 
 thresh <- calcNoisyOrFrame(list(c("H","M","L"),c("H","M","L")),
                                  c("Right","Wrong"),
                                  threshold=c("M","H"))
-stopifnot (all(thresh$Right==c(1,1,1, 1,1,0, 1,1,0)))
 
 }
 \keyword{ distribution }

@@ -9,7 +9,7 @@
 ### obsLevel --- a list of names of the observables, assume to be
 ### sorted from highest to lowest.
 
-### It returns a conditional probility table.
+### It returns a conditional probability table.
 
 partialCredit <- function (et,linkScale=NULL,obsLevels=NULL) {
   m <- ncol(et)+1

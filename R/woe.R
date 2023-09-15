@@ -30,31 +30,34 @@ function (splitrow) {
 
 
 ## Reads in from Larry's spreadsheet
-readHistory <- function (csvfile) {
-  rawdata <- read.csv(csvfile,as.is=TRUE)
-  seq <- parseProbVec(rawdata$Result)
-  row.names(seq) <- sub('.xml$','',rawdata$Item)
+readHistory <- function (histdat, obscol="Item", valcol="Result",
+                         probcol="Probability") {
+  seq <- parseProbVec(histdat[[probcol]])
+  row.names(seq) <- paste(histdat[[obscol]],histdat[[valcol]],
+                          sep="=")
   seq
 }
 
-woeHist <- function (hist, pos, neg) {
-  if (length(pos) >1) {
-    ppos <- apply(hist[,pos],1,sum)
-  } else {
-    ppos <- hist[,pos]
+woeHist <- function (hist, pos=1L, neg=NULL) {
+  if (missing(neg) || is.null(neg)) {
+    if (is.numeric(pos)) neg <- -pos
+    else if (is.logical(pos)) neg <- !pos
+    else if (is.character(pos) && !is.null(colnames(hist))) {
+      neg <- setdiff(colnames(hist),pos)
+    } else {
+      stop("Hypothesis not properly specified.")
+    }
   }
-  if (length(neg) >1) {
-    pneg <- apply(hist[,neg],1,sum)
-  } else {
-    pneg <- hist[,neg]
-  }
+  ppos <- apply(hist[,pos,drop=FALSE],1,sum)
+  pneg <- apply(hist[,neg,drop=FALSE],1,sum)
   ## Centiban units
   lodds <- 100*log10(ppos/pneg)
   diff(lodds)
 }
 
 
-woeBal <- function (hist, pos, neg, obs=NULL, title="Evidence Balance Sheet",
+woeBal <- function (hist, pos=1L, neg=NULL, 
+                    obs=NULL, title="Evidence Balance Sheet",
                     col=rev(colorspread("slategray",ncol(hist),maxsat=TRUE)),
                     posCol="cyan",negCol="red",
                     stripCol=c("white","lightgray"),

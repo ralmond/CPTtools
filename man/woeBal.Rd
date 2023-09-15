@@ -14,10 +14,13 @@ woeBal(hist, pos, neg, obs=NULL, title = "Evidence Balance Sheet",
 \arguments{
   \item{hist}{A matrix whose rows represent time points (after tests)
     and columns represent probabilities.}
-  \item{pos}{Names or numbers of states which should be regarded as
-    \dQuote{positive}}
-  \item{neg}{Names or numbers of states which should be regarded as
-    \dQuote{negative}}
+  \item{pos}{An expression for selecting rows of the \code{cpf} 
+    which corresponds to the hypothesis.}
+  \item{neg}{An expression for selecting the rows corresponding to
+    the complement of the hypothesis. (The default value is 
+    \code{-pos} if \code{pos} is numeric; \code{!pos} if \code{pos}
+    is logical, and \code{setdiff(rownames(cpf),pos} if \code{pos} 
+    is a character vector.}
   \item{obs}{An optional character vector of the same length as the
     number of rows of \code{hist} giving the value observed at each step}
   \item{title}{Title for plot}

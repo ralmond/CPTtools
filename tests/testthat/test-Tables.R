@@ -198,5 +198,27 @@ test_that("normalize.CPF", {
 })
 
 test_that("dataTable",{
+  skill1l <- c("High","Medium","Low")
+  skill3l <- c("High","Better","Medium","Worse","Low")
+  correctL <- c("Correct","Incorrect")
   
+  x <- read.csv(system.file("testFiles", "randomPinned100.csv",
+                            package="CPTtools"),
+                header=FALSE, as.is=TRUE,
+                col.names = c("Skill1", "Skill2", "Skill3",
+                              "Comp.Correct", "Comp.Grade",
+                              "Conj.Correct", "Conj.Grade",
+                              "Cor.Correct", "Cor.Grade",
+                              "Dis.Correct", "Dis.Grade",
+                              "Inhib.Correct", "Inhib.Grade"
+                ))
+  x[,"Skill1"] <- ordered(x[,"Skill1"],skill1l)
+  x[,"Skill3"] <- ordered(x[,"Skill3"],skill3l)
+  x[,"Comp.Correct"] <- ordered(x[,"Comp.Correct"],correctL)
+  
+  
+  tab <- dataTable(x, c("Skill1","Skill3"),"Comp.Correct",correctL)
+  expect_equal(dim(tab),c(15L,2L))
+  expect_equal(colSums(tab),c(Correct=77,Incorrect=23))
+  expect_equal(tab[1,],c(Correct=21,Incorrect=0))
 })

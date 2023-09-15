@@ -119,6 +119,10 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   models are not inverses.  For those model, the function 
   \code{\link{calcDNTable}}, which uses a probit link function, is
   recommended instead. 
+  
+  This function has largely been superceeded by calls to \code{\link{calcDPCTable}} 
+  with \code{\link{gradedResponse}} as the link function.
+
 }
 \references{
   Almond, R.G., Mislevy, R.J., Steinberg, L.S., Williamson, D.M. and

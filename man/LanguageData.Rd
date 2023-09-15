@@ -10,7 +10,7 @@
   _Reading_, _Writing_, _Speaking_, and _Listening_, each of which can take on states 
   `Novice`, `Intermediate`, or `Advanced`.
   To estimate the reliability 1000 students were simulated from
-  the network (see \code{\link[Peanut]{NetworkTester}} and accuracy, using Maximum A Prior 
+  the network (see \code{\link[RNetica=NetworkTester-class]{NetworkTester}} and accuracy, using Maximum A Prior 
   estimates, (`Langauge_modal`) and expected accuracy (`Language_exp`) estimates were calculated. 
 
 }

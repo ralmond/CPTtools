@@ -1,3 +1,4 @@
+"Skill1","Skill2","Skill3","Comp.Correct","Comp.Grade","Conj.Correct","Conj.Grade","Cor.Correct","Cor.Grade","Dis.Correct","Dis.Grade","Inhib.Correct","Inhib.Grade"
 Medium,Low,Low,Correct,E,Correct,C,Correct,A,Correct,A,Incorrect,B
 Medium,Medium,Better,Correct,A,Incorrect,A,Correct,A,Correct,A,Incorrect,C
 Low,LowerYet,Low,Correct,D,Incorrect,E,Incorrect,E,Incorrect,D,Incorrect,E

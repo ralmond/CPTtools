@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMTkuMDF8MjQ2LjM0fDE5LjAxfDU3Ni4wMA=='>
+    <rect x='19.01' y='19.01' width='227.33' height='556.99' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMTkuMDF8MjQ2LjM0fDE5LjAxfDU3Ni4wMA==)'>
+<rect x='22.28' y='482.60' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+<rect x='22.28' y='448.59' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #D3D3D3;' />
+<rect x='22.28' y='414.59' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+<rect x='22.28' y='380.59' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #D3D3D3;' />
+<rect x='22.28' y='346.59' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+<rect x='22.28' y='312.59' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #D3D3D3;' />
+<rect x='22.28' y='278.58' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+<rect x='22.28' y='244.58' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #D3D3D3;' />
+<rect x='22.28' y='210.58' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+<rect x='22.28' y='176.58' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #D3D3D3;' />
+<rect x='22.28' y='142.58' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+<rect x='22.28' y='108.58' width='223.01' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #D3D3D3;' />
+<rect x='22.28' y='74.57' width='0.00' height='28.33' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+</g>
+<defs>
+  <clipPath id='cpMjAuMDV8MjQ1LjI5fDU3LjEyfDUyOC4zOA=='>
+    <rect x='20.05' y='57.12' width='225.24' height='471.27' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjAuMDV8MjQ1LjI5fDU3LjEyfDUyOC4zOA==)'>
+<text x='22.28' y='92.15' style='font-size: 9.90px; font-family: sans;' textLength='23.11px' lengthAdjust='spacingAndGlyphs'>Initial</text>
+<text x='22.28' y='126.15' style='font-size: 9.90px; font-family: sans;' textLength='75.41px' lengthAdjust='spacingAndGlyphs'>SolveGeoProb2a</text>
+<text x='22.28' y='160.15' style='font-size: 9.90px; font-family: sans;' textLength='75.41px' lengthAdjust='spacingAndGlyphs'>SolveGeoProb3a</text>
+<text x='22.28' y='194.15' style='font-size: 9.90px; font-family: sans;' textLength='75.41px' lengthAdjust='spacingAndGlyphs'>SolveGeoProb3b</text>
+<text x='22.28' y='228.15' style='font-size: 9.90px; font-family: sans;' textLength='75.41px' lengthAdjust='spacingAndGlyphs'>SolveGeoProb2b</text>
+<text x='22.28' y='262.16' style='font-size: 9.90px; font-family: sans;' textLength='63.84px' lengthAdjust='spacingAndGlyphs'>VisExtTable2a</text>
+<text x='22.28' y='296.16' style='font-size: 9.90px; font-family: sans;' textLength='75.41px' lengthAdjust='spacingAndGlyphs'>SolveGeoProb1a</text>
+<text x='22.28' y='330.16' style='font-size: 9.90px; font-family: sans;' textLength='75.41px' lengthAdjust='spacingAndGlyphs'>SolveGeoProb1b</text>
+<text x='22.28' y='364.16' style='font-size: 9.90px; font-family: sans;' textLength='80.36px' lengthAdjust='spacingAndGlyphs'>VisExtVerbRule2a</text>
+<text x='22.28' y='398.16' style='font-size: 9.90px; font-family: sans;' textLength='88.07px' lengthAdjust='spacingAndGlyphs'>ModExtTableGeo3a</text>
+<text x='22.28' y='432.17' style='font-size: 9.90px; font-family: sans;' textLength='73.21px' lengthAdjust='spacingAndGlyphs'>ExamplesGeo2a</text>
+<text x='22.28' y='466.17' style='font-size: 9.90px; font-family: sans;' textLength='85.31px' lengthAdjust='spacingAndGlyphs'>VisExplVerbRule3a</text>
+<text x='22.28' y='500.17' style='font-size: 9.90px; font-family: sans;' textLength='90.27px' lengthAdjust='spacingAndGlyphs'>VerbRuleModGeo3a</text>
+</g>
+<defs>
+  <clipPath id='cpMjQ2LjM0fDQ3My42NnwxOS4wMXw1NzYuMDA='>
+    <rect x='246.34' y='19.01' width='227.33' height='556.99' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjQ2LjM0fDQ3My42NnwxOS4wMXw1NzYuMDA=)'>
+<rect x='247.38' y='482.60' width='220.06' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='448.59' width='214.65' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='414.59' width='210.60' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='380.59' width='213.64' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='346.59' width='208.57' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='312.59' width='204.63' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='278.58' width='199.67' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='244.58' width='212.51' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='210.58' width='204.40' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='176.58' width='177.04' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='142.58' width='118.59' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='108.58' width='65.43' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<rect x='247.38' y='74.57' width='70.50' height='28.33' style='stroke-width: 0.75; fill: #708090;' />
+<text x='360.00' y='41.33' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='137.36px' lengthAdjust='spacingAndGlyphs'>EAP[ SolveGeometricProblems ]</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<line x1='247.38' y1='528.38' x2='472.62' y2='528.38' style='stroke-width: 0.75;' />
+<line x1='247.38' y1='528.38' x2='247.38' y2='533.14' style='stroke-width: 0.75;' />
+<line x1='303.69' y1='528.38' x2='303.69' y2='533.14' style='stroke-width: 0.75;' />
+<line x1='360.00' y1='528.38' x2='360.00' y2='533.14' style='stroke-width: 0.75;' />
+<line x1='416.31' y1='528.38' x2='416.31' y2='533.14' style='stroke-width: 0.75;' />
+<line x1='472.62' y1='528.38' x2='472.62' y2='533.14' style='stroke-width: 0.75;' />
+<text x='247.38' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='7.04px' lengthAdjust='spacingAndGlyphs'>-1</text>
+<text x='303.69' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>-0.5</text>
+<text x='360.00' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='4.41px' lengthAdjust='spacingAndGlyphs'>0</text>
+<text x='416.31' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='11.01px' lengthAdjust='spacingAndGlyphs'>0.5</text>
+<text x='472.62' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='4.41px' lengthAdjust='spacingAndGlyphs'>1</text>
+</g>
+<defs>
+  <clipPath id='cpMjQ3LjM4fDQ3Mi42Mnw1Ny4xMnw1MjguMzg='>
+    <rect x='247.38' y='57.12' width='225.24' height='471.27' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjQ3LjM4fDQ3Mi42Mnw1Ny4xMnw1MjguMzg=)'>
+<line x1='360.00' y1='528.38' x2='360.00' y2='57.12' style='stroke-width: 0.75;' />
+</g>
+<defs>
+  <clipPath id='cpNDczLjY2fDcwMC45OXwxOS4wMXw1NzYuMDA='>
+    <rect x='473.66' y='19.01' width='227.33' height='556.99' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNDczLjY2fDcwMC45OXwxOS4wMXw1NzYuMDA=)'>
+<rect x='587.33' y='482.60' width='5.41' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='587.33' y='448.59' width='4.05' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='584.29' y='414.59' width='3.04' height='28.33' style='stroke-width: 0.75; fill: #FF0000;' />
+<rect x='587.33' y='380.59' width='5.07' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='587.33' y='346.59' width='3.94' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='587.33' y='312.59' width='4.96' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='574.49' y='278.58' width='12.84' height='28.33' style='stroke-width: 0.75; fill: #FF0000;' />
+<rect x='587.33' y='244.58' width='8.11' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='587.33' y='210.58' width='27.37' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='587.33' y='176.58' width='58.45' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='587.33' y='142.58' width='53.16' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
+<rect x='582.26' y='108.58' width='5.07' height='28.33' style='stroke-width: 0.75; fill: #FF0000;' />
+<text x='587.33' y='41.33' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='143.71px' lengthAdjust='spacingAndGlyphs'>ΔEAP[ SolveGeometricProblems ]</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<line x1='474.71' y1='528.38' x2='699.95' y2='528.38' style='stroke-width: 0.75;' />
+<line x1='474.71' y1='528.38' x2='474.71' y2='533.14' style='stroke-width: 0.75;' />
+<line x1='531.02' y1='528.38' x2='531.02' y2='533.14' style='stroke-width: 0.75;' />
+<line x1='587.33' y1='528.38' x2='587.33' y2='533.14' style='stroke-width: 0.75;' />
+<line x1='643.64' y1='528.38' x2='643.64' y2='533.14' style='stroke-width: 0.75;' />
+<line x1='699.95' y1='528.38' x2='699.95' y2='533.14' style='stroke-width: 0.75;' />
+<text x='474.71' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>-1.0</text>
+<text x='531.02' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>-0.5</text>
+<text x='587.33' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='11.01px' lengthAdjust='spacingAndGlyphs'>0.0</text>
+<text x='643.64' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='11.01px' lengthAdjust='spacingAndGlyphs'>0.5</text>
+<text x='699.95' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='11.01px' lengthAdjust='spacingAndGlyphs'>1.0</text>
+</g>
+<defs>
+  <clipPath id='cpNDc0LjcxfDY5OS45NXw1Ny4xMnw1MjguMzg='>
+    <rect x='474.71' y='57.12' width='225.24' height='471.27' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNDc0LjcxfDY5OS45NXw1Ny4xMnw1MjguMzg=)'>
+<line x1='587.33' y1='528.38' x2='587.33' y2='57.12' style='stroke-width: 0.75;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<text x='360.00' y='17.11' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='248.17px' lengthAdjust='spacingAndGlyphs'>EAP Balance Sheet: SolveGeometricProblems</text>
+</g>
+</svg>

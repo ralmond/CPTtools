@@ -104,6 +104,9 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
   This distribution class was developed primarily for modeling
   relationships among proficiency variables.  For models for
   observables, see \code{\link{calcDSTable}}.  
+  
+  This function has largely been superceeded by calls to \code{\link{calcDPCTable}} 
+  with \code{\link{normalLink}} as the link function.
 }
 \references{
   Almond, R.G., Mislevy, R.J., Steinberg, L.S., Yan, D. and Williamson, D.M.

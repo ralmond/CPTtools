@@ -10,6 +10,7 @@
 }
 \usage{
 numericPart(table)
+factorPart(table)
 }
 \arguments{
   \item{table}{A \code{data.frame} object.}
@@ -23,7 +24,7 @@ numericPart(table)
 
 }
 \value{
-  A matrix containing just the numeric columns of the data frame.
+  A matrix containing just the numeric (or factor) columns of the data frame.
 }
 \author{Russell Almond}
 \seealso{ \code{\link[base]{data.frame}}, \code{\link[base]{matrix}},
@@ -32,7 +33,8 @@ numericPart(table)
 name <-c("Shahrazad", "Marguerite")
 height <- c(34, 36)
 weight <- c(28, 26)
-twins <- data.frame(name=I(name),height=height, weight=weight)
+twins <- data.frame(name=as.factor(name),height=height, weight=weight)
 numericPart(twins)
+factorPart(twins)
 }
 \keyword{utilities}
