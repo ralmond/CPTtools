@@ -1,0 +1,48 @@
+---
+title: "Reference Distributions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reference Distributions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(CPTtools)
+```
+
+## Model setup
+
+```{r}
+skill1 <- c("H","M","L")
+troph <- c("gold","silver","none")
+```
+
+```{r}
+sDist <- calcDNTable(list(),skill1,numeric(),0,log(.5))
+round(sDist,3)
+```
+## Reliability Model
+
+```{r reliability}
+r <- .8
+se <- sqrt(1-r^2)
+rT <- calcDNTable(list(s1=skill1),skill1,log(r),0,log(se))
+round(rT,3)
+```
+## Evidence Model
+
+```{r}
+Psx <- calcDPCTable(list(s1=skill1),troph,log(1),
+                    list(gold=1,silver=-1))
+round(Psx,3)
+```
+## Simulation
+
+```{r}
+simTable <- function(n,Ps,Pss,Psy) {
+  thetas <- rcat( 
+  
+}
+
+
