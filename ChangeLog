@@ -1,3 +1,6 @@
+2023-10-24 RGA <ralmond>
+  * R/Tables.R (as.CPA):  Ensured that tables with no parents work.
+
 2023-08-21  Russell Almond  <ralmond@cherry>
 
 	* R/DGR.R (calcDPCTable): Changed to autoexapnd default numbers to number of parents.

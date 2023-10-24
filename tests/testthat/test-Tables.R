@@ -77,6 +77,17 @@ test_that("as.CPA", {
   expect_warning(expect_warning(as.CPA(array(1:24,2:4)),
                 "Array being coerced to CPA does not have dimnames."))
 
+
+})
+
+test_that("as.CPA 1 dimension", {
+
+  cpf <- calcDNFrame(list(),c("H","M","L"),.6,0,.8)
+  cpa <- as.CPA(cpf)
+  
+  expect_true(is.CPA(cpa))
+  expect_equal(dim(cpf),dim(cpa))
+    
 })
 
 test_that("is.CPA", {
