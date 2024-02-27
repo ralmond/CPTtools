@@ -62,6 +62,11 @@ test_that("numericPart factorPart", {
   expect_equal(factorPart(twins),data.frame(name))
 })
 
+test_that("numericPart matrix", {
+  mat <- matrix(1:12,3,4)
+  expect_equal(numericPart(mat),mat)
+})
+
 test_that("getTableParents/States", {
   X2.ptf <- data.frame(Theta=factor(c("Expert","Novice")),
                        correct=c(4,2),
