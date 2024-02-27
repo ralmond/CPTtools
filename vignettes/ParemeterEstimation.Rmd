@@ -1,0 +1,100 @@
+---
+title: "Parameter Estimation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Parameter Estimation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE,
+  comment = "#>" )
+```
+
+```{r}
+library(CPTtools)
+```
+
+
+```{r nodes}
+skill1 <- c("High","Med","Low")
+skill2 <- c("High","Med","Low")
+isCorrect <- c("Correct","Incorrect")
+troph <- c("Gold","Silver","None")
+```
+
+```{r tolerance}
+tol <- .001
+```
+
+# Compensatory Model
+
+## True Model
+```{r compTruth}
+pLevels <- list(skill1)
+obsLevels <- troph
+rules <- "Compensatory"
+link <- "partialCredit"
+testname <- paste("Testing:  rules=",paste(rules,collapse=", "),"; link=",link)
+trueLnAlphas <- list(gold=log(1),silver=log(.25))
+trueBetas <- list(gold=2,silver=-.5)
+truedist <- calcDPCTable(pLevels,obsLevels,trueLnAlphas,trueBetas,
+                           rules=rules,link=link)
+round(truedist,3)
+```
+## Data Generation
+
+```{r compData}
+weights <- 1000
+counts <- round(sweep(truedist,1,weights,"*"))
+round(counts)
+```
+
+## Prior Model
+
+```{r compPrior}
+priorLnAlphas <- list(log(.5),log(.5))
+priorBetas <- list(1,-1)
+prior <- calcDPCTable(pLevels,obsLevels,priorLnAlphas,priorBetas,
+                      rules=rules,link=link)
+round(prior,3)
+```
+
+## Model fitting
+
+```{r compFit}
+map1 <- mapDPC(counts,pLevels,obsLevels,
+               priorLnAlphas,priorBetas,rules,link,gamma=.001)
+if (map1$convergence != 0) {
+  warning(paste("Optimization did not converge:", map1$message))
+}
+```
+
+## Parameter Recovery
+```{r compAlphas}  
+postLnAlphas <- map1$lnAlphas
+names(postLnAlphas) <- names(trueLnAlphas)
+cat("True LnAlphas:",sapply(trueLnAlphas,round,3),".\n")
+cat("Est LnAlphas:",sapply(postLnAlphas,round,3),".\n")
+all.equal(trueLnAlphas,postLnAlphas,tolerance=tol)
+```
+
+```{r compBetas}
+postBetas <- map1$betas
+names(postBetas) <- names(trueBetas)
+cat("True Betas:",sapply(trueBetas,round,3),".\n")
+cat("Est Betas:",sapply(postBetas,round,3),".\n")
+all.equal(trueBetas,postBetas,tolerance=tol)
+```
+
+
+## CPT Recovery
+```{r compDist}
+fitdist <- calcDPCTable(pLevels,obsLevels,map1$lnAlphas,
+                        map1$betas,rules,link)
+round(fitdist,3)
+cat("Maximum difference is ",max(abs(fitdist-truedist)),".\n")
+cat("KL divergence",cptKL(fitdist,truedist),".\n")
+```
+
