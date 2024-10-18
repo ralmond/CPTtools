@@ -1,0 +1,73 @@
+---
+title: "Measues of Agreement"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MeasuringAgreement}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CPTtools)
+```
+
+This vignette will use measures of agreement, in particular, the Fleis-Cohen kappa, and the Goodman-Kruskal lambda to explore the proposed adequacy of a cognitively diagnostic assessment.
+
+# Assessment Design
+
+This assessment is based on an example found in [@Mislevy1995].  It is a test of language arts in which there are four constructs being measured:  _Reading_, _Writing_, _Speaking_ and _Listening_.  Each variable can tale on the possible values `Advanced`, `Intermediate` or `Novice`.
+
+There are four kinds of tasks:
+
+Reading
+: Subjects read a short segment of text and then answer a selected response question.
+
+Writing
+: An integrated Reading/Writing task where the subject provides a short written response based on an reading passage.
+
+Listening
+: Subject listens to a prompt followed by a mulitple choice question where the options are also spoken (as are the instructions).
+
+Speaking
+: Subject is requested to respond verbally (response is recorded) after listening to an audio stimulus.  The instructions are written.
+
+## Form Design
+
+There are 5 Reading, 5 Listening, 3 Writing and 3 Speaking questions on a form of the test.  Therefore, the Q Matrix looks like:
+
+```{r Q-matrix for language test, echo=FALSE}
+qmat <- matrix(c(rep(c(1,0,0,0),5),
+                 rep(c(1,1,0,0),3),
+                 rep(c(0,0,0,1),5),
+                 rep(c(1,0,1,1),3)),
+               16,4,
+               byrow=TRUE)
+colnames(qmat)<-c("Reading","Writing","Speaking","Listening")
+rownames(qmat)<-paste0(c(rep("R",5),rep("W",3),
+                         rep("L",5),rep("S",3)),1:16)
+knitr::kable(qmat)
+```
+
+## Simulation Experiment
+
+Assuming that the parameters of the 5 item models are known, it is straightforward to simulate data from the assessment.  This kind of simulation provides information about the adequacy of the data collection for classifying the students.
+
+The simulation procedure is as follows:
+
+1. Generate random proficiency profiles using the proficiency model.
+
+2. Generate random item responses using the item (evidence) models.
+
+3. Score the assessment.  There are two variations:
+  
+  a. _Modal (MAP) Scores_:  The score assigns a category to each of the four constructs.
+  
+  b. _Expected (Probability) Scores_:  The score assigns a probability of high, medium or low to each individual.
+  
