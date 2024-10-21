@@ -8,6 +8,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+library(kableExtra)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -52,7 +53,8 @@ qmat <- matrix(c(rep(c(1,0,0,0),5),
 colnames(qmat)<-c("Reading","Writing","Speaking","Listening")
 rownames(qmat)<-paste0(c(rep("R",5),rep("W",3),
                          rep("L",5),rep("S",3)),1:16)
-knitr::kable(qmat)
+kbl(qmat,caption="Q-matrix for 16 item test") |>
+  kable_classic(full_width=FALSE)
 ```
 
 ## Simulation Experiment
@@ -67,7 +69,126 @@ The simulation procedure is as follows:
 
 3. Score the assessment.  There are two variations:
   
-  a. _Modal (MAP) Scores_:  The score assigns a category to each of the four constructs.
+  a. _Modal (MAP) Scores_:  The score assigns a category to each of the four constructs.  (These are the columns named "mode.Reading" and similar.)
   
-  b. _Expected (Probability) Scores_:  The score assigns a probability of high, medium or low to each individual.
+  b. _Expected (Probability) Scores_:  The score assigns a probability of high, medium or low to each individual.  (These are the columns named "Reading.Novice", "Reading.Intermediate", and "Reading.Advanced".)
   
+The simulation study itself can be found in `vingette("SimulationStudies",package="RNetica")`.
+
+The results are saved in this package in the data set `language16`.
+
+```{r}
+data(language16)
+```
+
+## Building the Confusion Matrix
+
+The simulation data has columns containing the "true" value for the four proficiencies---"Reading", "Writing", "Speaking", and "Listening"---and for values for the estimates---"mode.Reading", "mode.Writing", &c.  The cross-tabulation of a true value and its corresponding estimate is known as a confusion matrix.  This can be built in R using the `table` function.[^2]
+
+[^1]: It is in the `Analysis > Descriptives > Cross Tabluations ...` function in SPSS.
+
+```{r Reading.cm}
+Reading.cm <- table(language16[,c("Reading","mode.Reading")])
+```
+```{r Reading.tab,echo=FALSE}
+kbl(Reading.cm, caption="Reading confusion matrix for 16 item test.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
+
+```{r Writing.cm}
+Writing.cm <- table(language16[,c("Writing","mode.Writing")])
+```
+```{r Writing.tab,echo=FALSE}
+kbl(Writing.cm, caption="Writing confusion matrix for 16 item test.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
+
+```{r Speaking.cm}
+Speaking.cm <- table(language16[,c("Speaking","mode.Speaking")])
+```
+```{r Speaking.tab,echo=FALSE}
+kbl(Speaking.cm, caption="Speaking Confusion matrix for 16 item test.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
+
+```{r Listening.cm}
+Listening.cm <- table(language16[,c("Listening","mode.Listening")])
+```
+```{r Listening.tab,echo=FALSE}
+kbl(Listening.cm, caption="Listening Confusion matrix for 16 item test.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
+
+### The expected Confusion Matrix
+
+
+```{r Reading5}
+kbl(language16[1:5,c("Reading","Reading.Novice",
+                     "Reading.Intermediate","Reading.Advanced")],
+     caption="Reading data from first five simulees.",
+     digits=3) |>
+  kable_classic()
+```
+```{r}
+reading5 <- expTable(language16[1:5,],"Reading","Reading")
+```
+```{r Reading.extab,echo=FALSE}
+kbl(reading5, digits=3,
+    caption="Expected reading confusion matrix using 5 items.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
+
+
+```{r Reading.em}
+Reading.em <- expTable(language16,"Reading","Reading")
+```
+```{r Reading.etab,echo=FALSE}
+kbl(Reading.em, digits=3,
+    caption="Reading expected onfusion matrix for 16 item test.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
+
+```{r Writing.em}
+Writing.em <- expTable(language16,"Writing","Writing")
+```
+```{r Writing.etab,echo=FALSE}
+kbl(Writing.em, digits=3,
+    caption="Writing expected onfusion matrix for 16 item test.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
+
+```{r Speaking.em}
+Speaking.em <- expTable(language16,"Speaking","Speaking")
+```
+```{r Speaking.etab,echo=FALSE}
+kbl(Speaking.em, digits=3,
+    caption="Speaking expected onfusion matrix for 16 item test.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
+
+```{r Listening.em}
+Listening.em <- expTable(language16,"Listening","Listening")
+```
+```{r Listening.etab,echo=FALSE}
+kbl(Listening.em, digits=3,
+    caption="Listening expected onfusion matrix for 16 item test.") |>
+  kable_classic(full_width=FALSE) |>
+  add_header_above(c(" ","Estimated"=3)) |>
+  pack_rows(index=c("Simulated"=3))
+```
