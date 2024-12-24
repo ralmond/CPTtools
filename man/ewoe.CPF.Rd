@@ -71,7 +71,8 @@ ewoe.CPF(cpf, pos = 1L, neg = NULL)
 }
 \examples{
 ACED <- dplyr::inner_join(ACED.scores,ACED.items,by="SubjID")
-expcr <- expTable(ACED,"cr","tCommonRatio1a")
+expcr <- expTable(ACED,"cr","tCommonRatio1a",
+                  pvecregex="P\\\\.<var>\\\\.\\\\.<state>")
 ewoe.CPF(expcr,"H")
 ewoe.CPF(expcr,c("H","M"))
 

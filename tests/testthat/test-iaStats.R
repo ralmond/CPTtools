@@ -9,7 +9,7 @@ test_that("ewoe.CPF", {
   expect_equal(ewoe.CPF(t1,1),100*.9/1.1,tolerance=.001)
   
   ACED <- dplyr::inner_join(ACED.scores,ACED.items,by="SubjID")
-  expcr <- expTable(ACED,"cr","tCommonRatio1a")
+  expcr <- expTable(ACED,"cr","tCommonRatio1a","P.<var>..<state>")
   e1 <- ewoe.CPF(expcr,"H")
   e2 <- ewoe.CPF(expcr,c("H","M"))
   expect_gt(e2,e1)
@@ -54,7 +54,7 @@ test_that("catTable",{
 })
 
 test_that("pvecTable",{
-  etab <- pvecTable(ACED.scores,"sgp")
+  etab <- pvecTable(ACED.scores,"sgp","P.sgp..<state>")
   expect_equal(nrow(etab),nrow(ACED.scores))
   expect_equal(ncol(etab),3L)
   expect_equal(colnames(etab),c("H","M","L"))
@@ -65,7 +65,7 @@ test_that("pvecTable",{
 test_that("expTable",{
   ACED.joined <- dplyr::inner_join(ACED.scores,ACED.items,
                                    "SubjID")
-  etab <- expTable(ACED.joined,"cr","tCommonRatio1a")
+  etab <- expTable(ACED.joined,"cr","tCommonRatio1a","P.<var>..<state>")
   expect_equal(nrow(etab),3L)
   expect_equal(rownames(etab),c("H","M","L"))
   expect_equal(ncol(etab),2L)
@@ -75,7 +75,7 @@ test_that("expTable",{
 })
 
 test_that("plotsimplex",{
-  ptab <- pvecTable(ACED.scores,"sgp")
+  ptab <- pvecTable(ACED.scores,"sgp","P.sgp..<state>")
   vdiffr::expect_doppelganger("simplex plot",invisible(plotsimplex(ptab)))
 })
 

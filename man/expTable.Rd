@@ -9,9 +9,9 @@
 }
 \usage{
 expTable(data, pvecVars, facVars, 
-         pvecregex = "P\\\\.<var>\\\\.\\\\.<state>")
+         pvecregex = "<var>\\\\.<state>")
 pvecTable(data, pvarName, 
-         regx = sub("<var>",pvarName,"P\\\\.<var>\\\\.\\\\.<state>"))
+         regx = sub("<var>",pvarName,"<var>\\\\.<state>"))
 catTable(data, fvarName, 
          cc = contrasts(as.factor(dplyr::pull(data, fvarName)),
               contrasts = FALSE))
@@ -89,9 +89,10 @@ catTable(data, fvarName,
 
 data(ACED)
 ACED.joined <- dplyr::inner_join(ACED.scores,ACED.items,by="SubjID")
-head(pvecTable(ACED.joined,"cr"))
+head(pvecTable(ACED.joined,"cr",regx="P\\\\.cr\\\\.\\\\.<state>"))
 head(catTable(ACED.joined,"tCommonRatio1a"))
-expTable(ACED.joined,"cr","tCommonRatio1a")
+expTable(ACED.joined,"cr","tCommonRatio1a",
+         pvecregex="P\\\\.<var>\\\\.\\\\.<state>")
 
 }
 \keyword{ manip }

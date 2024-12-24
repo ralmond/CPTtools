@@ -48,7 +48,8 @@ S3method(normalize,default)
 ## From WOE package
 export(betaci, proflevelci, barchart.CPF,
        stackedBarplot, compareBars, stackedBars, compareBars2,
-       colorspread, OCP, OCP2, OCP.CPF, OCP2.CPF, cptChi2,
+       colorspread, OCP, OCP2, OCP.CPF, OCP2.CPF, 
+       cptChi2, cptG2, cptKL,
        buildFactorTab, build2FactorTab, buildMarginTab,
        marginTab,parseProbVec, readHistory,
        mutualInformation, ciTest, localDepTest,

@@ -5,7 +5,7 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
                     rules="Compensatory",link="partialCredit",linkScale=NULL,
                     Q=TRUE, tvals=lapply(skillLevels,
                                 function (sl) effectiveThetas(length(sl))),
-                    ...) {
+                    gamma=.001,...) {
   k <- length(obsLevels)
   pvec <- numeric(0)
   iparam <- 0L
@@ -82,11 +82,13 @@ mapDPC <- function (postTable,skillLevels,obsLevels,lnAlphas,betas,
     }
     if (!is.null(iscale)) {
       ls <- exp(pv[iscale])
+      penalty <- sum(pv[-iscale]^2)
     } else {
       ls <- NULL
+      penalty <- sum(pv^2)
     }
     probs <- do.call(link,list(et,ls,obsLevels))
-    -2*sum(as.vector(postTable)*as.vector(log(probs)))
+    -2*sum(as.vector(postTable)*as.vector(log(probs))) + gamma*penalty
  }
   map <- optim(pvec,llike,...)
   if (map$convergence !=0) {

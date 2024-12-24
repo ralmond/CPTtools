@@ -69,6 +69,10 @@ getTableStates <- function (table) {
 
 "numericPart" <-
 function(table) {
+  if (is.matrix(table)) {
+    if(is.numeric(table)) return(table)
+    else stop("Table is a non-numeric matrix")
+  }
   which <- sapply(table,is.numeric)
   as.matrix(table[,which,drop=FALSE])
 }

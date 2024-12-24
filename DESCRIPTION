@@ -1,7 +1,7 @@
 Package: CPTtools
 Title: Tools for Creating Conditional Probability Tables
-Version: 0.8-3
-Date: 2023/07/18
+Version: 0.8-4
+Date: 2024/12/23
 Author: Russell Almond
 Maintainer: Russell Almond <ralmond@fsu.edu>
 Authors@R: 
@@ -33,6 +33,7 @@ Suggests:
     cowplot,
     vdiffr,
     withr,
+    kableExtra,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Support: c(

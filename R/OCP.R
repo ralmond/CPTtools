@@ -292,3 +292,43 @@ cptChi2 <- function(obs, exp) {
   attr(chi2,"d.f.") <- df
   chi2
 }
+
+cptKL <- function(est, exp) {
+  
+  if (nrow(est)!=nrow(exp)) {
+    stop("Estimated and expected table sizes don't match.")
+  }
+  
+  if (is.CPF(est)) {
+    est <- numericPart(est)
+  }
+  if (is.CPF(exp)) {
+    exp <- numericPart(exp)
+  }
+    
+  dkl <- sum(est*log(est/exp))
+  dkl
+}
+
+cptG2 <- function(obs, exp) {
+  
+  if (!all.equal(getTableStates(obs),getTableStates(exp))) {
+    stop("Child variable states don't match.")
+  }
+  if (!all.equal(getTableParents(obs),getTableParents(exp))) {
+    stop("Parent variables don't match.")
+  }
+  if (nrow(obs)!=nrow(exp)) {
+    stop("Observed and expected table sizes don't match.")
+  }
+  
+  ## Build CI's for cumulative probabilities.
+  cobs <- numericPart(exp)+numericPart(obs)
+  cobs.tot <-apply(cobs,1,sum)
+  nexp <- sweep(numericPart(exp),1,cobs.tot,"*")
+  
+  df = nrow(cobs)*(ncol(cobs)-1)
+  g2 <- sum(cobs*log(cobs/nexp))
+  attr(g2,"d.f.") <- df
+  g2
+}

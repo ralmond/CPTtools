@@ -141,27 +141,31 @@ as.CPA <- function (x) {
     }
     return(x) ## Hope this really is a CPA
   } else  if (is.data.frame(x)) {
-    ##First set up the diminsions
+    ##First set up the dimensions
     facts <- sapply(x,is.factor)
     pnames <- lapply(x[facts],levels)
     npar <- length(pnames)
-    names(pnames) <- names(x)[facts]
-    ## Try to create state names and var names for dependent varaible
-    ## by splitting at "."
-    cnames <- strsplit(names(x)[!facts],".",fixed=TRUE)
-    nstates <- length(cnames)
-    vname <- cnames[[1L]][1L]
-    cnames <- lapply(cnames, function(x) x[length(x)])
-    if (vname == cnames[1L]) vname <- "Prob"
-    dnames <- c(pnames,list(cnames))
-    names(dnames)[npar+1L] <- vname
-    dims <- sapply(dnames,length)
-    result <- array(NA,dims,dnames)
-    probs <- as.matrix(x[,!facts])
-    configs <- do.call("cbind",lapply(x[,facts],as.integer))
-    for (i in 1L:nrow(x)) {
-      sel <- matrix(configs[i,],nstates,npar,byrow=TRUE)
-      result[cbind(sel,1L:nstates)] <- probs[i,]
+    if (npar > 0) {
+      names(pnames) <- names(x)[facts]
+      ## Try to create state names and var names for dependent variable
+      ## by splitting at "."
+      cnames <- strsplit(names(x)[!facts],".",fixed=TRUE)
+      nstates <- length(cnames)
+      vname <- cnames[[1L]][1L]
+      cnames <- lapply(cnames, function(x) x[length(x)])
+      if (vname == cnames[1L]) vname <- "Prob"
+      dnames <- c(pnames,list(cnames))
+      names(dnames)[npar+1L] <- vname
+      dims <- sapply(dnames,length)
+      result <- array(NA,dims,dnames)
+      probs <- as.matrix(x[,!facts])
+      configs <- do.call("cbind",lapply(x[,facts],as.integer))
+      for (i in 1L:nrow(x)) {
+        sel <- matrix(configs[i,],nstates,npar,byrow=TRUE)
+        result[cbind(sel,1L:nstates)] <- probs[i,]
+      }
+    } else {
+      result <- as.matrix(x)
     }
     class(result) <- c("CPA",class(result))
     return(result)

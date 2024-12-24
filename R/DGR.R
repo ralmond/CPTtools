@@ -88,7 +88,7 @@ function (skillLevels, obsLevels, lnAlphas, betas,
     ## R is "helpfully" fixing our numeric labels.  Need to insist.
     names(result) <- c(names(skillLevels),paste(obsLevels))
   }
-  result
+  as.CPF(result)
 
 }
 
