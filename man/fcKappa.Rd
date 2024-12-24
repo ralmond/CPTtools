@@ -75,14 +75,14 @@ accuracy(tab, weights = c("None", "Linear", "Quadratic"), W=diag(nrow(tab)))
   chance agreement.
 
   Goodman and Kruskal (1952) offered another way of normalizing.  In
-  this case, let Rater 1 be the classificaiton method and Rater 2 be the
-  truth.  Now look at a classifier which always classifies somebody in
+  this case, let Rater 1 be the true category  and Rater 2 be the estimated
+  category.  Now look at a classifier which always classifies somebody in
   Category \eqn{k}; that classifier will be right with probability
-  \eqn{p_{+k}}.  The best such classifer will be \eqn{\max p_{+k}}.  So
+  \eqn{p_{k+}}.  The best such classifer will be \eqn{\max p_{k+}}.  So
   the adjusted agreement becomes:
 
-  \deqn{\lambda = \frac{\sum p_{kk} - \max p_{+k}}{1 - \max
-      p_{+k}} .}
+  \deqn{\lambda = \frac{\sum p_{kk} - \max p_{k+}}{1 - \max
+      p_{k+}} .}
 
   Goodman and Kruskal's lambda (\code{gkLambda}) is appropriate when
   there is a different treatment associated with each category.  In this

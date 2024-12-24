@@ -87,7 +87,7 @@ calcDDFrame(skillLevels, obsLevels, skillWeights, masterProfile,
   parent rows is the same as is produced by applying \code{expand.grid}
   to \code{skillLevels}. 
 
-  For \code{calcDDFrame} a data frame with additional columns
+  For \code{calcDDFrame} a \code{\link{CPF}}, a data frame with additional columns
   corresponding to the entries in \code{skillLevels} giving the parent
   value for each row.
 }

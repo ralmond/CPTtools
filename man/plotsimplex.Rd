@@ -70,8 +70,8 @@ This is a simplified version of the code in the archetypes package.  https://cra
   \code{\link{pvecTable}}
 }
 \examples{
-  data(ACED)
-  ptab <- pvecTable(ACED.scores,"sgp")
+  data("language16")
+  ptab <- pvecTable(language16,"Reading")
   plotsimplex(ptab)
 }
 \keyword{ hplot }

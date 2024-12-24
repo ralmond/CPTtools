@@ -296,7 +296,7 @@ cptChi2 <- function(obs, exp) {
 cptKL <- function(est, exp) {
   
   if (nrow(est)!=nrow(exp)) {
-    stop("Observed and expected table sizes don't match.")
+    stop("Estimated and expected table sizes don't match.")
   }
   
   if (is.CPF(est)) {

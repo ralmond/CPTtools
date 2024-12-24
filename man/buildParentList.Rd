@@ -23,8 +23,8 @@ buildParentList(sm, start = colnames(sm)[1], ord = mcSearch(sm, start))
   
   A node \eqn{i} is a \dfn{parent} of node \eqn{j} if
   \itemize{
-    \item{a}{They are neighbors, that is \code{sm[i,j] == TRUE}.}
-    \item{b}{The node \eqn{i} appears before node \eqn{j} in \code{ord},
+    \item{They are neighbors, that is \code{sm[i,j] == TRUE}.}
+    \item{The node \eqn{i} appears before node \eqn{j} in \code{ord},
       that is \code{ord[i] < ord[j]}.}
   }
 

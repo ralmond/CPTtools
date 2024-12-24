@@ -89,10 +89,10 @@ catTable(data, fvarName,
 
 data(ACED)
 ACED.joined <- dplyr::inner_join(ACED.scores,ACED.items,by="SubjID")
-head(pvecTable(ACED.joined,"cr",regx="P\\.cr\\.\\.<state>"))
+head(pvecTable(ACED.joined,"cr",regx="P\\\\.cr\\\\.\\\\.<state>"))
 head(catTable(ACED.joined,"tCommonRatio1a"))
 expTable(ACED.joined,"cr","tCommonRatio1a",
-         pvecregex="P\\.<var>\\.\\.<state>")
+         pvecregex="P\\\\.<var>\\\\.\\\\.<state>")
 
 }
 \keyword{ manip }

@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(CPTtools)
+library(kableExtra)
 ```
 
 This vignette will use measures of agreement, in particular, the Fleis-Cohen kappa, and the Goodman-Kruskal lambda to explore the proposed adequacy of a cognitively diagnostic assessment.
@@ -83,45 +84,46 @@ data(language16)
 
 ## Building the Confusion Matrix
 
-The simulation data has columns containing the "true" value for the four proficiencies---"Reading", "Writing", "Speaking", and "Listening"---and for values for the estimates---"mode.Reading", "mode.Writing", &c.  The cross-tabulation of a true value and its corresponding estimate is known as a confusion matrix.  This can be built in R using the `table` function.[^2]
+The simulation data has columns containing the "true" value for the four proficiencies---"Reading", "Writing", "Speaking", and "Listening"---and for values for the estimates---"mode.Reading", "mode.Writing", &c.  The cross-tabulation of a true value and its corresponding estimate is known as a confusion matrix.  This is a matrix $\mathbf{A}$, were $a_{km}$ is the count of the number of simulated cases for which first variable (simulated truth) is $k$ and the second variable (MAP estimate) is $m$. This can be built in R using the `table` function.[^2]
 
 [^1]: It is in the `Analysis > Descriptives > Cross Tabluations ...` function in SPSS.
 
 ```{r Reading.cm}
-Reading.cm <- table(language16[,c("Reading","mode.Reading")])
+cm <- list()
+cm$Reading <- table(language16[,c("Reading","mode.Reading")])
 ```
 ```{r Reading.tab,echo=FALSE}
-kbl(Reading.cm, caption="Reading confusion matrix for 16 item test.") |>
+kbl(cm$Reading, caption="Reading confusion matrix for 16 item test.") |>
   kable_classic(full_width=FALSE) |>
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
 
 ```{r Writing.cm}
-Writing.cm <- table(language16[,c("Writing","mode.Writing")])
+cm$Writing <- table(language16[,c("Writing","mode.Writing")])
 ```
 ```{r Writing.tab,echo=FALSE}
-kbl(Writing.cm, caption="Writing confusion matrix for 16 item test.") |>
+kbl(cm$Writing, caption="Writing confusion matrix for 16 item test.") |>
   kable_classic(full_width=FALSE) |>
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
 
 ```{r Speaking.cm}
-Speaking.cm <- table(language16[,c("Speaking","mode.Speaking")])
+cm$Speaking <- table(language16[,c("Speaking","mode.Speaking")])
 ```
 ```{r Speaking.tab,echo=FALSE}
-kbl(Speaking.cm, caption="Speaking Confusion matrix for 16 item test.") |>
+kbl(cm$Speaking, caption="Speaking confusion matrix for 16 item test.") |>
   kable_classic(full_width=FALSE) |>
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
 
 ```{r Listening.cm}
-Listening.cm <- table(language16[,c("Listening","mode.Listening")])
+cm$Listening <- table(language16[,c("Listening","mode.Listening")])
 ```
 ```{r Listening.tab,echo=FALSE}
-kbl(Listening.cm, caption="Listening Confusion matrix for 16 item test.") |>
+kbl(cm$Listening, caption="Listening confusion matrix for 16 item test.") |>
   kable_classic(full_width=FALSE) |>
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
@@ -129,6 +131,7 @@ kbl(Listening.cm, caption="Listening Confusion matrix for 16 item test.") |>
 
 ### The expected Confusion Matrix
 
+The Bayes net scoring engine (like many scoring models) expresses its uncertainty about the abilities of the students by estimating the probability that the student is in each category.  These are often called the _marginal probabilities_ because they are one margin of the joint distribution over all four variables.  The table below shows the "true" (simulated) reading ability and estimated marginal probabilities for the first five simulees.
 
 ```{r Reading5}
 kbl(language16[1:5,c("Reading","Reading.Novice",
@@ -137,6 +140,14 @@ kbl(language16[1:5,c("Reading","Reading.Novice",
      digits=3) |>
   kable_classic()
 ```
+The expected value of the confusion matrix, $\overline{\mathbf{A}}$ is calculated as follows: let $X_i$ be the value of the first (simulated truth) variable for the $i$th simulee, and let $p_{im} = P(\hat{X_i}=m|e)$ be the estimated probability that $X_i=m$ for the $i$th simulee is $m$.  Then $\overline{a_{km}} = \sum_{i: X_i=k} p_{im}$. 
+
+In the running example, the first row (`novice`) is the sum of all rows for which the true scores is `novice`.  The second row is the sum of the `intermediate` rows and the third row `advanced`.  
+
+The function `expTable()` does this work.  Note that it expects the marginal probability to be in a number of columns marked _var_`.`_state_, where _var_ is the name of the variable and _state_ is the name of the state.  If the data uses a different naming convention, this can be expressed with the argument `pvecregex` which is a regular expression with special symbols `<var>` to be substituted with the variable name and `<state>` to be substituted with the state name.
+
+The table below shows the expected matrix from the first five rows of the reading data.
+
 ```{r}
 reading5 <- expTable(language16[1:5,],"Reading","Reading")
 ```
@@ -147,48 +158,171 @@ kbl(reading5, digits=3,
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
-
+What follows are the expected confusion matrixes for all four proficiency variables.
 
 ```{r Reading.em}
-Reading.em <- expTable(language16,"Reading","Reading")
+em <- list()
+em$Reading <- expTable(language16,"Reading","Reading")
 ```
 ```{r Reading.etab,echo=FALSE}
-kbl(Reading.em, digits=3,
-    caption="Reading expected onfusion matrix for 16 item test.") |>
+kbl(em$Reading, digits=3,
+    caption="Reading expected confusion matrix for 16 item test.") |>
   kable_classic(full_width=FALSE) |>
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
 
 ```{r Writing.em}
-Writing.em <- expTable(language16,"Writing","Writing")
+em$Writing <- expTable(language16,"Writing","Writing")
 ```
 ```{r Writing.etab,echo=FALSE}
-kbl(Writing.em, digits=3,
-    caption="Writing expected onfusion matrix for 16 item test.") |>
+kbl(em$Writing, digits=3,
+    caption="Writing expected confusion matrix for 16 item test.") |>
   kable_classic(full_width=FALSE) |>
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
 
 ```{r Speaking.em}
-Speaking.em <- expTable(language16,"Speaking","Speaking")
+em$Speaking <- expTable(language16,"Speaking","Speaking")
 ```
 ```{r Speaking.etab,echo=FALSE}
-kbl(Speaking.em, digits=3,
-    caption="Speaking expected onfusion matrix for 16 item test.") |>
+kbl(em$Speaking, digits=3,
+    caption="Speaking expected confusion matrix for 16 item test.") |>
   kable_classic(full_width=FALSE) |>
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
 
 ```{r Listening.em}
-Listening.em <- expTable(language16,"Listening","Listening")
+em$Listening <- expTable(language16,"Listening","Listening")
 ```
 ```{r Listening.etab,echo=FALSE}
-kbl(Listening.em, digits=3,
-    caption="Listening expected onfusion matrix for 16 item test.") |>
+kbl(em$Listening, digits=3,
+    caption="Listening expected confusion matrix for 16 item test.") |>
   kable_classic(full_width=FALSE) |>
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
+
+## Measures of agreement
+
+The sum of the diagonal of the confusion matrix, $\sum_k a_{kk}$, gives a count of how many cases are exact agreements (in this case between the simulation and estimation).  Let $N=\sum_k\sum_m a_{km}$; then the agreement rate is $\sum_k a_{kk}/N$.  For the reading data using the MAP scores, this is `r sum(diag(cm$Reading))` out of 1000, so over 80\% agreement.  The function `accuracy()` calculates the agreement rate.
+
+```{r agree}
+acc.tab <- data.frame(MAP=sapply(cm,accuracy),
+                      EAP=sapply(em,accuracy))
+```
+```{r agree16,echo=FALSE}
+kbl(acc.tab, digits=3,
+    caption="Agreement for MAP (modal classification) and EAP (expected confusion matrix).") |>
+  kable_classic(full_width=FALSE)
+```
+
+Raw agreement can be easy to achieve if there is not much variability in the population.  For example, if 80\% of the target population was intermediate, a classifier that simply classified each respondent as `intermediate` would achieve 80\% accuracy, and one that guessed `intermediate` randomly 80\% of the time would achieve at least 64\% accuracy.  For that reason, two adjusted agreement rates, lambda and kappa, are often used.
+
+### Goodman and Kruskal Lambda
+
+If the test was not available, the only strategy would be a one-size-fits-all one, assuming that all subjects are at the same level of the variable.  The best strategy is to treat all subjects as if they are in the modal (most likely) category.  The marginal distribution for the variable is found from the row sums of $\mathbf{A}$ (or $\overline{\mathbf{A}}$), $a_{k+} = \sum_{m} a_{km}$, and the best that can be done with the one-size-fits-all strategy is $\max_{k} a_{k+}$.  
+
+Goodman and Kruskal (1952) suggest that the agreement rate be adjusted by subtracting out the best that can be done with mapping everybody to a single value.  So they propose 
+
+$$\lambda = \frac{\sum_{k} a_{kk} - \max_{k} a_{k+}}{N - 
+\max_{k} a_{k+}} \ .$$
+
+This ranges from -1 to 1 with 0 representing doing no better than just guessing the most probable character and 1 indicating perfect agreement.  (Negative numbers are doing worse than just guessing the mode.)
+
+The function `gkLambda()` will do this calculation.  Here are the values for the language test using both the MAP and expected agreements.
+
+```{r lambda}
+lambda.tab <- data.frame(MAP=sapply(cm,gkLambda),
+                         EAP=sapply(em,gkLambda))
+```
+```{r lambda16,echo=FALSE}
+kbl(lambda.tab, digits=3,
+    caption="Lambda for MAP (modal classification) and EAP (expected confusion matrix).") |>
+  kable_classic(full_width=FALSE)
+```
+
+### Flies-Cohen Kappa
+
+Jacob Cohen (Flies, Levin \& Paek, 2003) took a different approach which treats the two assignments of cases to categories more symmetrically.  The idea is that these are two raters and the goal is to judge the extent of the agreement.  Baseline here is to imagine two raters one of which assign categories randomly with probabilities $a_{k+}/N$ and $a_{+k}/N$.  Then the expected number of random agreements is $\sum_{k} a_{k+}a_{+k}/N$.  So the agreement measure adjusted for random agreement is:
+
+$$ \kappa = \frac{\sum_{k} a_{kk} - \sum_{k}a_{k+}a_{+k}/N}{N-\sum_{k}a_{k+}a_{+k}/N} \ .$$
+
+Again this runs from -1 to 1.  The function `fcKappa` calculates Cohen's kappa.
+
+```{r kappa}
+kappa.tab <- data.frame(MAP=sapply(cm,fcKappa),
+                         EAP=sapply(em,fcKappa))
+```
+```{r kappa16,echo=FALSE}
+kbl(kappa.tab, digits=3,
+    caption="Kappa for MAP (modal classification) and EAP (expected confusion matrix).") |>
+  kable_classic(full_width=FALSE)
+```
+
+### Weighted versions
+
+All three of kappa, lambda and raw agreement all assume that any missclassification is equally bad.  Fleis suggest adding weights, were $1 \ge w_{km} \ge 0$ is the desirability of classifying a subject who is $k$ as $m$.  In this case, weighted agreement is $\sum_k\sum_m w_{km} a_{km}/N$.  The weighted versions of kappa and lambda are given by:
+
+$$ \lambda = \frac{\sum\sum w_{km} a_{km} - \max_k \sum_m w_{km} a_{km}}{N - \max_k \sum_m w_{km} a_{km}} \ ;$$
+
+$$ \kappa = \frac{\sum\sum w_{km} a_{km} - \sum_k \sum_m w_{km} a_{k+}a_{+m}/N}{N - \sum_k \sum_m w_{km} a_{k+}a_{+k}/N} \ .$$
+
+There are three commonly uses cases:
+
+None
+: $w_{km}=1$ if $k=m$, $0$ otherwise.
+
+Linear
+: $w_{km}=1 - |k-m|/(K-1)$
+
+Quadratic
+: $w_{km}= 1 - (k-m)^2/(K-1)^2$
+
+Both linear and quadratic weight have increasing penalties for the number of categories of difference.  So off-by-one has a lower penalty than off-by-two.
+
+The `accuracy`, `gkLambda` and `fcKappa` have both a `weights` argument where no weights ("None", default), "Linear" or "Quadratic" weights can be selected, and a `w` argument where a custom weight matrix can be entered.
+
+```{r weights}
+wacc.tab <- data.frame(
+  None = sapply(cm,accuracy,weights="None"),
+  Linear = sapply(cm,accuracy,weights="Linear"),
+  Quadratic = sapply(cm,accuracy,weights="Quadratic"))
+wlambda.tab <- data.frame(
+  None = sapply(cm,gkLambda,weights="None"),
+  Linear = sapply(cm,gkLambda,weights="Linear"),
+  Quadratic = sapply(cm,gkLambda,weights="Quadratic"))
+wkappa.tab <- data.frame(
+  None = sapply(cm,fcKappa,weights="None"),
+  Linear = sapply(cm,fcKappa,weights="Linear"),
+  Quadratic = sapply(cm,fcKappa,weights="Quadratic")
+)
+```
+```{r wacc.tab, echo=FALSE}
+kbl(wacc.tab, digits=3,
+    caption="Weighted and unweighted Accuracy") |>
+  kable_classic(full_width=FALSE)
+```
+```{r wlambda.tab, echo=FALSE}
+kbl(wlambda.tab, digits=3,
+    caption="Weighted and unweighted Lambda") |>
+  kable_classic(full_width=FALSE)
+```
+```{r wkappa.tab, echo=FALSE}
+kbl(wkappa.tab, digits=3,
+    caption="Weighted and unweighted Kappa") |>
+  kable_classic(full_width=FALSE)
+```
+
+## Exercise
+
+The data set `language24` has a simulation from a longer version of the test, with 24 items, 6 of each type.
+
+Calculate the kappas and lambdas and compare to the shorter test.
+
+```{r}
+data("language24")
+```
+
