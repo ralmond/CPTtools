@@ -129,14 +129,47 @@ kbl(Listening.cm, caption="Listening Confusion matrix for 16 item test.") |>
 
 ### The expected Confusion Matrix
 
+The model used in this simulation is a Bayesian network.  Like many
+kinds of classication models its output is the probability that the
+subject is in each category.  So the columns `Reading.Novice`,
+`Reading.Intermediate`, and `Reading.Advanced` represent the
+probability based on the observed evidence that the simulee's reading
+ability is in those threee categories.  The `mode.Reading`, which we
+used as the score before, just tells which category has the highest
+probability.   The table below shows just the reading scores for the
+first 5 simulees.
 
 ```{r Reading5}
 kbl(language16[1:5,c("Reading","Reading.Novice",
-                     "Reading.Intermediate","Reading.Advanced")],
+                     "Reading.Intermediate","Reading.Advanced",
+					 "mode.Reading")],
      caption="Reading data from first five simulees.",
      digits=3) |>
   kable_classic()
 ```
+
+Look at the first row of the data.  The first simulee was randomly
+assigned a reading ability of `Intermediate` and then the data were
+generated based on this estimate.  The classification of the first
+simulee based on the 16 item form is a 56.5\% chance of `Novice` and a
+43.5\% chance of `Intermediate`.  So, the "modal" (highest
+probability) score is `Novice`.
+
+When building the confusion matrix, each observation add a count of
+one to a cell based on the true and estimated value.  So the first
+simulee contributes 1 towards the cell in the second row and first
+column in the table.  In building the expected table, this value is
+split across the row according to the probabilities, so the first
+simulee adds .565 to the first cell in the second row, .435 to the
+second cell and nothing to the third cell.  
+
+The table below shows the calculations for the first five simulees.
+The first row is the sum of the `Reading.Novice`,
+`Reading.Intermediate` and `Reading.Advanced` variable for simulees
+whose true Reading value is `Novice`, the second for true
+`Intermediate`, and third row for true `Advanced.`
+
+
 ```{r}
 reading5 <- expTable(language16[1:5,],"Reading","Reading")
 ```
@@ -148,6 +181,8 @@ kbl(reading5, digits=3,
   pack_rows(index=c("Simulated"=3))
 ```
 
+Based on this definition of the expected confusion matrix, here are
+the values for the four modalities.
 
 ```{r Reading.em}
 Reading.em <- expTable(language16,"Reading","Reading")
@@ -192,3 +227,48 @@ kbl(Listening.em, digits=3,
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
+
+# Measuring agreement.
+
+## Unweighted Measures of Agreement
+
+### Raw Agreement
+
+If we look at the diagonal of one of these confusion matrixes, this is the number of cases that exactly agree between the simulated truth and the estimate.  The proportion is the agreement rate.
+
+```{r}
+sum(diag(Reading.cm))/sum(Reading.cm)
+```
+Obviously the closer to 1, the better.  
+
+### Goodman-Kruskal Lambda
+
+There is a problem with the agreement rate:  depending on the proportions of cases in the population, it could be very easy to get a good agreement rate.  Suppose the question is whether or not a randomly chosen person has traveled beyond the Earth's atmosphere.  As there are only a few dozen astronauts and cosmonauts, just guessing that everybody has not been to space is likely to get 100\% accuracy. 
+
+@Goodman1954 suggested a correction.  Pick the row which has the biggest proportion.  For the Reading data, this is `Intermediate`, there are 480 intermediate readers in the sample, so simply classifying everybody as an intermediate would correctly classify 48\% of the sample.  
+
+Let $p_{ij}$ be the proportion of cases where the "true" category was $i$ and the estimated category was $j$.  Let $p_{i+} = \sum_{j} p_{ij}$ be the row sums and $\sum_{i} p_{ii}$ is the agreement.
+Lambda discounts the agreement by the biggest of the row sums.
+
+$$ \lambda = \frac{\sum p_{ii} - \max_{i} p_{i+}}{1 - \max_{i} p_{i+}}$$
+
+Here is the value for the Reading data.
+
+```{r}
+gkLambda(Reading.cm)
+```
+This is pretty good.  There is a 67.5\% improvement in classification from the one-size-fits-all model of classifying everybody at `Intermediate`.
+
+### Fleis-Cohen Kappa
+
+Jacob Cohen proposed a different way to correct for distribution of the categories in the population; one that does not regard one of the two classifications as "truth".  If the first rater is randomly classifying subjects with the probabilities $p_{i+}$ and the second with probabilities $p_{+j}$ (these are the row and column sums respectively).  Then the probability of a random agreement is $\sum p_{i+}p_{+j}$.  He called this measure kappa [@Fleiss2003].
+
+~~~~28
+Kappa
+```{r}
+fcKappa(Reading.cm)
+```
+
+
+## Weighted Kappas and Lambdas
+
