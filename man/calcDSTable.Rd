@@ -36,14 +36,14 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   probability tables for Bayesian network models using IRT-like
   parameters.  The basic procedure unfolds in three steps.
   \enumerate{
-    \item{}{Each level of each input variable is assigned an
+    \item{Each level of each input variable is assigned an
       \dQuote{effective theta} value --- a normal value to be used in
       calculations.}
-    \item{}{For each possible skill profile (combination of states of
+    \item{For each possible skill profile (combination of states of
       the parent variables) the effective thetas are combined using a
       combination function.  This produces an \dQuote{effective theta}
       for that skill profile.}
-    \item{}{The effective theta is input into Samejima's graded-response
+    \item{The effective theta is input into Samejima's graded-response
       model to produce a probability distribution over the states of the
       outcome variables.}
   }
@@ -108,7 +108,7 @@ calcDSFrame(skillLevels, obsLevels, lnAlphas, beta, dinc = 0,
   probability table.  The order of the parent rows is the same as is
   produced by applying \code{expand.grid} to \code{skillLevels}.
 
-  For \code{calcDSFrame} a data frame with additional columns
+  For \code{calcDSFrame} a \code{\link{CPF}}, a data frame with additional columns
   corresponding to the entries in \code{skillLevels} giving the parent
   value for each row.
 }

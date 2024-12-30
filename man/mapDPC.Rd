@@ -16,6 +16,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
        rules = "Compensatory", link = "partialCredit",
        linkScale=NULL, Q=TRUE, tvals=lapply(skillLevels,
                function (sl) effectiveThetas(length(sl))),
+       gamma=0.001,
        ...) 
 }
 \arguments{
@@ -69,7 +70,7 @@ mapDPC(postTable, skillLevels, obsLevels, lnAlphas, betas,
     scale corresponding to the levels for that parent variable.  The
     default spaces them equally according to the normal distribution
     (see \code{\link{effectiveThetas}}).}
-
+  \item{gamma}{This is a weight given to a penalty to keep the parameters close to zero.}
   \item{\dots}{
     Additional arguments passed to the \link[stats]{optim} function.
 }

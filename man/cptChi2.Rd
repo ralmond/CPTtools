@@ -1,5 +1,7 @@
 \name{cptChi2}
 \alias{cptChi2}
+\alias{cptKL}
+\alias{cptG2}
 \title{Compare and observed to an expected conditional probability table.}
 \description{
 
@@ -15,10 +17,13 @@
 }
 \usage{
 cptChi2(obs, exp)
+cptKL(est, exp)
+cptG2(obs, exp)
 }
 \arguments{
   \item{obs}{A \code{\link{CPF}} which contains the observed
     data.}
+  \item{est}{A \code{\link{CPF}} which contains the estimated distribution.}
   \item{exp}{A \code{\link{CPF}} which contains the candidate distribution.}
 }
 \details{
@@ -35,12 +40,19 @@ cptChi2(obs, exp)
   modified by adding the prior.  That is the observed value is taken as
   \code{obs+exp}.  This should not have a big effect if the sample size
   is large.
+  
+  The function `cptG2` is an alternate version which uses the deviance statistic to produce a chi-squared value.
+  
+  The function `cptKL` gives the Kulbach-Liebler distance between two probability
+  distributions, so requires the first argument to be normalized.
 
 }
 \value{
 
-  The sum of the chi-squres for all of the tables with the degrees of
+  The for `cptChi2` and `cptG2`, the sum of the chi-squres for all of the tables with the degrees of
   freedom.  The degrees of freedom is given as an attribute \code{df}.
+  
+  For `cptKL`, it is the Kulbach-Leibler distance.
 
 }
 \references{
@@ -85,12 +97,16 @@ cptChi2(obs, exp)
   datTheta[1,] <- rmultinom(1,25,cpfTheta[1,])
 
   cptChi2(datTheta,cpfTheta)
+  cptG2(datTheta,cpfTheta)
+  cptKL(normalize(datTheta),cpfTheta)
 
   ## Incompatable data
   datThetaX <- cpfTheta ## Copy to get the shape
   datThetaX[1,] <- rmultinom(1,100,c(.05,.45,.5))
 
   cptChi2(datThetaX,cpfTheta)
+  cptG2(datThetaX,cpfTheta)
+  cptKL(normalize(datThetaX),cpfTheta)
 
   cptComp <- calcDPCFrame(list(S2=skill2l,S1=skill1l),correctL,
                           lnAlphas=log(c(1.2,.8)), betas=0,
@@ -103,17 +119,24 @@ cptChi2(obs, exp)
   datComp <- cptComp
   for (i in 1:nrow(datComp))
       ## Each row has a random sample size.
-      datComp[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1),cptComp[i,3:4])
+      datComp[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1)+1,cptComp[i,3:4])
+  datComp <- as.CPF(datComp)
 
   datConj <- cptConj
   for (i in 1:nrow(datConj))
       ## Each row has a random sample size.
-      datConj[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1),cptConj[i,3:4])
-
+      datConj[i,3:4] <- rmultinom(1,rnbinom(1,mu=15,size=1)+1,cptConj[i,3:4])
+  datConj <- as.CPF(datConj)
+  
   ## Compatable
   cptChi2(datConj,cptConj)
+  cptG2(datConj,cptConj)
+  cptKL(normalize(datConj),cptConj)
+
   ## Incompatable
   cptChi2(datComp,cptConj)
+  cptG2(datComp,cptConj)
+  cptKL(normalize(datComp),cptConj)
 
 
   cptPC1 <- calcDPCFrame(list(S1=skill1l,S2=skill2l),pcreditL,
@@ -130,16 +153,22 @@ cptChi2(obs, exp)
   for (i in 1:nrow(datPC1))
       ## Each row has a random sample size.
       datPC1[i,3:5] <- rmultinom(1,rnbinom(1,mu=25,size=1),cptPC1[i,3:5])
-
+  datPC1 <- as.CPF(datPC1)
+  
   datPC2 <- cptPC2
   for (i in 1:nrow(datPC2))
       ## Each row has a random sample size.
       datPC2[i,3:5] <- rmultinom(1,rnbinom(1,mu=25,size=1),cptPC2[i,3:5])
-
+  datPC2 <- as.CPF(datPC2)
+  
   ## Compatable
   cptChi2(datPC1,cptPC1)
-  ## Inompatable
+  cptG2(datPC1,cptPC1)
+  cptKL(normalize(datPC1),cptPC1)
+   ## Inompatable
   cptChi2(datPC2,cptPC1)
+  cptG2(datPC2,cptPC1)
+  cptKL(normalize(datPC2),cptPC1)
 
 }
 \keyword{ htest }

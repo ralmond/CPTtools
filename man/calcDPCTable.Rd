@@ -67,14 +67,14 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   parameters (\code{\link{calcDSTable}}).  The basic procedure unfolds
   in three steps. 
   \enumerate{
-    \item{}{Each level of each input variable is assigned an
+    \item{Each level of each input variable is assigned an
       \dQuote{effective theta} value --- a normal value to be used in
       calculations.}
-    \item{}{For each possible skill profile (combination of states of
+    \item{For each possible skill profile (combination of states of
       the parent variables) the effective thetas are combined using a
       one of the \code{rule} functions.  This produces an
       \dQuote{effective theta} for that skill profile.}
-    \item{}{The effective theta table is input into the \code{link}
+    \item{The effective theta table is input into the \code{link}
       function to produce a probability
       distribution over the states of the outcome variables.}
   }
@@ -170,7 +170,7 @@ calcDPCFrame(skillLevels, obsLevels, lnAlphas, betas,
   probability table.  The order of the parent rows is the same as is
   produced by applying \code{expand.grid} to \code{skillLevels}.
 
-  For \code{calcDPCFrame} a data frame with additional columns
+  For \code{calcDPCFrame} a \code{\link{CPF}}, a data frame with additional columns
   corresponding to the entries in \code{skillLevels} giving the parent
   value for each row.
 }

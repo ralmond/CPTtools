@@ -37,14 +37,14 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
   (probit) link function in place of Samejima's graded response link
   function. The basic procedure unfolds in three steps.
   \enumerate{
-    \item{}{Each level of each input variable is assigned an
+    \item{Each level of each input variable is assigned an
       \dQuote{effective theta} value --- a normal value to be used in
       calculations.}
-    \item{}{For each possible skill profile (combination of states of
+    \item{For each possible skill profile (combination of states of
       the parent variables) the effective thetas are combined using a
       combination function.  This produces an \dQuote{effective theta}
       for that skill profile.}
-    \item{}{Taking the effective theta value as the mean, the
+    \item{Taking the effective theta value as the mean, the
       probability that the examinee will fall into each category.}
   }
 
@@ -96,7 +96,7 @@ calcDNFrame(skillLevels, obsLevels, lnAlphas, beta, std, rule = "Compensatory")
   probability table.  The order of the parent rows is the same as is
   produced by applying \code{expand.grid} to \code{skillLevels}.
 
-  For \code{calcDNFrame} a data frame with additional columns
+  For \code{calcDNFrame} a \code{\link{CPF}}, a data frame with additional columns
   corresponding to the entries in \code{skillLevels} giving the parent
   value for each row.
 }

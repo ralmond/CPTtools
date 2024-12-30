@@ -27,15 +27,15 @@ eThetaFrame(skillLevels, lnAlphas, beta, rule = "Compensatory")
   probability tables for Bayesian network models using IRT-like
   parameters unfolds in three steps.
   \enumerate{
-    \item{}{Each level of each input variable is assigned an
+    \item{Each level of each input variable is assigned an
       \dQuote{effective theta} value --- a normal value to be used in
       calculations.}
-    \item{}{For each possible skill profile (combination of states of
+    \item{For each possible skill profile (combination of states of
       the parent variables) the effective thetas are combined using a
       combination function.  This produces an \dQuote{effective theta}
       for that skill profile.  The function \code{rule} determines the
       rule for combination.}
-    \item{}{The effective theta is input into a link function (e.g.,
+    \item{The effective theta is input into a link function (e.g.,
       Samejima's graded-response function) to produce a probability
       distribution over the states of the outcome variables.}
   }

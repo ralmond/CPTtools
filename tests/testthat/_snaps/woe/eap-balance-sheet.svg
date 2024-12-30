@@ -119,7 +119,16 @@
 <rect x='587.33' y='176.58' width='58.45' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
 <rect x='587.33' y='142.58' width='53.16' height='28.33' style='stroke-width: 0.75; fill: #00FFFF;' />
 <rect x='582.26' y='108.58' width='5.07' height='28.33' style='stroke-width: 0.75; fill: #FF0000;' />
-<text x='587.33' y='41.33' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='143.71px' lengthAdjust='spacingAndGlyphs'>ΔEAP[ SolveGeometricProblems ]</text>
+<text x='509.48' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='70.26px' lengthAdjust='spacingAndGlyphs'>Delta plain(EAP)</text>
+<text x='579.74' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='36.38px' lengthAdjust='spacingAndGlyphs'>group('[',</text>
+<text x='616.12' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='4.76px' lengthAdjust='spacingAndGlyphs'>v</text>
+<text x='620.88' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='5.29px' lengthAdjust='spacingAndGlyphs'>a</text>
+<text x='626.16' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='3.16px' lengthAdjust='spacingAndGlyphs'>r</text>
+<text x='629.33' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='5.29px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text x='634.61' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='5.29px' lengthAdjust='spacingAndGlyphs'>a</text>
+<text x='639.90' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='7.92px' lengthAdjust='spacingAndGlyphs'>m</text>
+<text x='647.82' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='5.29px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='653.11' y='40.52' style='font-size: 9.50px; font-family: sans;' textLength='12.07px' lengthAdjust='spacingAndGlyphs'>,']')</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <line x1='474.71' y1='528.38' x2='699.95' y2='528.38' style='stroke-width: 0.75;' />

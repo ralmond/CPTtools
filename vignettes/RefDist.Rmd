@@ -41,7 +41,6 @@ round(Psx,3)
 
 ```{r}
 simTable <- function(n,Ps,Pss,Psy) {
-  thetas <- rcat( 
   
 }
 

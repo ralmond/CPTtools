@@ -112,7 +112,10 @@ EAPBal <- function (hist, contexts=names(hist), obs=NULL,
   barplot(rev(c(NA,dhist)),horiz=TRUE,names.arg=NULL,
           col=c(ifelse(rev(dhist)<0,negCol,posCol),"black"),
           xlim=elim,
-          main=paste("\u0394EAP[",varname,"]"),
+#          main=paste("\u0394EAP[",varname,"]"),
+          main=expression(paste("Delta plain(EAP)",
+                                "group('[',",
+                                varname,",']')")),
           yaxt="n")
   abline(v=0)
   mtext(title,outer=TRUE)
