@@ -10,8 +10,7 @@
 \usage{
 expTable(data, pvecVars, facVars, 
          pvecregex = "<var>\\\\.<state>")
-pvecTable(data, pvarName, 
-         regx = sub("<var>",pvarName,"<var>\\\\.<state>"))
+pvecTable(data, pvarName, regx="<var>\\\\.<state>")
 catTable(data, fvarName, 
          cc = contrasts(as.factor(dplyr::pull(data, fvarName)),
               contrasts = FALSE))
