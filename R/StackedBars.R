@@ -325,7 +325,7 @@ barchart.CPF <- function(x, data=NULL, ..., baseCol="firebrick",
     lattice::barchart(as.matrix(x),data,auto.key=auto.key, par.settings=ps,...)
   } else if (length(getTableParents(x))==1L) { ## One parent
     xx <- numericPart(x)
-    rownames(xx) <- factorPart(x)
+    rownames(xx) <- factorPart(x)[[1L]]
     lattice::barchart(xx,data,auto.key=auto.key, par.settings=ps,...)
   } else { ## Two or more parents
       xx <- as.CPA(x)
