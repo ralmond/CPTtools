@@ -248,7 +248,7 @@ Suppose two different classifiers (be they human or algorithic) are classifying 
 If we look at the diagonal of one of these confusion matrixes, this is the number of cases that exactly agree between the simulated truth and the estimate.  The proportion is the agreement rate.
 
 ```{r}
-sum(diag(Reading.cm))/sum(Reading.cm)
+sum(diag(cm$Reading))/sum(cm$Reading)
 ```
 Obviously the closer to 1, the better.  However, this will depend on the prevalence of the categories in the population.  If almost all the cases are in one category, it is easy to get good classification accuracy.  Cohen's kappa and Goodman and Kruskals lambda are both adjustments that can be used.
 
