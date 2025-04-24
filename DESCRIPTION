@@ -1,7 +1,7 @@
 Package: CPTtools
 Title: Tools for Creating Conditional Probability Tables
-Version: 0.8-4
-Date: 2024/12/23
+Version: 0.8-5
+Date: 2024/04/24
 Author: Russell Almond
 Maintainer: Russell Almond <ralmond@fsu.edu>
 Authors@R: 

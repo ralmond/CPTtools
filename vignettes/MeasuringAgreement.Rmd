@@ -35,7 +35,7 @@ Writing
 : An integrated Reading/Writing task where the subject provides a short written response based on an reading passage.
 
 Listening
-: Subject listens to a prompt followed by a mulitple choice question where the options are also spoken (as are the instructions).
+: Subject listens to a prompt followed by a multiple choice question where the options are also spoken (as are the instructions).
 
 Speaking
 : Subject is requested to respond verbally (response is recorded) after listening to an audio stimulus.  The instructions are written.
@@ -131,15 +131,46 @@ kbl(cm$Listening, caption="Listening confusion matrix for 16 item test.") |>
 
 ### The expected Confusion Matrix
 
-The Bayes net scoring engine (like many scoring models) expresses its uncertainty about the abilities of the students by estimating the probability that the student is in each category.  These are often called the _marginal probabilities_ because they are one margin of the joint distribution over all four variables.  The table below shows the "true" (simulated) reading ability and estimated marginal probabilities for the first five simulees.
+The model used in this simulation is a Bayesian network.  Like many
+kinds of classification models its output is the probability that the
+subject is in each category.  So the columns `Reading.Novice`,
+`Reading.Intermediate`, and `Reading.Advanced` represent the
+probability based on the observed evidence that the simulee's reading
+ability is in those three categories.  This is called the _marginal distribution_ as it is one side of a big multi-way table with all of the varaibles. The `mode.Reading`, which we
+used as the score before, just tells which category has the highest
+probability.   The table below shows the "true" (simulated) reading ability and estimated marginal probabilities for the first five simulees.
 
 ```{r Reading5}
 kbl(language16[1:5,c("Reading","Reading.Novice",
-                     "Reading.Intermediate","Reading.Advanced")],
+                     "Reading.Intermediate","Reading.Advanced",
+					 "mode.Reading")],
      caption="Reading data from first five simulees.",
      digits=3) |>
   kable_classic()
 ```
+
+Look at the first row of the data.  The first simulee was randomly
+assigned a reading ability of `Intermediate` and then the data were
+generated based on this estimate.  The classification of the first
+simulee based on the 16 item form is a 56.5\% chance of `Novice` and a
+43.5\% chance of `Intermediate`.  So, the "modal" (highest
+probability) score is `Novice`.
+
+When building the confusion matrix, each observation add a count of
+one to a cell based on the true and estimated value.  So the first
+simulee contributes 1 towards the cell in the second row and first
+column in the table.  In building the expected table, this value is
+split across the row according to the probabilities, so the first
+simulee adds .565 to the first cell in the second row, .435 to the
+second cell and nothing to the third cell.  
+
+The table below shows the calculations for the first five simulees.
+The first row is the sum of the `Reading.Novice`,
+`Reading.Intermediate` and `Reading.Advanced` variable for simulees
+whose true Reading value is `Novice`, the second for true
+`Intermediate`, and third row for true `Advanced.`
+
+
 The expected value of the confusion matrix, $\overline{\mathbf{A}}$ is calculated as follows: let $X_i$ be the value of the first (simulated truth) variable for the $i$th simulee, and let $p_{im} = P(\hat{X_i}=m|e)$ be the estimated probability that $X_i=m$ for the $i$th simulee is $m$.  Then $\overline{a_{km}} = \sum_{i: X_i=k} p_{im}$. 
 
 In the running example, the first row (`novice`) is the sum of all rows for which the true scores is `novice`.  The second row is the sum of the `intermediate` rows and the third row `advanced`.  
@@ -158,7 +189,10 @@ kbl(reading5, digits=3,
   add_header_above(c(" ","Estimated"=3)) |>
   pack_rows(index=c("Simulated"=3))
 ```
-What follows are the expected confusion matrixes for all four proficiency variables.
+
+Based on this definition of the expected confusion matrix, here are
+the values for the four proficiency variables.
+
 
 ```{r Reading.em}
 em <- list()
@@ -205,7 +239,20 @@ kbl(em$Listening, digits=3,
   pack_rows(index=c("Simulated"=3))
 ```
 
-## Measures of agreement
+# Measuring agreement.
+
+Suppose two different classifiers (be they human or algorithic) are classifying the same set of individuals.  The confusion matrix provides counts for how often they agree or disagree.  In an unweighted agreement measure, agreement is binary:  the classifiers had the same or different results.  However, if the categories are ordered, off-by-one can be considered better than off-by-two.  The weights specify how much better.
+
+## Unweighted Measures of Agreement
+
+If we look at the diagonal of one of these confusion matrixes, this is the number of cases that exactly agree between the simulated truth and the estimate.  The proportion is the agreement rate.
+
+```{r}
+sum(diag(cm$Reading))/sum(cm$Reading)
+```
+Obviously the closer to 1, the better.  However, this will depend on the prevalence of the categories in the population.  If almost all the cases are in one category, it is easy to get good classification accuracy.  Cohen's kappa and Goodman and Kruskals lambda are both adjustments that can be used.
+
+### Raw Agreement
 
 The sum of the diagonal of the confusion matrix, $\sum_k a_{kk}$, gives a count of how many cases are exact agreements (in this case between the simulation and estimation).  Let $N=\sum_k\sum_m a_{km}$; then the agreement rate is $\sum_k a_{kk}/N$.  For the reading data using the MAP scores, this is `r sum(diag(cm$Reading))` out of 1000, so over 80\% agreement.  The function `accuracy()` calculates the agreement rate.
 
@@ -221,17 +268,16 @@ kbl(acc.tab, digits=3,
 
 Raw agreement can be easy to achieve if there is not much variability in the population.  For example, if 80\% of the target population was intermediate, a classifier that simply classified each respondent as `intermediate` would achieve 80\% accuracy, and one that guessed `intermediate` randomly 80\% of the time would achieve at least 64\% accuracy.  For that reason, two adjusted agreement rates, lambda and kappa, are often used.
 
-### Goodman and Kruskal Lambda
+### Goodman-Kruskal Lambda
 
-If the test was not available, the only strategy would be a one-size-fits-all one, assuming that all subjects are at the same level of the variable.  The best strategy is to treat all subjects as if they are in the modal (most likely) category.  The marginal distribution for the variable is found from the row sums of $\mathbf{A}$ (or $\overline{\mathbf{A}}$), $a_{k+} = \sum_{m} a_{km}$, and the best that can be done with the one-size-fits-all strategy is $\max_{k} a_{k+}$.  
+There is a problem with the agreement rate:  depending on the proportions of cases in the population, it could be very easy to get a good agreement rate.  Suppose the question is whether or not a randomly chosen person has traveled beyond the Earth's atmosphere.  As there are only a few dozen astronauts and cosmonauts, just guessing that everybody has not been to space is likely to get 100\% accuracy. 
 
-Goodman and Kruskal (1952) suggest that the agreement rate be adjusted by subtracting out the best that can be done with mapping everybody to a single value.  So they propose 
+@Goodman1954 suggested a correction.  Pick the row which has the biggest proportion.  For the Reading data, this is `Intermediate`, there are 480 intermediate readers in the sample, so simply classifying everybody as an intermediate would correctly classify 48\% of the sample.  
 
-$$\lambda = \frac{\sum_{k} a_{kk} - \max_{k} a_{k+}}{N - 
-\max_{k} a_{k+}} \ .$$
+Let $p_{ij}$ be the proportion of cases where the "true" category was $i$ and the estimated category was $j$.  Let $p_{i+} = \sum_{j} p_{ij}$ be the row sums and $\sum_{i} p_{ii}$ is the agreement.
+Lambda discounts the agreement by the biggest of the row sums.
 
-This ranges from -1 to 1 with 0 representing doing no better than just guessing the most probable character and 1 indicating perfect agreement.  (Negative numbers are doing worse than just guessing the mode.)
-
+$$ \lambda = \frac{\sum p_{ii} - \max_{i} p_{i+}}{1 - \max_{i} p_{i+}}$$
 The function `gkLambda()` will do this calculation.  Here are the values for the language test using both the MAP and expected agreements.
 
 ```{r lambda}
@@ -244,7 +290,12 @@ kbl(lambda.tab, digits=3,
   kable_classic(full_width=FALSE)
 ```
 
-### Flies-Cohen Kappa
+This is pretty good.  There is a 67.5\% improvement in classification from the one-size-fits-all model of classifying everybody at `Intermediate`.
+
+Suppose the reading test was being used as a placement test.  
+If the test was not available, the only strategy would be a one-size-fits-all one, assuming that all subjects are at the same level of the variable, `Intermediate`.  On the other hand, by giving the reading test, the classification rate improves by 67%; this looks like it might be useful.
+
+### Fleis-Cohen Kappa
 
 Jacob Cohen (Flies, Levin \& Paek, 2003) took a different approach which treats the two assignments of cases to categories more symmetrically.  The idea is that these are two raters and the goal is to judge the extent of the agreement.  Baseline here is to imagine two raters one of which assign categories randomly with probabilities $a_{k+}/N$ and $a_{+k}/N$.  Then the expected number of random agreements is $\sum_{k} a_{k+}a_{+k}/N$.  So the agreement measure adjusted for random agreement is:
 

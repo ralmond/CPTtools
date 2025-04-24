@@ -1,0 +1,113 @@
+---
+title: "Discrete Partial Credit Models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Discrete Partial Credit Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CPTtools)
+```
+
+# Introduction
+
+The general procedure has three steps:
+
+1. Map the state of the parent variables to points on a real number
+   line.  In particular, let $\tilde\theta_{km}$ be the number
+   associate with State $m$ for Parent $k$.  Let $\tilde\theta_{i'}$
+   be the vector of such variables that correspond to one row of the
+   table. 
+
+2. Combine the parent effective thetas using a combination function,
+   $Z_{js}(\tilde\theta_{i'}|\alpha,\beta)$. This yields an _effective theta_ for
+   each cell of the conditional probability table.  Generally it has
+   two parameters $\alpha$ which represents slopes or discriminations
+   and $\beta$ which represents a difficulty (negative intercept),
+   intercept or threshold.
+
+3. Apply a link function, $g(\cdot|s)$, to go from the effective thetas
+   to the conditional probabilities. There is an optional parameter
+   $s$ which is sometimes called the scale parameter.
+
+# Preliminaries
+
+The generic combination rule function is
+
+```r
+combine(rule,theta,alpha,beta,QQ,na.rm=FALSE)
+```
+
+Where `rule` is the combination rule object, and `theta`, `alpha`,
+`beta` and `QQ` are matrixes. This section describes the expected type and
+dimensions of these matrixes.
+
+Assume that the node has $J$ parent variable and can take on $K'$
+possible states.  If $s_j$ is the number of states that Parent
+Variable $j$, then there are $S=\prod_j s_j$ possible configurations
+of the parent variables.  So `theta` will be a $S \time J$ matrix.
+
+The `alpha` and `beta` matrixes will have either $J$ or $1$ columns
+depending on when they are processed.  The number of rows will
+correspond to the states of the parent variable.  However, many link
+functions leave out the lowest state to enforce normalization.  So
+often there are $K=K'-1$ rows in this table.  In general, the link
+function needs to specify how many rows it requires.  The `QQ`
+parameter is optional, but if supplied it should be a $K \times J$
+logical matrix.
+
+
+## Effective Thetas
+
+
+
+## Parameter Types
+
+### Parameter Diminsions
+
+### Parameter Transformations
+
+## Matrix and Array arithmatic
+
+### Projecting operators
+
+### Generalized Matrix Multiplication
+
+### Matrix multiplication with Q-matrix
+
+# Combination Rules
+
+## A and B types
+
+## Combination Algorithms
+
+## Rule generic functions
+
+# Link functions
+
+## Expected Theta Dimension
+
+## Scale parameters
+
+# Some canonical examples
+
+
+## Compensatory IRT models
+
+## Conjunctive and Disjunctive
+
+## Regression Models
+
+## Noisy Logic
+
+## Using different rules for each state
+

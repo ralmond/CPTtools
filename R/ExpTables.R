@@ -1,7 +1,7 @@
 ### ExpTables --- Building expected contingency tables.
 
-pvecTable <- function(data,pvarName, 
-                      regx = sub("<var>",pvarName,"<var>\\.<state>")) {
+pvecTable <- function(data,pvarName, regx = "<var>\\.<state>") {
+  regx <- sub("<var>",pvarName,regx,fixed=TRUE) 
   regx <- sub("<state>","(\\w+)", regx,fixed=TRUE)
   var <- dplyr::select(data,dplyr::matches(regx))
   names(var) <- sub(regx,"\\1",names(var))
