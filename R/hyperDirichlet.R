@@ -74,7 +74,7 @@ function(table) {
     else stop("Table is a non-numeric matrix")
   }
   which <- sapply(table,is.numeric)
-  as.matrix(table[,which,drop=FALSE])
+  as.matrix.data.frame(table[,which,drop=FALSE])
 }
 
 "factorPart" <-

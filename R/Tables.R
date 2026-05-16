@@ -174,6 +174,24 @@ as.CPA <- function (x) {
   }
 }
 
+as.matrix.CPF <- function(x, ..., factorsAsStrings=TRUE) {
+ result <- as.matrix(numericPart(x))
+ names <- factorPart(x)
+ if (factorsAsStrings) {
+   names <- sapply(names,as.character)
+ }
+ rownames(result) <- rep("",nrow(result))
+ for (irow in 1:nrow(result)) {
+   rownames(result)[irow] <- paste(names[irow,],collapse="-")
+ }
+ result
+}
+
+as.matrix.CPA <- function(x, ...) {
+  as.matrix(as.CPF(x),...)
+}
+
+
 ######################################################################
 ### Normalization
 ######################################################################

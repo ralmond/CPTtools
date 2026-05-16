@@ -36,6 +36,9 @@ export(rescaleTable, normalizeTable, scaleMatrix,
        normalize.CPA, normalize.default,
        normalize.CPF)
 
+S3method(as.matrix,CPF)
+S3method(as.matrix,CPA)
+
 S3method(normalize,data.frame)
 S3method(normalize,array)
 S3method(normalize,matrix)

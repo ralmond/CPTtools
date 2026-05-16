@@ -2,6 +2,7 @@
 \alias{CPF}
 \alias{as.CPF}
 \alias{is.CPF}
+\alias{as.matrix.CPF}
 \title{
   Representation of a conditional probability table as a data frame.
 }
@@ -18,11 +19,15 @@
 \usage{
 is.CPF(x)
 as.CPF(x)
+as.matrix.CPF(x,...,factorsAsStrings=TRUE)
 }
 \arguments{
   \item{x}{
     Object to be tested or coerced into a \code{CPF}.  
   }
+  \item{factorsAsStrings}{Controls how the rownames for \code{as.matrix} 
+    are produced.  If true the factor names are used; if false, the 
+    numbers.}
 }
 \details{
   One way to store a conditional probability table is a table in which
@@ -127,6 +132,10 @@ stopifnot(
 
 ##Warning, this is not the same as arf, rows are permuted.
 as.CPF(as.CPA(arf))
+
+as.matrix(arf)
+as.matrix(arf,factorsAsStrings=FALSE)
+
 
 \dontrun{
   ## Requires RNetica

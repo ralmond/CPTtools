@@ -2,6 +2,7 @@
 \alias{CPA}
 \alias{as.CPA}
 \alias{is.CPA}
+\alias{as.matrix.CPA}
 \title{
   Representation of a conditional probability table as an array.
 }
@@ -18,6 +19,7 @@
 \usage{
 is.CPA(x)
 as.CPA(x)
+as.matrix.CPA(x,...)
 }
 \arguments{
   \item{x}{
