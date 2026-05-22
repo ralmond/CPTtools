@@ -1,5 +1,5 @@
 #####################################
-## Observable Characteristic Plot
+### Observable Characteristic Plot ----
 
 "OCP" <-
 function (x,n,lclabs,pi, pilab=names(pi),
@@ -269,66 +269,49 @@ OCP2.CPF <- function(obs1, obs2, exp, ..., baseCol="chocolate",
 
 }
 
-
-cptChi2 <- function(obs, exp) {
-
-  if (!all.equal(getTableStates(obs),getTableStates(exp))) {
-    stop("Child variable states don't match.")
-  }
-  if (!all.equal(getTableParents(obs),getTableParents(exp))) {
-    stop("Parent variables don't match.")
-  }
-  if (nrow(obs)!=nrow(exp)) {
-    stop("Observed and expected table sizes don't match.")
-  }
-
-  ## Build CI's for cumulative probabilities.
-  cobs <- numericPart(exp)+numericPart(obs)
-  cobs.tot <-apply(cobs,1,sum)
-  nexp <- sweep(numericPart(exp),1,cobs.tot,"*")
-  
-  df = nrow(cobs)*(ncol(cobs)-1)
-  chi2 <- sum((cobs-nexp)^2/nexp)
-  attr(chi2,"d.f.") <- df
-  chi2
+### Strucplot variants ----
+mosaic2 <- function(data,model,npar=1,...,
+                    residuals_type=c("deviance","Pearson","FT"),
+                    split_vertical=c(rep(F,length(dim(data))-1),T),
+                    spacing=vcd::spacing_increase,
+                    spacing_args=list(start=grid::unit(0.05,"lines"),
+                                      rate=4),
+                    labeling_args=list(rot_labels=c(0,0,0,0))
+                    ) {
+  data <- as.CPA(data)
+  dims <- dim(data)
+  dims[length(dims)]<-dims[length(dims)]-1
+  df <- prod(dims)-npar
+  expected <- expected(data,model)
+  if (missing(residuals_type)) residuals_type <- residuals_type[1]
+  resid <- resids(data,model,type=residuals_type)
+  vcd::strucplot(data,resid,expected,df=df,core=vcd::struc_mosaic,
+                 split_vertical=split_vertical, spacing=spacing,
+                 spacing_args=spacing_args,labeling_args=labeling_args,
+                 ...)
 }
 
-cptKL <- function(est, exp) {
-  
-  if (nrow(est)!=nrow(exp)) {
-    stop("Estimated and expected table sizes don't match.")
-  }
-  
-  if (is.CPF(est)) {
-    est <- numericPart(est)
-  }
-  if (is.CPF(exp)) {
-    exp <- numericPart(exp)
-  }
-    
-  dkl <- sum(est*log(est/exp))
-  dkl
+assoc2 <- function(data,model,npar=1,...,
+                    residuals_type=c("deviance","Pearson","FT"),
+                    split_vertical=c(rep(F,length(dim(data))-1),T),
+                    spacing=vcd::spacing_increase,
+                    spacing_args=list(start=grid::unit(0.05,"lines"),rate=4),
+                    labeling_args=list(rot_labels=c(0,0,0,0))
+                    ) {
+  data <- as.CPA(data)
+  dims <- dim(data)
+  dims[length(dims)]<-dims[length(dims)]-1
+  df <- prod(dims)-npar
+  expected <- expected(data,model)
+  if (missing(residuals_type)) residuals_type <- residuals_type[1]
+  resid <- resids(data,model,type=residuals_type)
+  vcd::strucplot(data,resid,expected,df=df,core=vcd::struc_assoc,
+                 split_vertical=split_vertical, spacing=spacing,
+                 spacing_args=spacing_args,labeling_args=labeling_args,
+                 ...)
 }
 
-cptG2 <- function(obs, exp) {
-  
-  if (!all.equal(getTableStates(obs),getTableStates(exp))) {
-    stop("Child variable states don't match.")
-  }
-  if (!all.equal(getTableParents(obs),getTableParents(exp))) {
-    stop("Parent variables don't match.")
-  }
-  if (nrow(obs)!=nrow(exp)) {
-    stop("Observed and expected table sizes don't match.")
-  }
-  
-  ## Build CI's for cumulative probabilities.
-  cobs <- numericPart(exp)+numericPart(obs)
-  cobs.tot <-apply(cobs,1,sum)
-  nexp <- sweep(numericPart(exp),1,cobs.tot,"*")
-  
-  df = nrow(cobs)*(ncol(cobs)-1)
-  g2 <- sum(cobs*log(cobs/nexp))
-  attr(g2,"d.f.") <- df
-  g2
+### CA plots ----
+cabiplot <- function(data,...,arrows=c(FALSE,TRUE)) {
+  plot(ca::ca(as.matrix(data)),arrows=arrows,...) 
 }

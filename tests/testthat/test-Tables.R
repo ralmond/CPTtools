@@ -173,7 +173,8 @@ test_that("normalize.data.frame", {
   expect_true(is.CPF(ndf2))
   facCols <- as.vector(sapply(ndf2,is.character))
   expect_equal(facCols,c(TRUE,FALSE,FALSE))
-  expect_equal(rowSums(ndf2[,2:3]),rep(1.0,2),tolerance=.0001)
+  expect_equal(rowSums(ndf2[,2:3]),rep(1.0,2),tolerance=.0001,
+               ignore_attr=TRUE)
   
 })
 
@@ -204,7 +205,8 @@ test_that("normalize.CPF", {
   expect_true(is.CPF(narf))
   facCols <- as.vector(sapply(narf,is.factor))
   expect_equal(facCols,c(TRUE,TRUE,FALSE,FALSE))
-  expect_equal(rowSums(narf[,3:4]),rep(1.0,4*3),tolerance=.0001)
+  expect_equal(rowSums(narf[,3:4]),rep(1.0,4*3),tolerance=.0001,
+               ignore_attr=TRUE)
   
 })
 

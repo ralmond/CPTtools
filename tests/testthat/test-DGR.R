@@ -33,7 +33,8 @@ test_that("calcDPCFrame", {
   expect_equal(dim(cpfTheta),c(1L,3L))
   expect_equal(colnames(cpfTheta),skill1l)
   expect_equal(cpfTheta[1,1],cpfTheta[1,3])
-  expect_equal(rowSums(cpfTheta),1)
+  expect_equal(rowSums(cpfTheta),1,
+               ignore_attr=TRUE)
 
   cptGrade <- calcDPCFrame(list(S1=skill1l,S2=skill2l),gradeL,
                              log(c(S1=1,S2=.75)),1.0,rule="Compensatory",
@@ -42,7 +43,8 @@ test_that("calcDPCFrame", {
   expect_equal(colnames(cptGrade),c("S1","S2",gradeL))
   expect_equal(as.character(cptGrade$S1),rep(skill1l,4))
   expect_equal(as.character(cptGrade$S2),rep(skill2l,each=3))
-  expect_equal(rowSums(cptGrade[,gradeL]),rep(1,12L))
+  expect_equal(rowSums(cptGrade[,gradeL]),rep(1,12L),
+               ignore_attr=TRUE)
   
 })
 

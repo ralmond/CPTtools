@@ -2,6 +2,7 @@
 \alias{CPA}
 \alias{as.CPA}
 \alias{is.CPA}
+\alias{as.matrix.CPA}
 \title{
   Representation of a conditional probability table as an array.
 }
@@ -18,11 +19,16 @@
 \usage{
 is.CPA(x)
 as.CPA(x)
+\method{as.matrix}{CPA}(x,...)
 }
 \arguments{
   \item{x}{
     Object to be tested or coerced into a \code{CPA}.  
   }
+  \item{...}{To allow other arguments, particularly \code{factorsAsStrings}
+    which controls how the rownames for \code{as.matrix} 
+    are produced.  If true the factor names are used; if false, the 
+    numbers.}
 }
 \details{
   One way to store a conditional probability table is as an array in
@@ -95,6 +101,11 @@ as.CPA(x)
   The function \code{as.CPA} returns an object of class
   \code{c("CPA","array")}, which is essentially an array with the
   dimnames set to reflect the variable names and states.
+  
+  The method \code{as.matrix.CPA} returns a matrix based on the 
+  \code{\link{numericPart}} of the \code{\link{as.CPF}(CPA)}, 
+  with row names based on the \code{\link{factorPart}}.
+
 }
 \author{
   Russell Almond

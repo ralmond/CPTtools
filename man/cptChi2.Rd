@@ -78,8 +78,13 @@ cptG2(obs, exp)
   
 }
 \seealso{
+  
+  \code{cptChi2} and \code{cptG2} are depricated in favor of \code{\link{g2test}}.
+  
   \code{\link{betaci}}, \code{\link{OCP}}, \code{\link{barchart.CPF}},
   \code{\link{OCP.CPF}}
+
+  
 
 }
 \examples{

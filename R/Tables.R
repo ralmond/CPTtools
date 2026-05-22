@@ -152,14 +152,16 @@ as.CPA <- function (x) {
       cnames <- strsplit(names(x)[!facts],".",fixed=TRUE)
       nstates <- length(cnames)
       vname <- cnames[[1L]][1L]
-      cnames <- lapply(cnames, function(x) x[length(x)])
-      if (vname == cnames[1L]) vname <- "Prob"
+      cnames <- sapply(cnames, \(z) z[length(z)])
+      if (vname == cnames[1L]) vname <- "Y"
       dnames <- c(pnames,list(cnames))
       names(dnames)[npar+1L] <- vname
       dims <- sapply(dnames,length)
       result <- array(NA,dims,dnames)
-      probs <- as.matrix(x[,!facts])
-      configs <- do.call("cbind",lapply(x[,facts],as.integer))
+      probs <- as.matrix(as.data.frame(x[,!facts]))
+      configs <- sapply(x[,facts],as.integer)
+      if (npar == 1L) configs <- matrix(configs,ncol=1)
+      if (npar == 0L) configs <- matrix(1)
       for (i in 1L:nrow(x)) {
         sel <- matrix(configs[i,],nstates,npar,byrow=TRUE)
         result[cbind(sel,1L:nstates)] <- probs[i,]
@@ -173,6 +175,27 @@ as.CPA <- function (x) {
     stop("Don't know how to turn a ",class(x), " into a CPA.")
   }
 }
+
+as.matrix.CPF <- function(x, ..., factorsAsStrings=TRUE) {
+ result <- as.matrix(numericPart(x))
+ names <- factorPart(x)
+ if (factorsAsStrings) {
+   names <- sapply(names,as.character)
+ }
+ rownames(result) <- rep("",nrow(result))
+ if (length(names) > 0L) {
+   for (irow in 1:nrow(result)) {
+     rownames(result)[irow] <- paste(names[irow,],collapse="-")
+   }
+ }
+ names(dimnames(result)) <- c("Conditions","Outcome")
+ result
+}
+
+as.matrix.CPA <- function(x, ...) {
+  as.matrix(as.CPF(x),...)
+}
+
 
 ######################################################################
 ### Normalization
