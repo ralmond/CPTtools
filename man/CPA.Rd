@@ -19,12 +19,16 @@
 \usage{
 is.CPA(x)
 as.CPA(x)
-as.matrix.CPA(x,...)
+\method{as.matrix}{CPA}(x,...)
 }
 \arguments{
   \item{x}{
     Object to be tested or coerced into a \code{CPA}.  
   }
+  \item{...}{To allow other arguments, particularly \code{factorsAsStrings}
+    which controls how the rownames for \code{as.matrix} 
+    are produced.  If true the factor names are used; if false, the 
+    numbers.}
 }
 \details{
   One way to store a conditional probability table is as an array in

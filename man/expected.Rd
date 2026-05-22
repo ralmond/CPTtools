@@ -30,7 +30,7 @@ expected(data, model,...)
 }
 \details{
 
-  The \code{model} argument is \code{\link{normalized}} and then 
+  The \code{model} argument is \code{\link{normalize}} and then 
   multiplied by the row sums.
 
 }

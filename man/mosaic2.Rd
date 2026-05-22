@@ -4,19 +4,19 @@
 \title{Mosaic/association plot comparing data to CPF model}
 \description{
 
-  Produces a \code{\link[vd]{mosaic}} or \code{\link[vcd]{assoc}} plot,
+  Produces a \code{\link[vcd]{mosaic}} or \code{\link[vcd]{assoc}} plot,
   only the residuals compare the \code{data} to \code{model} instead of to
   independence.
 
 }
 \usage{
-mosaic2(data, model, ..., residuals_type = c("deviance", "Pearson", "FT"), 
-        split_vertical=c(rep(F,length(dim(data)-1)),T),
+mosaic2(data, model, npar, ..., residuals_type = c("deviance", "Pearson", "FT"), 
+        split_vertical=c(rep(F,length(dim(data))-1),T),
         spacing=vcd::spacing_increase,
         spacing_args=list(start=grid::unit(0.05,"lines"),rate=4),
         labeling_args=list(rot_labels=c(0,0,0,0)))
-assoc2(data, model, ..., residuals_type = c("deviance", "Pearson", "FT"), 
-        split_vertical=c(rep(F,length(dim(data)-1)),T),
+assoc2(data, model, npar, ..., residuals_type = c("deviance", "Pearson", "FT"), 
+        split_vertical=c(rep(F,length(dim(data))-1),T),
         spacing=vcd::spacing_increase,
         spacing_args=list(start=grid::unit(0.05,"lines"),rate=4),
         labeling_args=list(rot_labels=c(0,0,0,0)))
@@ -27,17 +27,19 @@ assoc2(data, model, ..., residuals_type = c("deviance", "Pearson", "FT"),
     (or expected counts) corresponding to each combination of parents and child.}
   \item{model}{A \code{\link{CPF}}, \code{\link{CPA}} or matrix of the same
     size as \code{data} giving the conditional probability table model.}
+  \item{npar}{An integer giving the number of free parameters in \code{model}.
+    Used to calculate degrees of freedom.}
   \item{\dots}{Other arguments which are passed to \code{\link[vcd]{strucplot}}.
     Note that this includes a \code{core_args} field which is passed to
-    \code{\link[vcd]{struct_mosaic}} or \code{\link[vcd]{struct_assoc}}.}
+    \code{\link[vcd]{struc_mosaic}} or \code{\link[vcd]{struc_assoc}}.}
   \item{residuals_type}{A character value giving the method used to calculate
     residuals (see \code{\link{resids}}).}
   \item{split_vertical}{Controls axis used for splits. Default puts parent
     variables on side and child variable on top. See \code{\link[vcd]{strucplot}}.}
   \item{spacing}{Controls spacing between rows and columns.  Default adds
     extra space when second parent variable changes. See \code{\link[vcd]{strucplot}}.} 
-  \item{spacing_args}{Arguments which control spacing. See \code{\link[vcd]{spacing}}.}
-  \item{labeling_args}{Arguments which control labeling. See \code{\link[vcd]{labeling}}.}
+  \item{spacing_args}{Arguments which control spacing. See \code{\link[vcd]{spacings}}.}
+  \item{labeling_args}{Arguments which control labeling. See \code{\link[vcd]{labelings}}.}
 }
 \details{
 

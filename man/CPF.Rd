@@ -19,12 +19,13 @@
 \usage{
 is.CPF(x)
 as.CPF(x)
-as.matrix.CPF(x,...,factorsAsStrings=TRUE)
+\method{as.matrix}{CPF}(x,...,factorsAsStrings=TRUE)
 }
 \arguments{
   \item{x}{
     Object to be tested or coerced into a \code{CPF}.  
   }
+  \item{...}{To allow other arguments.}
   \item{factorsAsStrings}{Controls how the rownames for \code{as.matrix} 
     are produced.  If true the factor names are used; if false, the 
     numbers.}

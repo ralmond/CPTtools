@@ -183,8 +183,10 @@ as.matrix.CPF <- function(x, ..., factorsAsStrings=TRUE) {
    names <- sapply(names,as.character)
  }
  rownames(result) <- rep("",nrow(result))
- for (irow in 1:nrow(result)) {
-   rownames(result)[irow] <- paste(names[irow,],collapse="-")
+ if (length(names) > 0L) {
+   for (irow in 1:nrow(result)) {
+     rownames(result)[irow] <- paste(names[irow,],collapse="-")
+   }
  }
  names(dimnames(result)) <- c("Conditions","Outcome")
  result
