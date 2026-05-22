@@ -86,6 +86,10 @@ as.matrix.CPF(x,...,factorsAsStrings=TRUE)
   the first couple of columns representing the parent variables, and the
   remaining columns representing the states of the child 
   variable. 
+  
+  The method \code{as.matrix.CPF} returns a matrix based on the 
+  \code{\link{numericPart}} of the CPF, with row names based on the 
+  \code{\link{factorPart}}.
 }
 \author{
   Russell Almond

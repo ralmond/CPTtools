@@ -82,3 +82,22 @@ function(table) {
   which <- sapply(table,is.factor)
   table[,which,drop=FALSE]
 }
+
+rCPF <- function(size,model) {
+  if (!is.CPF(model)) {
+    stop("Model must be a CPF.")
+  }
+  probs <- normalize(as.matrix(model))
+  n <- rep(size,nrow(model))
+  result <- numericPart(model)
+  for (irow in 1:nrow(result))
+    result[irow,] <- rmultinom(1,n[irow],probs[irow,])
+  result <- cbind(factorPart(model),result)
+  class(result) <- c("CPF","data.frame")
+  result
+}
+
+rpCPF <- function(size,model) {
+  n <- rep(size,nrow(model))
+  rCPF(rpois(length(n),n),model)
+}

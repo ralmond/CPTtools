@@ -97,6 +97,11 @@ as.matrix.CPA(x,...)
   The function \code{as.CPA} returns an object of class
   \code{c("CPA","array")}, which is essentially an array with the
   dimnames set to reflect the variable names and states.
+  
+  The method \code{as.matrix.CPA} returns a matrix based on the 
+  \code{\link{numericPart}} of the \code{\link{as.CPF}(CPA)}, 
+  with row names based on the \code{\link{factorPart}}.
+
 }
 \author{
   Russell Almond
