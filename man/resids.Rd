@@ -37,7 +37,7 @@ resids(data, model, type = c("deviance", "Pearson", "FT"),...)
   on the contribution to the chi-squared measure of agreement.  The
   three residual types are:
   
-  \emph{Deviance.} \deqn{\mtext{sign}(x_i-m_i)\sqrt{2\log(x_i/m_i) -2(x_i-m_i)}}
+  \emph{Deviance.} \deqn{\textrm{sign}(x_i-m_i)\sqrt{2\log(x_i/m_i) -2(x_i-m_i)}}
   
   \emph{Pearson.} \deqn{\frac{x_i-m_i}{\sqrt{m_i}}}
   
@@ -66,7 +66,7 @@ resids(data, model, type = c("deviance", "Pearson", "FT"),...)
 \note{
 
   Friendly & Meyer (2016) give the formula for the deviance residual as
-  \deqn{\mtext{sign}(x_i-m_i)\sqrt{2\log(x_i/m_i) - 2(x_i-m_i)}\ .}  I'm not
+  \deqn{\textrm{sign}(x_i-m_i)\sqrt{2\log(x_i/m_i) - 2(x_i-m_i)}\ .}  I'm not
   sure where the \eqn{2(x_i-m_i)} comes from as it drops out of the expression 
   for $G^2$ in Bishop, Fienberg and Holland (1975).
   

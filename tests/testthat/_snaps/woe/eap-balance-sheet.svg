@@ -60,6 +60,13 @@
 <text x='22.28' y='500.17' style='font-size: 9.90px; font-family: sans;' textLength='90.27px' lengthAdjust='spacingAndGlyphs'>VerbRuleModGeo3a</text>
 </g>
 <defs>
+  <clipPath id='cpMjQ3LjM4fDQ3Mi42Mnw1Ny4xMnw1MjguMzg='>
+    <rect x='247.38' y='57.12' width='225.24' height='471.27' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjQ3LjM4fDQ3Mi42Mnw1Ny4xMnw1MjguMzg=)'>
+</g>
+<defs>
   <clipPath id='cpMjQ2LjM0fDQ3My42NnwxOS4wMXw1NzYuMDA='>
     <rect x='246.34' y='19.01' width='227.33' height='556.99' />
   </clipPath>
@@ -93,13 +100,15 @@
 <text x='416.31' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='11.01px' lengthAdjust='spacingAndGlyphs'>0.5</text>
 <text x='472.62' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='4.41px' lengthAdjust='spacingAndGlyphs'>1</text>
 </g>
-<defs>
-  <clipPath id='cpMjQ3LjM4fDQ3Mi42Mnw1Ny4xMnw1MjguMzg='>
-    <rect x='247.38' y='57.12' width='225.24' height='471.27' />
-  </clipPath>
-</defs>
 <g clip-path='url(#cpMjQ3LjM4fDQ3Mi42Mnw1Ny4xMnw1MjguMzg=)'>
 <line x1='360.00' y1='528.38' x2='360.00' y2='57.12' style='stroke-width: 0.75;' />
+</g>
+<defs>
+  <clipPath id='cpNDc0LjcxfDY5OS45NXw1Ny4xMnw1MjguMzg='>
+    <rect x='474.71' y='57.12' width='225.24' height='471.27' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNDc0LjcxfDY5OS45NXw1Ny4xMnw1MjguMzg=)'>
 </g>
 <defs>
   <clipPath id='cpNDczLjY2fDcwMC45OXwxOS4wMXw1NzYuMDA='>
@@ -143,11 +152,6 @@
 <text x='643.64' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='11.01px' lengthAdjust='spacingAndGlyphs'>0.5</text>
 <text x='699.95' y='545.49' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='11.01px' lengthAdjust='spacingAndGlyphs'>1.0</text>
 </g>
-<defs>
-  <clipPath id='cpNDc0LjcxfDY5OS45NXw1Ny4xMnw1MjguMzg='>
-    <rect x='474.71' y='57.12' width='225.24' height='471.27' />
-  </clipPath>
-</defs>
 <g clip-path='url(#cpNDc0LjcxfDY5OS45NXw1Ny4xMnw1MjguMzg=)'>
 <line x1='587.33' y1='528.38' x2='587.33' y2='57.12' style='stroke-width: 0.75;' />
 </g>
