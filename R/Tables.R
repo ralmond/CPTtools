@@ -177,6 +177,7 @@ as.CPA <- function (x) {
 }
 
 as.matrix.CPF <- function(x, ..., factorsAsStrings=TRUE) {
+  if (ncol(x)==0L) return(x)
  result <- as.matrix(numericPart(x))
  names <- factorPart(x)
  if (factorsAsStrings) {
